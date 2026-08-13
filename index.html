@@ -7,7 +7,6 @@
 <style>
   :root { color-scheme: light; }
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
   body { margin: 0; font-family: "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif; color: #2b2b2b; background: #fff; }
   .topbar {
     position: sticky; top: 0; z-index: 20; background: #fff;
@@ -30,23 +29,15 @@
   .sidebar .toc-title { font-size: .75rem; font-weight: 700; color: #8b949e; text-transform: uppercase; letter-spacing: .05em; margin: 0 0 .5rem .4rem; }
   .sidebar nav { display: flex; flex-direction: column; gap: .1rem; }
   .sidebar a {
-    display: block; padding: .28rem .6rem; border-radius: 6px;
-    color: #57606a; text-decoration: none; font-size: .85rem; line-height: 1.4;
+    display: block; padding: .3rem .6rem; border-radius: 6px;
+    color: #57606a; text-decoration: none; font-size: .85rem; line-height: 1.4; cursor: pointer;
   }
   .sidebar a:hover { background: #f6f8fa; color: #0f172a; }
-  .sidebar a.toc-3 { padding-left: 1.5rem; font-size: .8rem; color: #8b949e; }
   .sidebar a.active { background: #eef4ff; color: #1a6bb0; font-weight: 600; }
-  .sidebar a.toc-2 { position: relative; }
-  .sidebar a.toc-2::after { content: '▸'; position: absolute; right: .6rem; color: #b6beca; transition: transform .15s; }
-  .sidebar a.toc-2.open::after { transform: rotate(90deg); }
-  .toc-group { display: flex; flex-direction: column; gap: .1rem; }
-  .toc-group[hidden] { display: none; }
   .content { flex: 1; min-width: 0; }
   .content-inner { max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem 4rem; line-height: 1.85; }
-  .content-inner h1 { font-size: 1.9rem; border-bottom: 2px solid #e8e8e8; padding-bottom: .5rem; margin-top: 1.6rem; scroll-margin-top: 60px; }
-  .content-inner h2 { font-size: 1.45rem; border-bottom: 1px solid #eee; padding-bottom: .35rem; margin-top: 2.2rem; scroll-margin-top: 60px; }
-  .content-inner h3 { font-size: 1.18rem; margin-top: 1.6rem; scroll-margin-top: 60px; }
-  .content-inner h1:first-of-type { margin-top: 0; }
+  .content-inner h2 { font-size: 1.45rem; border-bottom: 1px solid #eee; padding-bottom: .35rem; margin-top: 0; }
+  .content-inner h3 { font-size: 1.18rem; margin-top: 1.6rem; }
   .content-inner p { margin: .7rem 0; }
   .content-inner a { color: #1a6bb0; }
   .content-inner code { font-family: Consolas, "JetBrains Mono", monospace; background: #f4f4f4; border-radius: 4px; padding: .12em .35em; font-size: .92em; }
@@ -60,6 +51,17 @@
   .content-inner ul, .content-inner ol { padding-left: 1.6rem; }
   .content-inner li { margin: .25rem 0; }
   .content-inner hr { border: none; border-top: 1px solid #e5e5e5; margin: 2rem 0; }
+  .page-nav {
+    display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid #e5e5e5;
+  }
+  .nav-btn {
+    border: 1px solid #d0d7de; background: #f6f8fa; border-radius: 8px;
+    padding: .5rem 1.1rem; font-size: .9rem; color: #1a6bb0; cursor: pointer; text-decoration: none;
+  }
+  .nav-btn:hover { background: #eef4ff; }
+  .nav-btn.disabled { visibility: hidden; }
+  .nav-mid { color: #8b949e; font-size: .85rem; }
   @media (max-width: 900px) { .sidebar { display: none; } }
 </style>
 </head>
@@ -76,151 +78,1023 @@
   <aside class="sidebar">
     <div id="toc-zh-block">
       <div class="toc-title">目录</div>
-      <nav id="toc-zh"><a class="toc-2" href="#前言" onclick="toggleToc(this)">前言</a>
-<div class="toc-group" hidden>
-</div>
-<a class="toc-2" href="#第一章-这是什么" onclick="toggleToc(this)">第一章 这是什么</a>
-<div class="toc-group" hidden>
-<a class="toc-3" href="#11-dsh-是什么跟聊天窗口有什么区别">1.1 dsh 是什么，跟聊天窗口有什么区别</a>
-<a class="toc-3" href="#12-一切皆插件">1.2 一切皆插件</a>
-<a class="toc-3" href="#13-cordis-是什么">1.3 Cordis 是什么</a>
-<a class="toc-3" href="#14-开发者预览期的现实">1.4 开发者预览期的现实</a>
-</div>
-<a class="toc-2" href="#第二章-一个-dsh-进程是怎么拼起来的" onclick="toggleToc(this)">第二章 一个 dsh 进程是怎么拼起来的</a>
-<div class="toc-group" hidden>
-<a class="toc-3" href="#21-启动之后发生了什么">2.1 启动之后发生了什么</a>
-<a class="toc-3" href="#22-五层配方">2.2 五层配方</a>
-<a class="toc-3" href="#23-profile组合包patch">2.3 profile、组合包、patch</a>
-<a class="toc-3" href="#24-看真实的插件树">2.4 看真实的插件树</a>
-<a class="toc-3" href="#25-没有特权内核">2.5 没有特权内核</a>
-</div>
-<a class="toc-2" href="#第三章-cordis-的五个概念" onclick="toggleToc(this)">第三章 Cordis 的五个概念</a>
-<div class="toc-group" hidden>
-<a class="toc-3" href="#31-插件是一个导出-apply-函数的模块">3.1 插件是一个导出 apply 函数的模块</a>
-<a class="toc-3" href="#32-上下文是一个代理对象">3.2 上下文是一个代理对象</a>
-<a class="toc-3" href="#33-服务是挂在-ctx-上的名字">3.3 服务是挂在 ctx 上的名字</a>
-<a class="toc-3" href="#34-事件是插件之间的对讲机">3.4 事件是插件之间的对讲机</a>
-<a class="toc-3" href="#35-注册即副作用卸载自动撤销">3.5 注册即副作用，卸载自动撤销</a>
-<a class="toc-3" href="#36-作用域每个插件一块自己的-ctx">3.6 作用域，每个插件一块自己的 ctx</a>
-<a class="toc-3" href="#37-配置会校验配错加载即失败">3.7 配置会校验，配错加载即失败</a>
-<a class="toc-3" href="#38-嵌套与热重载">3.8 嵌套与热重载</a>
-</div>
-<a class="toc-2" href="#第四章-一次对话背后的流程" onclick="toggleToc(this)">第四章 一次对话背后的流程</a>
-<div class="toc-group" hidden>
-<a class="toc-3" href="#41-step-与-turn">4.1 step 与 turn</a>
-<a class="toc-3" href="#42-一次对话的完整旅程">4.2 一次对话的完整旅程</a>
-<a class="toc-3" href="#43-事件就是扩展点">4.3 事件就是扩展点</a>
-<a class="toc-3" href="#44-会话日志模型看到即记录">4.4 会话日志，模型看到即记录</a>
-</div>
-<a class="toc-2" href="#第五章-可替换的能力" onclick="toggleToc(this)">第五章 可替换的能力</a>
-<div class="toc-group" hidden>
-<a class="toc-3" href="#51-seam-三件套">5.1 seam 三件套</a>
-<a class="toc-3" href="#52-换一个零件整条生产线跟着变">5.2 换一个零件，整条生产线跟着变</a>
-<a class="toc-3" href="#53-判断准则">5.3 判断准则</a>
-</div>
-<a class="toc-2" href="#第六章-实战写一个会干活的插件" onclick="toggleToc(this)">第六章 实战，写一个会干活的插件</a>
-<div class="toc-group" hidden>
-<a class="toc-3" href="#61-准备环境">6.1 准备环境</a>
-<a class="toc-3" href="#62-写最小插件">6.2 写最小插件</a>
-<a class="toc-3" href="#63-让-dsh-加载它">6.3 让 dsh 加载它</a>
-<a class="toc-3" href="#64-加一个工具">6.4 加一个工具</a>
-<a class="toc-3" href="#65-观察生命周期">6.5 观察生命周期</a>
-<a class="toc-3" href="#66-三种形态什么时候用哪个">6.6 三种形态，什么时候用哪个</a>
-<a class="toc-3" href="#67-开发时的小工具">6.7 开发时的小工具</a>
-<a class="toc-3" href="#68-常见坑">6.8 常见坑</a>
-</div>
-<a class="toc-2" href="#第七章-读完这本书之后" onclick="toggleToc(this)">第七章 读完这本书之后</a>
-<div class="toc-group" hidden>
-<a class="toc-3" href="#71-按需查表">7.1 按需查表</a>
-<a class="toc-3" href="#72-从头到尾的路线">7.2 从头到尾的路线</a>
-</div>
-<a class="toc-2" href="#附录-本书依据与验证" onclick="toggleToc(this)">附录 本书依据与验证</a>
-<div class="toc-group" hidden>
-</div>
-</nav>
+      <nav id="toc-zh"><a class="toc-2" data-idx="0" onclick="showChapter(0)">前言
+这本书讲 DeepSeek Harness（dsh）底层的插件框架 Cordis，从&amp;quot;这是什么&amp;quot;讲到&amp;quot;写一个能被 agent 调用的插件&amp;quot;。
+官方文档花了大力气，但力气全花在给 AI 阅读铺路上。这本书默认读者是人，用大白话把同一套内容讲一遍，配八张可编辑的图。官方文档是很好的地图、字典和菜谱，这本书补上讲故事那一块。
+前五章讲概念，大概二十分钟。第六章动手，跟着敲一遍，大概十分钟。第七章和附录告诉你接下来去哪，五分钟。读前五章不需要任何准备，第六章需要能跑 Node.js（^22.19 或 &amp;gt;=24）和 pnpm 的电脑。别急着抠源码，先让概念在脑子里立起来。</a>
+<a class="toc-2" data-idx="1" onclick="showChapter(1)">第一章 这是什么
+这一章回答一个问题，dsh 到底是什么。
+1.1 dsh 是什么，跟聊天窗口有什么区别
+你平时用的 AI 产品，模型在别人的服务器上，你的文件也在别人的服务器上。dsh 反着来。模型仍然在远端，但 agent 本身跑在你自己的进程里，工作区是你本地的文件夹。它读你的代码、跑你的测试、改你的文件，每一步都在你眼皮底下发生。
+1.2 一切皆插件
+另一个区别藏在架构里。市面上多数 agent 工具把&amp;quot;模型、工具、记忆、界面&amp;quot;焊成一个整体，你想换掉其中一块，得动整个产品，像整装的宜家家具，想换一个抽屉的滑轨得拆掉半面柜子。dsh 是乐高，标准积木拼成整台机器，想换哪块就拔下来换一块新的，旁边的积木不用动。
+dsh 把每一块都做成插件。模型适配器是插件，工具注册表是插件，会话记录是插件，连驱动 agent 反复思考的那个循环本身也是插件。任何一个都可以从配置里替换，不需要改框架代码。
+
+图 一切皆插件，每个零件都能换
+1.3 Cordis 是什么
+Cordis 就是这一套插件机制的实现，负责回答一个问题。一堆插件怎么拼在一起、谁先启动、谁跟谁通信、拆的时候怎么不留垃圾。它本身是一个独立的开源框架，dsh 把它以 vendor 方式搬进仓库，做了少量本地修改。你写的插件跑在 Cordis 的运行时上，所以懂 Cordis，就懂 dsh 的八成。
+1.4 开发者预览期的现实
+还有一件事要提前说。项目在开发者预览阶段，官方自己标注了&amp;quot;会有破坏兼容性的变更&amp;quot;。API 可能变，但&amp;quot;插件、上下文、服务、事件、生命周期&amp;quot;这套概念骨架短期内不会动。看书的时候抓概念，写代码的时候查源码。
+本章小结
+
+dsh 把 AI 助手装进你自己的电脑，agent 跑在本地，模型在远端
+每一块都是插件，从模型适配器到 agent 循环本身，都可以从配置替换
+Cordis 是这套机制的实现，回答插件怎么拼、谁先启动、怎么通信、拆了怎么不留垃圾
+项目在开发者预览期，API 会变，概念骨架不会变</a>
+<a class="toc-2" data-idx="2" onclick="showChapter(2)">第二章 一个 dsh 进程是怎么拼起来的
+这一章回答一个问题，一个 dsh 进程是怎么拼起来的。
+2.1 启动之后发生了什么
+运行 npx @deepseek-ai/dsh web，或者从源码跑 pnpm dsh web，你的电脑上发生了这样几件事。
+一个 Node 进程启动。进程按一套配方把许多插件拼装起来，拼装的结果叫插件树。进程起了一个 Web 服务器，默认地址是 http://127.0.0.1:3080，你在浏览器里跟它对话。你给 agent 指定一个工作区，一个文件夹，agent 的读写和命令默认都发生在这个文件夹里。
+2.2 五层配方
+配方本身是分层叠出来的，从下到上五层。
+
+图 dsh 进程的插件树，自下而上五层配方
+2.3 profile、组合包、patch
+三个术语用人话说清楚。profile 是&amp;quot;你要哪一套成品&amp;quot;，web 和 headless 是随发行版交付的两个模板。组合包是一整套插件的打包格式，内部还能被上层继续修改。patch 是叠在最上面的微调，插一个插件、替换一个插件的配置，都走这一层。
+每一层都有权改变下面一层的决定。想知道你的机器实际启动了哪些插件，跑这条命令。
+dsh --profile web --dump-config
+
+2.4 看真实的插件树
+光讲概念不够，直接看真实的输出。在仓库里跑上面那条命令，会打印一整棵配置树，下面是节选。
+# == @deepseek-ai/dsh-base
+- id: llm
+  name: '@deepseek-ai/dsh-llm'
+- id: session
+  name: '@deepseek-ai/dsh-session'
+- id: agent
+  name: '@deepseek-ai/dsh-agent'
+- id: jobs
+  name: '@deepseek-ai/dsh-jobs-local'
+- id: settings
+  name: '@deepseek-ai/dsh-settings-file'
+- id: credentials
+  name: '@deepseek-ai/dsh-credentials-local'
+- id: subprocess
+  name: '@deepseek-ai/dsh-subprocess-local'
+- id: sandbox
+  name: '@deepseek-ai/dsh-sandbox-local'
+# == @deepseek-ai/dsh-base, patched by @deepseek-ai/dsh-web-app
+- id: hmr
+  name: '@deepseek-ai/cordis-plugin-hmr'
+  config:
+    root:
+      - .
+  disabled: true
+
+第一行注释 # == @deepseek-ai/dsh-base 标出这一层的来源，dsh-base 就是组合包里的打底层。第二组注释 patched by @deepseek-ai/dsh-web-app 说明下面的条目被上层改过，hmr 插件是 dsh-web-app 加进来的，又默认关掉了，disabled: true 就是证据。每一层的来源和改动都写在注释里，这就是&amp;quot;每一层都有权改下面一层的决定&amp;quot;的真实样貌。
+2.5 没有特权内核
+dump-config 打印出来的每个条目，理论上都能被你的 patch 替换。这就是&amp;quot;没有特权内核&amp;quot;的意思。没有任何一块积木是焊死的，包括 agent 循环本身。整个产品没有一段代码是&amp;quot;碰不得的核心&amp;quot;，这跟传统框架有本质区别。
+本章小结
+
+dsh 进程按配方把插件拼成插件树，配方从下到上五层
+profile 选成品，组合包装零件，patch 做微调
+每一层都能改下面一层的决定，没有任何积木是焊死的
+dsh --profile web --dump-config 随时能看真实的插件树，注释里标着每一条的来源</a>
+<a class="toc-2" data-idx="3" onclick="showChapter(3)">第三章 Cordis 的五个概念
+这一章讲五个概念，插件、上下文、服务、事件、副作用，后面一个踩着前面一个。先看一张全景图，把零件的位置一次放全，再一个个拆开讲。这一章对照 vendor 里的 Cordis 源码讲。
+
+图 Cordis 全景，插件、上下文、事件、服务、会话日志
+插件往 ctx 上挂东西，ctx 通过事件和服务跟外界协作，会话日志把模型看到的一切记下来。五个概念就是这张图里的零件。
+3.1 插件是一个导出 apply 函数的模块
+插件就是一段 TypeScript，导出 apply 函数。框架加载插件时调用它，递进来一个 ctx。
+import type { Context } from '@deepseek-ai/cordis'
+
+export const name = 'my-plugin'
+
+export function apply(ctx: Context) {
+  // 在这里注册能力
+}
+
+name 是插件在系统里的名字。apply 是插件唯一的入口。没有基类要继承，没有生命周期方法要实现，一个函数就够了。这是 Cordis 刻意做的减法，你后面会看到这套减法换来的是什么。
+3.2 上下文是一个代理对象
+ctx 全名叫 Context，代码里它的注释写着 &amp;quot;a context is a proxy&amp;quot;。它是一个代理对象，读它的属性会走到服务解析器。读 ctx.tools 拿到工具服务，读 ctx.llm 拿到模型服务，会话历史挂在 ctx.sessions 上。
+内置服务有四个。ctx.events 管事件，ctx.logger 管日志，ctx.reflect 管服务注册，ctx.registry 管插件装载。每个插件拿到的 ctx 都长在自己的作用域里，插件之间通过共享的上下文协作，互相不认识也能配合。
+插件之间通过 ctx 上的名字查找服务，不直接 import 对方的代码。你的插件依赖的是&amp;quot;插座标准&amp;quot;，不是某个具体实现。换一个提供方，你插的东西纹丝不动。
+3.3 服务是挂在 ctx 上的名字
+一个服务就是挂在 ctx 某个名字下的能力。定义服务用 Service 类，构造时注册，所属插件卸载时自动移除，这一行逻辑在源码里写得很直白。
+import { Service, type Context } from '@deepseek-ai/cordis'
+
+export default class MyService extends Service {
+  constructor(ctx: Context) {
+    super(ctx, 'myService')
+  }
+}
+
+如果你只是消费服务，用 inject 声明依赖就够了。框架会等依赖就绪再加载你的插件，依赖消失就自动卸载你的插件，恢复后再加载。加载顺序完全由依赖关系推导，不需要任何人手动编排启动序列。
+export const name = 'my-tool-plugin'
+export const inject = ['tools']
+
+export function apply(ctx: Context) {
+  // 走到这里时，ctx.tools 一定已经就绪
+  ctx.tools.register(/* ... */)
+}
+
+3.4 事件是插件之间的对讲机
+插件之间靠事件通信，不直接打电话。一个插件触发事件，其他插件监听，双方不需要认识。
+事件有四种分发方式，源码里每种都有明确的语义。
+
+
+
+方式
+人话
+监听器能改结果
+要不要等
+
+
+
+emit
+围观，看一眼就走
+不能
+不等
+
+
+waterfall
+接力棒，一个传一个
+能，后传的盖过前面的
+不等
+
+
+parallel
+同时开工
+不能
+等全部
+
+
+serial
+排队来
+能
+等第一个叫停
+
+
+
+图 事件的四种分发方式
+waterfall 最容易踩坑。监听器先用 ctx.on 注册，分发发生在别处调用 ctx.waterfall 的地方。监听器拿到的参数最后一个是 next，调用它才把接力棒传下去。不调用直接返回，后面的监听器全都看不见这个事件，源码注释里写得很清楚，监听器必须调用 next() 委托，否则短路。
+ctx.on('some-event', (args, next) =&gt; {
+  // 改点东西，然后必须把棒子传下去
+  return next()
+})
+
+这本书自己就栽过一回。初稿把监听器直接传给了 ctx.waterfall，实测一跑就报错，改成 ctx.on 注册才通过。忘传 next 是同一个家族的坑，排查时先看注册和传棒这两行。
+3.5 注册即副作用，卸载自动撤销
+这是 Cordis 最贴心的一笔。你在 ctx 上做的任何注册，事件监听、工具、适配器、定时器，插件卸载时全部自动撤销。你不需要手动 removeListener，不需要 clearInterval。
+自己捏在手里的资源要用 ctx.effect 告诉框架怎么清理。
+export function apply(ctx: Context) {
+  ctx.effect(() =&gt; {
+    const timer = setInterval(() =&gt; console.log('heartbeat'), 5000)
+    return () =&gt; clearInterval(timer)  // 插件卸载时调用
+  })
+}
+
+这个设计带来一个连锁好处，热重载可以安全地工作。改代码，旧插件卸载，所有注册清干净，新插件加载。不会出现旧监听器残留的灵异事件。
+配套的生命周期状态机长这样。
+
+
+
+状态
+含义
+
+
+
+PENDING
+等依赖
+
+
+LOADING
+正在执行 apply
+
+
+ACTIVE
+跑起来
+
+
+FAILED
+apply 抛异常
+
+
+UNLOADING
+正在清理
+
+
+DISPOSED
+彻底消失
+
+
+
+图 插件生命周期 Fiber 状态机
+3.6 作用域，每个插件一块自己的 ctx
+第三章开头说过，每个插件拿到的 ctx 都长在自己的作用域里。这句值得拆开看。
+框架启动时建一个根 Context，内置四个服务。每加载一个插件，就从它父级的 ctx 上 extend 出一个子上下文，继承父级能看到的一切。插件在子 ctx 上注册的东西，卸载时跟着子 ctx 一起消失，不污染根。
+光继承还不够。isolate 能划出一块独立的服务作用域，比如给某个 agent 单独装一个私有实现，别的插件看不见。dsh 里每个 agent 都有一块自己的 ctx，叫 agent.ctx，插件可以声明只服务这一个 agent，这是按 agent 隔离的基础。
+
+图 上下文的作用域，extend 继承，isolate 隔离
+一句话记住，extend 往下继承，isolate 往外隔离。
+3.7 配置会校验，配错加载即失败
+插件挂进 cordis.yml 时，配置不是随便写的。Cordis 的 loader 会拿插件的 Config schema 校验配置，配错了在加载时就报错，不会带着错误配置悄悄跑起来。
+这套机制就藏在 patch 层里。你给插件填的 config，会被逐条校验，类型不对、字段不认识，启动时就告诉你。配错即失败是刻意的设计，省得你上线半天才发现配置根本没生效。
+3.8 嵌套与热重载
+插件可以挂插件。ctx.plugin() 加载一个子插件，子插件有自己的 Fiber，卸载父级时子级跟着拆，不用逐个清理。
+卸载的顺序也有规矩。注册的 disposer 按逆序调用，也就是后注册的先清理，多个异步 disposer 并发执行，不保证逐个完成。有顺序要求的清理步骤，必须放进同一个 ctx.effect 里，由它自己串行。
+这一套规矩拼起来，就是热重载能安全工作的原因。HMR 插件做的事就三步，卸载旧插件，所有注册自动撤销，加载新插件。没有残留，没有顺序问题，改完代码保存就生效。
+本章小结
+
+插件是导出 apply 的模块，ctx 是代理对象，服务是挂在 ctx 名字下的能力
+inject 声明依赖，加载顺序由依赖关系推导
+事件四种分发，waterfall 必须传 next，否则短路
+注册即副作用，卸载自动撤销，热重载因此安全
+生命周期六个状态，等依赖、加载、运行、失败、清理、消失
+作用域靠 extend 继承、isolate 隔离，配置配错加载即失败，嵌套插件随父级一起拆</a>
+<a class="toc-2" data-idx="4" onclick="showChapter(4)">第四章 一次对话背后的流程
+这一章把五个概念串起来，看一次真实的对话在进程里发生了什么。
+4.1 step 与 turn
+你在 Web UI 里发一句&amp;quot;帮我总结这个仓库&amp;quot;，进程里发生的事可以分成两层看。
+第一层叫 step，步骤。一次 step 是一次模型请求加上它发起的工具调用。模型说&amp;quot;我需要先看文件列表&amp;quot;，这是一个请求，工具执行完把结果回填，这一步才算结束。模型看了结果又提出下一个请求，就进入下一步。
+第二层叫 turn，轮次。从你发消息开始，到 agent 不再欠任何工作为止。一轮通常包含多个 step，因为模型常常要反复调用工具才能完成任务。turn 的打开和关闭各有一个事件，step 的开始和结束也各有一个事件。
+4.2 一次对话的完整旅程
+把两层合在一起看，完整流程长这样。
+
+图 一次对话的 turn 与 step
+4.3 事件就是扩展点
+事件本身就是扩展点，流程只是它的副产品。dsh 的事件按用途分三拨。
+会话事件是追加到日志里的持久事实，turn/start、step/end、tool/result 都属于这一类，要跨重启保存的事实用它。agent 事件带着活跃的 agent，agent/request、agent/pre-step、agent/turn-stopping 都属于这一类，要观察或拦截进行中的工作时用它。能力事件给某个能力附加策略和适配器，tools/pre-execute、tools/post-execute 属于这一类。
+选对事件域，是大多数改动的第一个决定。
+4.4 会话日志，模型看到即记录
+会话日志是整套流程的根。每次模型请求的输入都能从日志重建出来，这是设计目标，写在架构文档里。模型看到什么，日志里就有什么。因为有了这条铁律，会话才能被 fork、恢复、回放，Web UI 才能完整渲染历史。
+这条铁律有一个直接的推论。要给模型喂一种新的上下文，就必须给它新增一种会话事件，因为模型可见的一切都必须能从日志重建。扩展 SessionEventMap 并从日志渲染，是 dsh 里&amp;quot;添加模型可见输入&amp;quot;的标准动作。
+本章小结
+
+step 是一次模型请求加它调用的工具，turn 从发消息到 agent 不再欠工作
+整个流程由事件构成，可以被观察和拦截
+事件分三拨，会话事件、agent 事件、能力事件，选对域是改动的第一个决定
+模型看到即记录，新增模型可见输入就要新增会话事件</a>
+<a class="toc-2" data-idx="5" onclick="showChapter(5)">第五章 可替换的能力
+这一章讲一个概念，seam，可替换的能力接缝。
+5.1 seam 三件套
+第二章说没有任何积木是焊死的，这一章讲它怎么落地。一个 seam 永远是三件套。Service Definition 定义接口，声明这个能力长什么样。Service Provider 是具体实现，可以被替换。Consumer 是使用者，通常是面向模型的工具。三件套缺一个，这项能力就不完整。
+
+图 能力接缝 seam 的三件套
+5.2 换一个零件，整条生产线跟着变
+拿文件系统举例。dsh 的文件系统、进程、终端共享同一个执行世界。把文件系统的 Provider 从本地换成远程沙箱，Bash、PTY、LSP 这些依赖它的能力会一起搬过去，不需要为每个工具单独写远程版本。换一个零件，整条生产线跟着变。
+再举一个例子，subagent，子代理。它也是一个 seam，Provider 可以是从零新建一个子 agent，也可以是把这个轮次委派给另一个完全不同的产品。接口没变，行为天差地别。
+想给 dsh 加新东西，官方架构文档有一张表，把&amp;quot;我想做什么&amp;quot;对应到&amp;quot;用什么机制&amp;quot;。下面是节选。
+
+
+
+目标
+机制
+
+
+
+添加模型提供方
+在 ctx.llm 上注册其适配器
+
+
+添加面向模型的能力
+在 ctx.tools 上注册，schema 自动进入提示词组装
+
+
+添加 shell 执行
+注册 ctx.shell 后端
+
+
+添加文件系统访问或策略
+注册 ctx.fs 提供方，或监听 fs/* 事件
+
+
+拦截请求、工具或轮次
+使用相应的 agent/* 或 tools/* 事件
+
+
+添加模型可见上下文
+调用 agent.inject()
+
+
+5.3 判断准则
+给你的判断准则。要添加一项新能力，正确做法是把接口、实现、使用方三件一起设计。要替换已有能力，只换 Provider。写插件的时候，先问自己处在三件套里的哪个位置，这是 dsh 开发者最常见的思考起点。
+本章小结
+
+seam 永远是三件套，接口、实现、使用者
+换 Provider 就换掉整个能力，文件系统换远程沙箱，Bash、PTY、LSP 一起搬
+添加新能力，三件一起设计，替换能力，只换 Provider
+动手前先问自己站在三件套的哪个位置</a>
+<a class="toc-2" data-idx="6" onclick="showChapter(6)">第六章 实战，写一个会干活的插件
+这一章动手。目标是在十分钟内做出一个能被 agent 调用的工具，做完你会得到一个 hello 插件和一个 greet 工具。
+6.1 准备环境
+从源码跑，方便调试。
+git clone https://github.com/deepseek-ai/deepseek-harness.git
+cd deepseek-harness
+pnpm install
+pnpm run build
+
+在仓库根目录建临时目录。
+mkdir -p scratch-plugin/src
+
+6.2 写最小插件
+创建 scratch-plugin/src/my-plugin.ts。
+import type { Context } from '@deepseek-ai/cordis'
+
+export const name = 'hello-plugin'
+
+export function apply(ctx: Context) {
+  console.log('[hello-plugin] plugin loaded!')
+}
+
+到这里你已经在写一个真实的 Cordis 插件了。它只做一件事，加载时打印一行日志。
+6.3 让 dsh 加载它
+创建 scratch-plugin/cordis.yml。路径必须是绝对路径，这是最容易卡住的地方。
+- insert:
+    - id: hello
+      name: '/绝对/路径/到/deepseek-harness/scratch-plugin/src/my-plugin.ts'
+
+用这个覆盖层启动。
+pnpm dsh web --patch ./scratch-plugin/cordis.yml
+
+打开 http://127.0.0.1:3080，启动日志里会出现 [hello-plugin] plugin loaded!。--patch 把你的配置叠到配方最上层，insert 往插件树里插一块新积木。整个过程没有改一行框架代码。
+6.4 加一个工具
+把 my-plugin.ts 换成下面的内容。这是 dsh 里给 agent 加一项能力的标准姿势。
+import type { Context } from '@deepseek-ai/cordis'
+import { defineTool } from '@deepseek-ai/dsh-tools'
+
+export const name = 'greet-tool'
+export const inject = ['tools']
+
+export function apply(ctx: Context) {
+  ctx.tools.register(defineTool({
+    name: 'greet',
+    description: 'Greet someone by name.',
+    parameters: {
+      name: { type: 'string', required: true, description: 'The name to greet' },
+    },
+    output: {
+      schema: { type: 'string' },
+      render: (_args, value) =&gt; [{ type: 'text', text: value }],
+    },
+    async execute(args) {
+      return `Hello, ${args.name}!`
+    },
+  }))
+}
+
+重启后发一句 Use the greet tool to greet Ada.，模型会调用 greet，看到结果 Hello, Ada!。
+工具的四块各自有分工。description 是给模型看的说明书，模型靠它判断什么时候该用。parameters 声明参数，框架据此推导和校验类型。execute 干活，返回值必须符合 output.schema。render 把结果转成界面呈现，跟模型看到的内容是两回事。
+你注册一个工具，它的 schema 自动进入模型的可用技能清单，提示词组装由框架完成。这是 dsh 的产品哲学，能力以工具的形式暴露给模型，其余交给框架。
+6.5 观察生命周期
+把插件改成这样，重启，然后观察日志。
+import type { Context } from '@deepseek-ai/cordis'
+
+export function apply(ctx: Context) {
+  console.log('plugin loading')
+
+  ctx.effect(() =&gt; {
+    console.log('effect registered')
+    return () =&gt; console.log('effect cleaned up')
+  })
+}
+
+加载时打印 plugin loading 和 effect registered。关掉进程时打印 effect cleaned up。这一行输出就是第三章讲的卸载自动撤销，你在现场看到了它。
+6.6 三种形态，什么时候用哪个
+
+
+
+形态
+写法
+什么时候用
+
+
+
+函数
+export function apply(ctx)
+绝大多数情况，最简单，够用
+
+
+对象
+export default { name, inject, apply }
+把 name、inject、apply 打包成一个整体导出
+
+
+类
+class MyService extends Service
+你的插件要给别人提供服务，别人要 inject 你的服务
+
+
+先用函数，等别人需要你了再升级成类。
+6.7 开发时的小工具
+改代码不重启，加载 @deepseek-ai/cordis-plugin-hmr，保存文件自动热替换。想确认自己真的被加载，看启动日志，或者跑 dsh --profile web --dump-config 在配置树里找你的插件。
+6.8 常见坑
+
+插件路径写成了相对路径，加载器找不到模块，必须用绝对路径
+改了代码不生效，插件只在启动时加载，要么重启，要么加载 HMR 插件
+想确认加载没加载，看启动日志，或者 dump-config 里搜插件的 id
+要用 tools、llm 这类服务却忘了写 inject，apply 里拿不到
+
+本章小结
+
+插件就是一个导出 apply 的模块，加载时框架把 ctx 递给你
+--patch 把插件插进配方最上层，路径必须绝对
+defineTool 定义工具，schema 自动进入模型的技能清单
+注册自动清理，热重载安全，先函数后类</a>
+<a class="toc-2" data-idx="7" onclick="showChapter(7)">第七章 读完这本书之后
+这一章告诉你书读完之后去哪。
+7.1 按需查表
+官方文档值得读，只是没人告诉你按什么顺序读。下面这张表按&amp;quot;你想做的事&amp;quot;索引，表里第一列是问题，后面两列是位置和提醒。
+
+
+
+我想……
+去读
+人话提示
+
+
+
+跑起来看看长什么样
+docs/user/guide/index.md，也就是 quickstart
+配模型、选工作区、发消息，五分钟
+
+
+搞懂这个项目的架构
+docs/architecture.md
+先读完这本书再去，会顺很多
+
+
+写第一个插件
+docs/user/develop/basic/index.md
+就是第六章的原版
+
+
+给 agent 加个工具
+docs/user/develop/basic/tool.md，进阶看 docs/cookbook/adding-a-tool.md
+后者处理嵌套 schema、后台任务、策略钩子
+
+
+让插件接受配置
+docs/user/develop/basic/config.md
+
+
+
+加一个新的模型提供方
+docs/user/guide/providers.md，进阶看 docs/cookbook/adding-an-llm-adapter.md
+providers 页有截图，是官方文档里少见的&amp;quot;给人看&amp;quot;页面
+
+
+彻底搞懂 Cordis 框架
+docs/cordis-tutorial/，七章教程
+搭一个临时项目，一章一章亲手做，不需要 API 密钥
+
+
+改 agent 的循环或行为
+docs/agent-lifecycle.md，细节看 docs/subsystems/core.md
+记住 turn 和 step 两个词再进去
+
+
+查某个配置项支持什么
+docs/config-catalog.md
+自动生成的，按需查，别从头读
+
+
+查所有工具 schema
+docs/tool-catalog.md
+同上，当字典用
+
+
+贡献代码、走日常开发流程
+docs/development.md
+
+
+
+7.2 从头到尾的路线
+除了这张表，还有一条顺序，适合从头到尾走一遍。
+① 这本书，三十分钟建立心智模型
+   ↓
+② cordis-tutorial 七章，一个下午亲手搭出框架
+   ↓
+③ 第六章实战，写出第一个插件和工具
+   ↓
+④ 按需查，architecture 是地图，subsystems 是字典，cookbook 是菜谱
+
+第④步才是官方文档的主场。讲故事这件事，这本书已经替你做完了。接下来按需查，动手写。
+最后一句。dsh 还年轻，API 会变，但这套骨架值得你花三十分钟。它把 agent 框架拆成了可以自由拼装的积木，现在轮到你动手拼一块了。</a>
+<a class="toc-2" data-idx="8" onclick="showChapter(8)">附录 本书依据与验证
+概念与代码依据 docs/architecture.md、docs/cordis-primer.md、docs/user/develop/basic 下的教程，以及 vendor/cordis/src 的源码。API 签名以仓库 master 为准，改签名时先核对源码。
+书里的八张插图是 .drawio 格式，由 drawio-skill（Agents365-ai，GitHub 7.2k 星）生成，同目录的 .svg 是渲染预览，.drawio 可以在 draw.io 桌面版里继续编辑，diagrams/viewer-urls.txt 里有 diagrams.net 的在线查看链接。
+全书成稿后逐条实测。dsh --profile web --dump-config 打出真实的插件树，与第二章的分层一致。scratch-plugin 里的 hello 插件用 ctx.plugin 实际加载运行过，greet 工具用 defineTool 定义并执行过，第三章的五个概念全部验证通过，包括依赖未就绪时停在 PENDING、apply 抛异常进入 FAILED、卸载后监听器自动移除、waterfall 不调用 next 就短路。--patch 配合 --dump-config 确认插件插进配方最上层。第四章的事件名逐一对照源码，agent/turn-stopping 用 serial 分发且没有 next。剩下两处没有验证，都需要 API 密钥，一是模型调用，二是浏览器里的完整界面。</a></nav>
     </div>
     <div id="toc-en-block" hidden>
       <div class="toc-title">Contents</div>
-      <nav id="toc-en"><a class="toc-2" href="#preface" onclick="toggleToc(this)">Preface</a>
-<div class="toc-group" hidden>
-</div>
-<a class="toc-2" href="#chapter-1-what-this-is" onclick="toggleToc(this)">Chapter 1 What this is</a>
-<div class="toc-group" hidden>
-<a class="toc-3" href="#11-what-dsh-is-and-how-it-differs-from-a-chat-window">1.1 What dsh is, and how it differs from a chat window</a>
-<a class="toc-3" href="#12-everything-is-a-plugin">1.2 Everything is a plugin</a>
-<a class="toc-3" href="#13-what-cordis-is">1.3 What Cordis is</a>
-<a class="toc-3" href="#14-the-reality-of-developer-preview">1.4 The reality of developer preview</a>
-</div>
-<a class="toc-2" href="#chapter-2-how-a-dsh-process-is-assembled" onclick="toggleToc(this)">Chapter 2 How a dsh process is assembled</a>
-<div class="toc-group" hidden>
-<a class="toc-3" href="#21-what-happens-after-startup">2.1 What happens after startup</a>
-<a class="toc-3" href="#22-the-five-layer-recipe">2.2 The five-layer recipe</a>
-<a class="toc-3" href="#23-profile-bundle-patch">2.3 profile, bundle, patch</a>
-<a class="toc-3" href="#24-look-at-the-real-plugin-tree">2.4 Look at the real plugin tree</a>
-<a class="toc-3" href="#25-no-privileged-kernel">2.5 No privileged kernel</a>
-</div>
-<a class="toc-2" href="#chapter-3-the-five-concepts-of-cordis" onclick="toggleToc(this)">Chapter 3 The five concepts of Cordis</a>
-<div class="toc-group" hidden>
-<a class="toc-3" href="#31-a-plugin-is-a-module-that-exports-apply">3.1 A plugin is a module that exports apply</a>
-<a class="toc-3" href="#32-the-context-is-a-proxy-object">3.2 The context is a proxy object</a>
-<a class="toc-3" href="#33-a-service-is-a-name-on-ctx">3.3 A service is a name on ctx</a>
-<a class="toc-3" href="#34-events-are-walkie-talkies-between-plugins">3.4 Events are walkie-talkies between plugins</a>
-<a class="toc-3" href="#35-registration-is-a-side-effect-unload-cleans-up-automatically">3.5 Registration is a side effect, unload cleans up automatically</a>
-<a class="toc-3" href="#36-scoping-every-plugin-has-its-own-ctx">3.6 Scoping, every plugin has its own ctx</a>
-<a class="toc-3" href="#37-config-is-validated-wrong-config-fails-at-load">3.7 Config is validated, wrong config fails at load</a>
-<a class="toc-3" href="#38-nesting-and-hot-reload">3.8 Nesting and hot reload</a>
-</div>
-<a class="toc-2" href="#chapter-4-what-happens-behind-one-conversation" onclick="toggleToc(this)">Chapter 4 What happens behind one conversation</a>
-<div class="toc-group" hidden>
-<a class="toc-3" href="#41-step-and-turn">4.1 step and turn</a>
-<a class="toc-3" href="#42-the-full-journey-of-one-conversation">4.2 The full journey of one conversation</a>
-<a class="toc-3" href="#43-events-are-the-extension-points">4.3 Events are the extension points</a>
-<a class="toc-3" href="#44-the-session-log-model-visible-means-logged">4.4 The session log, model-visible means logged</a>
-</div>
-<a class="toc-2" href="#chapter-5-replaceable-capabilities" onclick="toggleToc(this)">Chapter 5 Replaceable capabilities</a>
-<div class="toc-group" hidden>
-<a class="toc-3" href="#51-the-seam-triad">5.1 The seam triad</a>
-<a class="toc-3" href="#52-swap-one-part-the-whole-line-changes">5.2 Swap one part, the whole line changes</a>
-<a class="toc-3" href="#53-a-judgment-rule">5.3 A judgment rule</a>
-</div>
-<a class="toc-2" href="#chapter-6-hands-on-write-a-plugin-that-does-work" onclick="toggleToc(this)">Chapter 6 Hands-on, write a plugin that does work</a>
-<div class="toc-group" hidden>
-<a class="toc-3" href="#61-prepare-the-environment">6.1 Prepare the environment</a>
-<a class="toc-3" href="#62-write-the-minimal-plugin">6.2 Write the minimal plugin</a>
-<a class="toc-3" href="#63-make-dsh-load-it">6.3 Make dsh load it</a>
-<a class="toc-3" href="#64-add-a-tool">6.4 Add a tool</a>
-<a class="toc-3" href="#65-watch-the-lifecycle">6.5 Watch the lifecycle</a>
-<a class="toc-3" href="#66-three-forms-when-to-use-which">6.6 Three forms, when to use which</a>
-<a class="toc-3" href="#67-dev-tools">6.7 Dev tools</a>
-<a class="toc-3" href="#68-common-pitfalls">6.8 Common pitfalls</a>
-</div>
-<a class="toc-2" href="#chapter-7-after-you-finish-this-book" onclick="toggleToc(this)">Chapter 7 After you finish this book</a>
-<div class="toc-group" hidden>
-<a class="toc-3" href="#71-the-lookup-table">7.1 The lookup table</a>
-<a class="toc-3" href="#72-a-route-from-front-to-back">7.2 A route from front to back</a>
-</div>
-<a class="toc-2" href="#appendix-sources-and-verification" onclick="toggleToc(this)">Appendix Sources and verification</a>
-<div class="toc-group" hidden>
-</div>
-</nav>
+      <nav id="toc-en"><a class="toc-2" data-idx="0" onclick="showChapter(0)">Preface
+This book is about Cordis, the plugin framework underneath DeepSeek Harness (dsh), from &amp;quot;what is this&amp;quot; to &amp;quot;write a plugin an agent can actually call&amp;quot;.
+The official documentation took real effort, but all of that effort went into paving the way for AI reading. This book assumes a human reader. It walks through the same material in plain language, with eight editable figures. The official docs are a good map, a dictionary, and a cookbook; this book adds the part where somebody walks you through them.
+Chapters 1 to 5 cover concepts, about 20 minutes. Chapter 6 is hands-on, about 10 minutes. Chapter 7 and the appendices point you where to go next, about 5 minutes. Nothing is needed for the first five chapters; Chapter 6 needs a machine with Node.js (^22.19 or &amp;gt;=24) and pnpm. Do not dive into source code before the concepts settle.</a>
+<a class="toc-2" data-idx="1" onclick="showChapter(1)">Chapter 1 What this is
+This chapter answers one question, what dsh actually is.
+1.1 What dsh is, and how it differs from a chat window
+In the AI products you use every day, the model lives on someone else&amp;#39;s server, and so do your files. dsh works the other way around. The model is still remote, but the agent itself runs in your own process, and the workspace is a local folder. It reads your code, runs your tests, edits your files, all within your sight.
+1.2 Everything is a plugin
+The other difference is architectural. Most agent tools weld the model, the tools, the memory, and the interface into one piece. To swap one part, you rebuild the whole product, like IKEA furniture assembled as one unit, where replacing one drawer slide means taking half the cabinet apart. dsh is Lego. Standard blocks make up the whole machine, and you pull out the block you want to replace without touching the ones beside it.
+dsh makes every piece a plugin. The model adapter is a plugin, the tool registry is a plugin, the session log is a plugin, and the loop that drives the agent&amp;#39;s thinking is itself a plugin. Any of them can be replaced from configuration, with no framework changes.
+
+Figure Everything is a plugin, every part is swappable
+1.3 What Cordis is
+Cordis is the implementation of that plugin mechanism, and it answers one question. How do a pile of plugins get assembled, who starts first, who talks to whom, and how does disassembly leave no garbage. It is an independent open-source framework, vendored into dsh&amp;#39;s repository with a small set of local modifications. Your plugins run on Cordis, so understanding Cordis covers eighty percent of dsh.
+1.4 The reality of developer preview
+One thing up front. The project is in developer preview, and the official docs say the compatibility-breaking changes are coming. APIs may change, but the conceptual skeleton of plugins, contexts, services, events, and lifecycles will not move in the near term. Grab concepts while reading, check the source when writing.
+Chapter summary
+
+dsh installs an AI assistant on your own machine, the agent runs locally, the model stays remote
+Every piece is a plugin, from the model adapter to the agent loop itself, replaceable from configuration
+Cordis is the implementation of that mechanism, answering how plugins are assembled, ordered, wired, and cleaned up
+The project is in developer preview, APIs will change, the conceptual skeleton will not</a>
+<a class="toc-2" data-idx="2" onclick="showChapter(2)">Chapter 2 How a dsh process is assembled
+This chapter answers one question, how a dsh process gets assembled.
+2.1 What happens after startup
+Run npx @deepseek-ai/dsh web, or pnpm dsh web from source, and several things happen on your machine.
+A Node process starts. The process assembles many plugins according to a recipe, and the result is called the plugin tree. The process serves a web UI at http://127.0.0.1:3080 by default, which you talk to in a browser. You give the agent a workspace, a folder, and the agent&amp;#39;s reads, writes, and commands happen inside that folder by default.
+2.2 The five-layer recipe
+The recipe itself is stacked in layers, five from bottom to top.
+
+Figure The dsh plugin tree, five layers assembled bottom-up
+2.3 profile, bundle, patch
+Three terms in plain words. A profile is &amp;quot;which finished package you want&amp;quot;, and web and headless are the two templates shipped with the release. A bundle is a packaging format for a set of plugins, still modifiable by layers above it. A patch is the final tweak on top, where you insert a plugin or replace a plugin&amp;#39;s configuration.
+Every layer may override the decisions of the layer below. To see which plugins your machine actually starts, run this.
+dsh --profile web --dump-config
+
+2.4 Look at the real plugin tree
+Concepts alone are not enough. Here is real output. Run the command above in the repository, and it prints the whole config tree. The excerpt below is trimmed.
+# == @deepseek-ai/dsh-base
+- id: llm
+  name: '@deepseek-ai/dsh-llm'
+- id: session
+  name: '@deepseek-ai/dsh-session'
+- id: agent
+  name: '@deepseek-ai/dsh-agent'
+- id: jobs
+  name: '@deepseek-ai/dsh-jobs-local'
+- id: settings
+  name: '@deepseek-ai/dsh-settings-file'
+- id: credentials
+  name: '@deepseek-ai/dsh-credentials-local'
+- id: subprocess
+  name: '@deepseek-ai/dsh-subprocess-local'
+- id: sandbox
+  name: '@deepseek-ai/dsh-sandbox-local'
+# == @deepseek-ai/dsh-base, patched by @deepseek-ai/dsh-web-app
+- id: hmr
+  name: '@deepseek-ai/cordis-plugin-hmr'
+  config:
+    root:
+      - .
+  disabled: true
+
+The comment # == @deepseek-ai/dsh-base on the first line marks the source of this layer, and dsh-base is the base bundle. The second comment patched by @deepseek-ai/dsh-web-app shows the entry below was modified by an upper layer, the hmr plugin added by dsh-web-app and disabled by default, with disabled: true as the evidence. Every layer&amp;#39;s source and changes are written into the comments, which is what &amp;quot;every layer may override the layer below&amp;quot; looks like in reality.
+2.5 No privileged kernel
+Every entry dump-config prints can in theory be replaced by your own patch. That is what &amp;quot;no privileged kernel&amp;quot; means. No block is welded in place, including the agent loop itself. No piece of the product is untouchable core, which is a real difference from traditional frameworks.
+Chapter summary
+
+A dsh process assembles plugins into a plugin tree according to a recipe, five layers from bottom to top
+profile picks the finished package, bundles carry the parts, patch is the final tweak
+Every layer can override the layer below, no block is welded in place
+dsh --profile web --dump-config shows the real tree any time, with each entry&amp;#39;s source in the comments</a>
+<a class="toc-2" data-idx="3" onclick="showChapter(3)">Chapter 3 The five concepts of Cordis
+This chapter covers five concepts, plugin, context, service, event, and side effect, each standing on the one before it. Start with a one-glance figure that puts all the parts in place, then take them apart one by one. It is grounded in the vendored Cordis source.
+
+Figure Cordis at a glance, plugins, context, events, services, session log
+Plugins hang things on ctx, ctx collaborates with the outside world through events and services, and the session log records everything the model sees. The five concepts are the parts in this figure.
+3.1 A plugin is a module that exports apply
+A plugin is a piece of TypeScript that exports an apply function. When the framework loads a plugin, it calls apply and hands over a ctx.
+import type { Context } from '@deepseek-ai/cordis'
+
+export const name = 'my-plugin'
+
+export function apply(ctx: Context) {
+  // Register capabilities here.
+}
+
+name is the plugin&amp;#39;s name in the system. apply is the plugin&amp;#39;s only entry point. No base class to inherit, no lifecycle methods to implement, a single function is enough. This is Cordis&amp;#39;s deliberate subtraction, and later you will see what that subtraction buys.
+3.2 The context is a proxy object
+ctx stands for Context, and the code comment literally says &amp;quot;a context is a proxy&amp;quot;. It is a proxy object, whose property reads go through a service resolver. Read ctx.tools and you get the tools service, read ctx.llm and you get the model service, session history hangs on ctx.sessions.
+Four services are built in. ctx.events handles events, ctx.logger handles logs, ctx.reflect handles service registration, ctx.registry handles plugin loading. Every plugin gets its own ctx scoped to itself, and plugins collaborate through the shared context without knowing each other.
+Plugins look up services by name on ctx rather than importing each other&amp;#39;s code. Your plugin depends on a socket standard, not on a specific implementation. Swap the provider, and what you plugged in does not move.
+3.3 A service is a name on ctx
+A service is a capability hanging on a ctx name. To define one, use the Service class. It registers in the constructor and is removed automatically when the owning plugin unloads, which the source states plainly.
+import { Service, type Context } from '@deepseek-ai/cordis'
+
+export default class MyService extends Service {
+  constructor(ctx: Context) {
+    super(ctx, 'myService')
+  }
+}
+
+If you only consume services, inject is enough. The framework waits for dependencies to be ready before loading your plugin, unloads your plugin if a dependency disappears, and reloads it when the dependency comes back. Load order is derived entirely from dependencies, with nobody hand-orchestrating a startup sequence.
+export const name = 'my-tool-plugin'
+export const inject = ['tools']
+
+export function apply(ctx: Context) {
+  // ctx.tools is ready here.
+  ctx.tools.register(/* ... */)
+}
+
+3.4 Events are walkie-talkies between plugins
+Plugins communicate through events rather than direct phone calls. One plugin dispatches an event, others listen, and the two sides never need to know each other.
+There are four dispatch modes, each with explicit semantics in the source.
+
+
+
+Mode
+Plain words
+Can listeners change the result
+Does it wait
+
+
+
+emit
+observe and leave
+no
+no
+
+
+waterfall
+a relay, listener to listener
+yes, later ones override earlier ones
+no
+
+
+parallel
+all start at once
+no
+waits for all
+
+
+serial
+one at a time
+yes
+stops at the first non-null return
+
+
+
+Figure Four ways to dispatch an event
+waterfall is where people trip. Listeners are registered with ctx.on, and the dispatch happens elsewhere via ctx.waterfall. The last argument a listener receives is next. Calling it passes the baton on. Returning without calling it means every listener behind you never sees the event, and the source comment says it plainly, listeners must call next() to delegate, otherwise the chain short-circuits.
+ctx.on('some-event', (args, next) =&gt; {
+  // Change something, then pass the baton on.
+  return next()
+})
+
+This book tripped on this exact spot once. The first draft passed listeners directly to ctx.waterfall, the live test failed, and switching to ctx.on registration fixed it. Forgetting to call next is the same family of bug, when debugging, look at the registration and the pass-the-baton line first.
+3.5 Registration is a side effect, unload cleans up automatically
+This is Cordis&amp;#39;s most thoughtful touch. Everything you register on ctx, event listeners, tools, adapters, timers, is revoked automatically when the plugin unloads. No manual removeListener, no clearInterval.
+For resources you hold yourself, tell the framework how to clean up with ctx.effect.
+export function apply(ctx: Context) {
+  ctx.effect(() =&gt; {
+    const timer = setInterval(() =&gt; console.log('heartbeat'), 5000)
+    return () =&gt; clearInterval(timer)  // Runs when the plugin unloads.
+  })
+}
+
+This design brings one cascading benefit, hot reload works safely. Change the code, the old plugin unloads, every registration is cleaned, the new plugin loads. No ghost listeners from old instances.
+The lifecycle state machine looks like this.
+
+
+
+State
+Meaning
+
+
+
+PENDING
+waiting on dependencies
+
+
+LOADING
+running apply
+
+
+ACTIVE
+running
+
+
+FAILED
+apply threw
+
+
+UNLOADING
+cleaning up
+
+
+DISPOSED
+gone
+
+
+
+Figure Plugin lifecycle, Fiber state machine
+3.6 Scoping, every plugin has its own ctx
+The chapter said every plugin gets its own ctx, scoped to itself. That sentence deserves a closer look.
+The framework creates a root Context at startup, with four built-in services. Every time a plugin loads, it extends a child context from its parent&amp;#39;s ctx, inheriting everything the parent sees. What the plugin registers on its child ctx disappears with the child on unload, without polluting the root.
+Inheritance alone is not enough. isolate carves out an independent service scope, for example giving one agent a private implementation that other plugins cannot see. In dsh, every agent has its own ctx, called agent.ctx, and a plugin can declare that it serves only that one agent, which is the basis of per-agent isolation.
+
+Figure How contexts are scoped, extend inherits, isolate separates
+One line to remember, extend inherits downward, isolate separates outward.
+3.7 Config is validated, wrong config fails at load
+When a plugin is mounted through cordis.yml, the config is not free-form. Cordis&amp;#39;s loader validates the config against the plugin&amp;#39;s Config schema, and a wrong config fails at load time, rather than silently running with broken settings.
+The mechanism lives in the patch layer. The config you fill in for a plugin is checked entry by entry, wrong types and unknown fields are reported at startup. Failing loud on misconfiguration is a deliberate design, so you never discover hours later that your config never took effect.
+3.8 Nesting and hot reload
+Plugins can mount plugins. ctx.plugin() loads a child plugin with its own Fiber, and unloading the parent tears down the children with it, with no per-child cleanup.
+The unload order has rules too. Registered disposers run in reverse registration order, later registered first, and multiple async disposers run concurrently without a guarantee of individual completion. Cleanup steps that depend on order must go into the same ctx.effect, which serializes them itself.
+Put those rules together and you get the reason hot reload is safe. The HMR plugin does three things, unload the old plugin, every registration is revoked automatically, load the new plugin. No leftovers, no ordering problems, saving the file takes effect.
+Chapter summary
+
+A plugin is a module exporting apply, ctx is a proxy object, a service is a capability on a ctx name
+inject declares dependencies, load order is derived from them
+Four dispatch modes, waterfall must call next or it short-circuits
+Registration is a side effect, unload cleans up automatically, hot reload is safe because of it
+Six lifecycle states, waiting, loading, running, failed, cleaning up, gone
+Scoping works through extend inheriting and isolate separating, wrong config fails at load, nested plugins tear down with the parent</a>
+<a class="toc-2" data-idx="4" onclick="showChapter(4)">Chapter 4 What happens behind one conversation
+This chapter strings the five concepts together and watches one real conversation inside the process.
+4.1 step and turn
+You send &amp;quot;summarize this repository&amp;quot; in the web UI, and what happens in the process can be read on two levels.
+The first level is the step. A step is one model request plus the tool calls it makes. The model says &amp;quot;I need to see the file list first&amp;quot;, that is a request, the tool runs and the result comes back, and only then does the step end. If the model asks another request after seeing the result, the next step begins.
+The second level is the turn. It starts when you send a message and ends when the agent owes no more work. A turn usually contains several steps, because the model often calls tools repeatedly to finish a task. Turn opening and closing each have an event, and step opening and closing each have one too.
+4.2 The full journey of one conversation
+Put the two levels together, and the full flow looks like this.
+
+Figure One conversation, turn and step
+4.3 Events are the extension points
+Events are the extension points themselves; the flow is just their byproduct. dsh&amp;#39;s events fall into three groups by purpose.
+Session events are durable facts appended to the log, turn/start, step/end, and tool/result belong to this group, use them for facts that must survive a reload. Agent events carry the live agent, agent/request, agent/pre-step, and agent/turn-stopping belong here, use them to observe or intercept work in progress. Capability events attach policy and adapters to a seam, tools/pre-execute and tools/post-execute belong here.
+Picking the right event group is the first decision of most changes.
+4.4 The session log, model-visible means logged
+The session log is the root of the whole flow. Everything that reaches a model request must be reconstructable from the log, which is a design goal stated in the architecture doc. Whatever the model sees, the log holds. Because of that rule, sessions can be forked, resumed, replayed, and the web UI can render the full history.
+The rule has one direct consequence. To feed the model a new kind of context, you must add a new kind of session event, because everything the model sees must be reconstructable from the log. Extending SessionEventMap and rendering from the log is the standard move for &amp;quot;adding model-visible input&amp;quot; in dsh.
+Chapter summary
+
+A step is one model request plus the tools it calls, a turn runs from your message until the agent owes no more work
+The whole flow is made of events, observable and interceptable
+Events fall into three groups, session, agent, and capability, picking the right group is the first decision of a change
+Model-visible means logged, new model-visible input requires a new session event</a>
+<a class="toc-2" data-idx="5" onclick="showChapter(5)">Chapter 5 Replaceable capabilities
+This chapter covers one concept, the seam, a replaceable capability boundary.
+5.1 The seam triad
+Chapter 2 said no block is welded in place. This section is about how that lands. A seam is always a triad. The Service Definition declares the interface, what the capability looks like. The Service Provider is the concrete implementation, replaceable. The Consumer is the user of it, usually a model-facing tool. Missing any one role, the capability is incomplete.
+
+Figure A capability seam, three roles
+5.2 Swap one part, the whole line changes
+Take the filesystem. dsh&amp;#39;s filesystem, processes, and terminals share one execution world. Swap the filesystem Provider from local to a remote sandbox, and Bash, PTY, and LSP move along with it, with no per-tool remote implementation needed. Swap one part, and the whole production line changes.
+One more example, subagent. It is also a seam. Its Provider can spawn a fresh sub-agent, or delegate a turn to a completely different product. The interface does not move, the behavior is worlds apart.
+To add something new to dsh, the official architecture doc has a table mapping &amp;quot;what I want to do&amp;quot; to &amp;quot;which mechanism to use&amp;quot;. The excerpt below is trimmed.
+
+
+
+Goal
+Mechanism
+
+
+
+add a model provider
+register its adapter on ctx.llm
+
+
+add a model-facing capability
+register on ctx.tools, the schema joins prompt assembly
+
+
+add shell execution
+register a ctx.shell backend
+
+
+add filesystem access or policy
+register a ctx.fs provider, or listen to fs/* events
+
+
+intercept requests, tools, or turns
+use the corresponding agent/* or tools/* events
+
+
+add model-visible context
+call agent.inject()
+
+
+5.3 A judgment rule
+To add a new capability, design the interface, the implementation, and the consumer together. To replace an existing capability, swap only the Provider. When writing a plugin, ask which of the three roles you occupy, which is the most common starting question among dsh developers.
+Chapter summary
+
+A seam is always a triad, interface, implementation, and consumer
+Swap the Provider and you swap the whole capability, a remote sandbox moves Bash, PTY, and LSP along with it
+To add, design all three together, to replace, swap only the Provider
+Ask which role you occupy before writing a plugin</a>
+<a class="toc-2" data-idx="6" onclick="showChapter(6)">Chapter 6 Hands-on, write a plugin that does work
+This chapter is hands-on. The goal is a tool an agent can call, in about ten minutes. You end up with a hello plugin and a greet tool.
+6.1 Prepare the environment
+Running from source makes debugging easier.
+git clone https://github.com/deepseek-ai/deepseek-harness.git
+cd deepseek-harness
+pnpm install
+pnpm run build
+
+Create a scratch directory in the repo root.
+mkdir -p scratch-plugin/src
+
+6.2 Write the minimal plugin
+Create scratch-plugin/src/my-plugin.ts.
+import type { Context } from '@deepseek-ai/cordis'
+
+export const name = 'hello-plugin'
+
+export function apply(ctx: Context) {
+  console.log('[hello-plugin] plugin loaded!')
+}
+
+At this point you are writing a real Cordis plugin. It does one thing, printing one line of log on load.
+6.3 Make dsh load it
+Create scratch-plugin/cordis.yml. The path must be absolute, the most common place to get stuck.
+- insert:
+    - id: hello
+      name: '/absolute/path/to/deepseek-harness/scratch-plugin/src/my-plugin.ts'
+
+Start with this overlay.
+pnpm dsh web --patch ./scratch-plugin/cordis.yml
+
+Open http://127.0.0.1:3080, and the startup log shows [hello-plugin] plugin loaded!. --patch stacks your config at the top of the recipe, and insert drops a new block into the plugin tree. No framework code was touched.
+6.4 Add a tool
+Replace my-plugin.ts with the following. This is the standard posture for giving the agent a new capability in dsh.
+import type { Context } from '@deepseek-ai/cordis'
+import { defineTool } from '@deepseek-ai/dsh-tools'
+
+export const name = 'greet-tool'
+export const inject = ['tools']
+
+export function apply(ctx: Context) {
+  ctx.tools.register(defineTool({
+    name: 'greet',
+    description: 'Greet someone by name.',
+    parameters: {
+      name: { type: 'string', required: true, description: 'The name to greet' },
+    },
+    output: {
+      schema: { type: 'string' },
+      render: (_args, value) =&gt; [{ type: 'text', text: value }],
+    },
+    async execute(args) {
+      return `Hello, ${args.name}!`
+    },
+  }))
+}
+
+Restart, send Use the greet tool to greet Ada., and the model calls greet and sees Hello, Ada!.
+The four parts of a tool each have their own job. description is the manual for the model, which uses it to decide when to call. parameters declares arguments, and the framework derives and validates the types. execute does the work, and its return value must fit output.schema. render turns the result into a UI presentation, a separate concern from what the model sees.
+You register a tool, and its schema automatically joins the model&amp;#39;s available-skills list. Prompt assembly is the framework&amp;#39;s job. That is dsh&amp;#39;s product philosophy, capabilities are exposed to the model as tools, and everything else goes to the framework.
+6.5 Watch the lifecycle
+Change the plugin to this, restart, and watch the log.
+import type { Context } from '@deepseek-ai/cordis'
+
+export function apply(ctx: Context) {
+  console.log('plugin loading')
+
+  ctx.effect(() =&gt; {
+    console.log('effect registered')
+    return () =&gt; console.log('effect cleaned up')
+  })
+}
+
+On load it prints plugin loading and effect registered. On shutdown it prints effect cleaned up. That one line is the automatic unload cleanup from Chapter 3, witnessed live.
+6.6 Three forms, when to use which
+
+
+
+Form
+Shape
+When to use
+
+
+
+function
+export function apply(ctx)
+the vast majority of cases, simplest, enough
+
+
+object
+export default { name, inject, apply }
+package name, inject, and apply into one export
+
+
+class
+class MyService extends Service
+your plugin provides a service that others inject
+
+
+Start with the function form, and upgrade to the class only when someone needs your service.
+6.7 Dev tools
+To avoid restarting on every change, load @deepseek-ai/cordis-plugin-hmr, and saving a file hot-reloads. To confirm you are really loaded, watch the startup log, or run dsh --profile web --dump-config and find your plugin in the config tree.
+6.8 Common pitfalls
+
+The plugin path is relative and the loader cannot find the module, it must be absolute
+Code changes do not take effect, plugins load only at startup, restart or load the HMR plugin
+Not sure whether a plugin loaded, check the startup log or search the dump-config output for its id
+Using services like tools or llm without declaring inject, and finding nothing in apply
+
+Chapter summary
+
+A plugin is a module exporting apply, the framework hands you ctx on load
+--patch inserts your plugin at the top of the recipe, the path must be absolute
+defineTool defines a tool, its schema automatically joins the model&amp;#39;s skill list
+Registrations clean up automatically, hot reload is safe, start with the function form</a>
+<a class="toc-2" data-idx="7" onclick="showChapter(7)">Chapter 7 After you finish this book
+This chapter points you where to go after the book.
+7.1 The lookup table
+The official docs are worth reading, only nobody tells you the order. The table below indexes by &amp;quot;what you want to do&amp;quot;. The first column is the question in your head, the other two are the location and the warning.
+
+
+
+I want to ...
+Read
+Plain-language note
+
+
+
+run it and see what it looks like
+docs/user/guide/index.md, the quickstart
+configure a model, pick a workspace, send a message, five minutes
+
+
+understand the project&amp;#39;s architecture
+docs/architecture.md
+after this book, it reads much smoother
+
+
+write my first plugin
+docs/user/develop/basic/index.md
+the original of Chapter 6
+
+
+give the agent a tool
+docs/user/develop/basic/tool.md, then docs/cookbook/adding-a-tool.md
+the latter covers nested schemas, background jobs, policy hooks
+
+
+make a plugin configurable
+docs/user/develop/basic/config.md
+
+
+
+add a model provider
+docs/user/guide/providers.md, then docs/cookbook/adding-an-llm-adapter.md
+the providers page has screenshots, a rare human-friendly page
+
+
+fully understand Cordis
+docs/cordis-tutorial/, seven chapters
+build a scratch project, chapter by chapter, no API key
+
+
+change the agent loop or behavior
+docs/agent-lifecycle.md, details in docs/subsystems/core.md
+know turn and step before going in
+
+
+check what a config key supports
+docs/config-catalog.md
+machine-generated, look it up, do not read front to back
+
+
+see every tool schema
+docs/tool-catalog.md
+same, machine-generated, use as a dictionary
+
+
+contribute code, daily workflow
+docs/development.md
+
+
+
+7.2 A route from front to back
+Besides the table, there is one order for reading front to back.
+① This book, 30 minutes, build the mental model
+   ↓
+② cordis-tutorial, seven chapters, an afternoon building the framework yourself
+   ↓
+③ Chapter 6 hands-on, write your first plugin and tool
+   ↓
+④ On demand, architecture is the map, subsystems is the dictionary, cookbook is the recipe book
+
+Step ④ is where the official docs take over. They are a good map, dictionary, and cookbook, and this book has already done the walking-you-through part. Look things up on demand, and write.
+One last sentence. dsh is young, APIs will change, but this skeleton is worth your 30 minutes. It took an agent framework apart into freely re-assemblable blocks, and now it is your turn to assemble one.</a>
+<a class="toc-2" data-idx="8" onclick="showChapter(8)">Appendix Sources and verification
+Concepts and code follow docs/architecture.md, docs/cordis-primer.md, the tutorials under docs/user/develop/basic, and the source under vendor/cordis/src. API signatures follow the master branch; check the source first when signatures change.
+The eight figures are .drawio files generated with drawio-skill (Agents365-ai, 7.2k stars on GitHub). The .svg files next to them are rendered previews, the .drawio files stay editable in the draw.io desktop app, and diagrams/viewer-urls.txt holds the diagrams.net online viewer links.
+Everything in this book was verified against the real system after the draft was done. dsh --profile web --dump-config prints the real plugin tree, matching the layering in Chapter 2. The hello plugin was actually loaded and run through ctx.plugin, the greet tool was defined with defineTool and executed, and all five concepts in Chapter 3 passed verification, including plugins waiting in PENDING until dependencies are ready, FAILED when apply throws, listeners removed automatically on unload, and waterfall short-circuiting when next() is not called. --patch combined with --dump-config confirms the plugins land at the top of the config tree. The event names in Chapter 4 were each checked against the source, and agent/turn-stopping is dispatched with serial and has no next. Two things were not verified, both requiring an API key, model calls themselves and the full browser UI flow.</a></nav>
     </div>
   </aside>
   <main class="content">
-    <div id="zh" class="content-inner"><h1>拆开 DeepSeek Harness，看懂 Cordis 架构</h1>
-<p>一本给普通人读的入门书，三十分钟读完</p>
-<hr>
-<h2 id="前言">前言</h2>
+    <div id="zh" class="content-inner"><div id="zh-ch-0" class="chapter"><h2 id="前言">前言</h2>
 <p>这本书讲 DeepSeek Harness（dsh）底层的插件框架 Cordis，从&quot;这是什么&quot;讲到&quot;写一个能被 agent 调用的插件&quot;。</p>
 <p>官方文档花了大力气，但力气全花在给 AI 阅读铺路上。这本书默认读者是人，用大白话把同一套内容讲一遍，配八张可编辑的图。官方文档是很好的地图、字典和菜谱，这本书补上讲故事那一块。</p>
 <p>前五章讲概念，大概二十分钟。第六章动手，跟着敲一遍，大概十分钟。第七章和附录告诉你接下来去哪，五分钟。读前五章不需要任何准备，第六章需要能跑 Node.js（^22.19 或 &gt;=24）和 pnpm 的电脑。别急着抠源码，先让概念在脑子里立起来。</p>
-<h2 id="第一章-这是什么">第一章 这是什么</h2>
+<nav class="page-nav"><span class="nav-btn disabled"></span><span class="nav-mid">1 / 9</span><a class="nav-btn" onclick="showChapter(1)">下一章 →</a></nav></div>
+<div id="zh-ch-1" class="chapter" hidden><h2 id="第一章-这是什么">第一章 这是什么</h2>
 <p>这一章回答一个问题，dsh 到底是什么。</p>
 <h3 id="11-dsh-是什么跟聊天窗口有什么区别">1.1 dsh 是什么，跟聊天窗口有什么区别</h3>
 <p>你平时用的 AI 产品，模型在别人的服务器上，你的文件也在别人的服务器上。dsh 反着来。模型仍然在远端，但 agent 本身跑在你自己的进程里，工作区是你本地的文件夹。它读你的代码、跑你的测试、改你的文件，每一步都在你眼皮底下发生。</p>
 <h3 id="12-一切皆插件">1.2 一切皆插件</h3>
 <p>另一个区别藏在架构里。市面上多数 agent 工具把&quot;模型、工具、记忆、界面&quot;焊成一个整体，你想换掉其中一块，得动整个产品，像整装的宜家家具，想换一个抽屉的滑轨得拆掉半面柜子。dsh 是乐高，标准积木拼成整台机器，想换哪块就拔下来换一块新的，旁边的积木不用动。</p>
 <p>dsh 把每一块都做成插件。模型适配器是插件，工具注册表是插件，会话记录是插件，连驱动 agent 反复思考的那个循环本身也是插件。任何一个都可以从配置里替换，不需要改框架代码。</p>
-<p><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0yNCAtMjQgMTAwOCA0OTgiIGZvbnQtZmFtaWx5PSJTZWdvZSBVSSwgTWljcm9zb2Z0IFlhSGVpLCBzYW5zLXNlcmlmIj4KPHJlY3QgeD0iLTI0IiB5PSItMjQiIHdpZHRoPSIxMDA4IiBoZWlnaHQ9IjQ5OCIgZmlsbD0iI2ZmZmZmZiIvPgo8ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImczIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZGFlOGZjIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYjdjM2Q0Ii8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9Imc0IiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZDVlOGQ0Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYjNjM2IyIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9Imc1IiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmMmNjIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZDZjYmFiIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9Imc2IiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZlNmNjIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZDZjMWFiIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIwIiBoZWlnaHQ9IjAiIHJ4PSIwIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiM2NjY2NjYiIHN0cm9rZS13aWR0aD0iMS41Ii8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIwIiBoZWlnaHQ9IjAiIHJ4PSIwIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiM2NjY2NjYiIHN0cm9rZS13aWR0aD0iMS41Ii8+Cjx0ZXh0IHg9IjQ5MCIgeT0iNDUuNiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjMzMzMzMzIj48dHNwYW4geD0iNDkwIiBkeT0iMCI+5LiA5YiH55qG5o+S5Lu277yM5q+P5Liq6Zu25Lu26YO96IO95o2iPC90c3Bhbj48L3RleHQ+Cjx0ZXh0IHg9IjY4IiB5PSIxMDkuNTUiIHRleHQtYW5jaG9yPSJzdGFydCIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjNDc1NTY5Ij48dHNwYW4geD0iNjgiIGR5PSIwIj5kc2jvvIhhZ2VudCBoYXJuZXNz77yJPC90c3Bhbj48L3RleHQ+CjxyZWN0IHg9IjQwIiB5PSIxMjAiIHdpZHRoPSI5MjAiIGhlaWdodD0iMjYwIiByeD0iMTAiIGZpbGw9IiNmOGZhZmMiIHN0cm9rZT0iIzk0YTNiOCIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KPHJlY3QgeD0iNzMiIHk9IjE3NCIgd2lkdGg9IjE5MCIgaGVpZ2h0PSI5MCIgcng9IjEwIiBmaWxsPSIjMDAwMDAwMmUiLz4KPHJlY3QgeD0iNzAiIHk9IjE3MCIgd2lkdGg9IjE5MCIgaGVpZ2h0PSI5MCIgcng9IjEwIiBmaWxsPSJ1cmwoI2c0KSIgc3Ryb2tlPSIjNmM4ZWJmIiBzdHJva2Utd2lkdGg9IjEuNSIvPjx0ZXh0IHg9IjE2NSIgeT0iMjEwLjc3NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSJub3JtYWwiIGZpbGw9IiMzMzMzMzMiPjx0c3BhbiB4PSIxNjUiIGR5PSIwIj7mqKHlnovpgILphY3lmag8L3RzcGFuPjx0c3BhbiB4PSIxNjUiIGR5PSIxNy41NSI+5LuO6YWN572u6YeM5pu/5o2iPC90c3Bhbj48L3RleHQ+CjxyZWN0IHg9IjI3MyIgeT0iMTc0IiB3aWR0aD0iMTkwIiBoZWlnaHQ9IjkwIiByeD0iMTAiIGZpbGw9IiMwMDAwMDAyZSIvPgo8cmVjdCB4PSIyNzAiIHk9IjE3MCIgd2lkdGg9IjE5MCIgaGVpZ2h0PSI5MCIgcng9IjEwIiBmaWxsPSJ1cmwoI2c1KSIgc3Ryb2tlPSIjODJiMzY2IiBzdHJva2Utd2lkdGg9IjEuNSIvPjx0ZXh0IHg9IjM2NSIgeT0iMjEwLjc3NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSJub3JtYWwiIGZpbGw9IiMzMzMzMzMiPjx0c3BhbiB4PSIzNjUiIGR5PSIwIj7lt6Xlhbfms6jlhozooag8L3RzcGFuPjx0c3BhbiB4PSIzNjUiIGR5PSIxNy41NSI+5LuO6YWN572u6YeM5pu/5o2iPC90c3Bhbj48L3RleHQ+CjxyZWN0IHg9IjQ3MyIgeT0iMTc0IiB3aWR0aD0iMTkwIiBoZWlnaHQ9IjkwIiByeD0iMTAiIGZpbGw9IiMwMDAwMDAyZSIvPgo8cmVjdCB4PSI0NzAiIHk9IjE3MCIgd2lkdGg9IjE5MCIgaGVpZ2h0PSI5MCIgcng9IjEwIiBmaWxsPSJ1cmwoI2c2KSIgc3Ryb2tlPSIjZDZiNjU2IiBzdHJva2Utd2lkdGg9IjEuNSIvPjx0ZXh0IHg9IjU2NSIgeT0iMjEwLjc3NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSJub3JtYWwiIGZpbGw9IiMzMzMzMzMiPjx0c3BhbiB4PSI1NjUiIGR5PSIwIj7kvJror53orrDlvZU8L3RzcGFuPjx0c3BhbiB4PSI1NjUiIGR5PSIxNy41NSI+5LuO6YWN572u6YeM5pu/5o2iPC90c3Bhbj48L3RleHQ+CjxyZWN0IHg9IjY3MyIgeT0iMTc0IiB3aWR0aD0iMTkwIiBoZWlnaHQ9IjkwIiByeD0iMTAiIGZpbGw9IiMwMDAwMDAyZSIvPgo8cmVjdCB4PSI2NzAiIHk9IjE3MCIgd2lkdGg9IjE5MCIgaGVpZ2h0PSI5MCIgcng9IjEwIiBmaWxsPSJ1cmwoI2c3KSIgc3Ryb2tlPSIjZDc5YjAwIiBzdHJva2Utd2lkdGg9IjEuNSIvPjx0ZXh0IHg9Ijc2NSIgeT0iMjEwLjc3NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSJub3JtYWwiIGZpbGw9IiMzMzMzMzMiPjx0c3BhbiB4PSI3NjUiIGR5PSIwIj5hZ2VudCDlvqrnjq88L3RzcGFuPjx0c3BhbiB4PSI3NjUiIGR5PSIxNy41NSI+6L+e5a6D6YO95piv5o+S5Lu2PC90c3Bhbj48L3RleHQ+CjxyZWN0IHg9IjI3MCIgeT0iMzAwIiB3aWR0aD0iMTkwIiBoZWlnaHQ9IjYwIiByeD0iMTAiIGZpbGw9IiNmMWY1ZjkiIHN0cm9rZT0iIzY0NzQ4YiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48dGV4dCB4PSIzNjUiIHk9IjMyNi4wOTk5OTk5OTk5OTk5NyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGZvbnQtd2VpZ2h0PSJub3JtYWwiIGZpbGw9IiMzMzMzMzMiPjx0c3BhbiB4PSIzNjUiIGR5PSIwIj7mlrDmj5Lku7Y8L3RzcGFuPjx0c3BhbiB4PSIzNjUiIGR5PSIxNi4yMDAwMDAwMDAwMDAwMDMiPuaPkui/m+WOu+WwseeUqO+8jOaXgei+ueeahOS4jeeUqOWKqDwvdHNwYW4+PC90ZXh0Pgo8dGV4dCB4PSI0OCIgeT0iNDM0LjIiIHRleHQtYW5jaG9yPSJzdGFydCIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjMzM0MTU1Ij48dHNwYW4geD0iNDgiIGR5PSIwIj7mg7PmjaLlk6rkuKrpm7bku7bvvIzmi5TkuIvmnaXmj5LkuIDkuKrmlrDnmoTvvIzml4HovrnnmoTkuI3nlKjliqjjgILov5nkupvpg73ku47phY3nva7ph4zmjaLvvIzkuI3pnIDopoHmlLnmoYbmnrbku6PnoIHjgII8L3RzcGFuPjwvdGV4dD4KPGcgc3Ryb2tlPSIjNjY2NjY2IiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWRhc2hhcnJheT0iNyw1IiBmaWxsPSJub25lIj48bGluZSB4MT0iMzY1IiB5MT0iMjYwIiB4Mj0iMzY1IiB5Mj0iMjg4IiBzdHJva2U9IiM2NjY2NjYiIHN0cm9rZS13aWR0aD0iMS41Ii8+PC9nPgo8cG9seWdvbiBwb2ludHM9IjM2NSwzMDAgMzU5LDI4OCAzNzEsMjg4IiBmaWxsPSIjNjY2NjY2IiBzdHJva2U9IiM2NjY2NjYiIHN0cm9rZS13aWR0aD0iMSIvPgo8cmVjdCB4PSIzNDkiIHk9IjI2MC41IiB3aWR0aD0iMzIiIGhlaWdodD0iMTkiIGZpbGw9IiNmZmZmZmYiIHN0cm9rZT0iI2QwZDdkZSIvPgo8dGV4dCB4PSIzNjUiIHk9IjI3My44NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiIGZvbnQtd2VpZ2h0PSJub3JtYWwiIGZpbGw9IiMzMzMzMzMiPjx0c3BhbiB4PSIzNjUiIGR5PSIwIj7mm7/mjaI8L3RzcGFuPjwvdGV4dD4KPC9zdmc+Cg==" alt="一切皆插件，每个零件都能换"></p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0yNCAtMjQgMTAwOCA0OTgiIGZvbnQtZmFtaWx5PSJTZWdvZSBVSSwgTWljcm9zb2Z0IFlhSGVpLCBzYW5zLXNlcmlmIj4NCjxyZWN0IHg9Ii0yNCIgeT0iLTI0IiB3aWR0aD0iMTAwOCIgaGVpZ2h0PSI0OTgiIGZpbGw9IiNmZmZmZmYiLz4NCjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iZzMiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNkYWU4ZmMiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNiN2MzZDQiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCBpZD0iZzQiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNkNWU4ZDQiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNiM2MzYjIiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCBpZD0iZzUiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmYyY2MiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNkNmNiYWIiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCBpZD0iZzYiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmU2Y2MiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNkNmMxYWIiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz4NCjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIwIiBoZWlnaHQ9IjAiIHJ4PSIwIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiM2NjY2NjYiIHN0cm9rZS13aWR0aD0iMS41Ii8+DQo8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMCIgaGVpZ2h0PSIwIiByeD0iMCIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjNjY2NjY2IiBzdHJva2Utd2lkdGg9IjEuNSIvPg0KPHRleHQgeD0iNDkwIiB5PSI0NS42IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iU2Vnb2UgVUksIE1pY3Jvc29mdCBZYUhlaSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiMzMzMzMzMiPjx0c3BhbiB4PSI0OTAiIGR5PSIwIj7kuIDliIfnmobmj5Lku7bvvIzmr4/kuKrpm7bku7bpg73og73mjaI8L3RzcGFuPjwvdGV4dD4NCjx0ZXh0IHg9IjY4IiB5PSIxMDkuNTUiIHRleHQtYW5jaG9yPSJzdGFydCIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjNDc1NTY5Ij48dHNwYW4geD0iNjgiIGR5PSIwIj5kc2jvvIhhZ2VudCBoYXJuZXNz77yJPC90c3Bhbj48L3RleHQ+DQo8cmVjdCB4PSI0MCIgeT0iMTIwIiB3aWR0aD0iOTIwIiBoZWlnaHQ9IjI2MCIgcng9IjEwIiBmaWxsPSIjZjhmYWZjIiBzdHJva2U9IiM5NGEzYjgiIHN0cm9rZS13aWR0aD0iMS41Ii8+DQo8cmVjdCB4PSI3MyIgeT0iMTc0IiB3aWR0aD0iMTkwIiBoZWlnaHQ9IjkwIiByeD0iMTAiIGZpbGw9IiMwMDAwMDAyZSIvPg0KPHJlY3QgeD0iNzAiIHk9IjE3MCIgd2lkdGg9IjE5MCIgaGVpZ2h0PSI5MCIgcng9IjEwIiBmaWxsPSJ1cmwoI2c0KSIgc3Ryb2tlPSIjNmM4ZWJmIiBzdHJva2Utd2lkdGg9IjEuNSIvPjx0ZXh0IHg9IjE2NSIgeT0iMjEwLjc3NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSJub3JtYWwiIGZpbGw9IiMzMzMzMzMiPjx0c3BhbiB4PSIxNjUiIGR5PSIwIj7mqKHlnovpgILphY3lmag8L3RzcGFuPjx0c3BhbiB4PSIxNjUiIGR5PSIxNy41NSI+5LuO6YWN572u6YeM5pu/5o2iPC90c3Bhbj48L3RleHQ+DQo8cmVjdCB4PSIyNzMiIHk9IjE3NCIgd2lkdGg9IjE5MCIgaGVpZ2h0PSI5MCIgcng9IjEwIiBmaWxsPSIjMDAwMDAwMmUiLz4NCjxyZWN0IHg9IjI3MCIgeT0iMTcwIiB3aWR0aD0iMTkwIiBoZWlnaHQ9IjkwIiByeD0iMTAiIGZpbGw9InVybCgjZzUpIiBzdHJva2U9IiM4MmIzNjYiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHRleHQgeD0iMzY1IiB5PSIyMTAuNzc1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iU2Vnb2UgVUksIE1pY3Jvc29mdCBZYUhlaSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9Im5vcm1hbCIgZmlsbD0iIzMzMzMzMyI+PHRzcGFuIHg9IjM2NSIgZHk9IjAiPuW3peWFt+azqOWGjOihqDwvdHNwYW4+PHRzcGFuIHg9IjM2NSIgZHk9IjE3LjU1Ij7ku47phY3nva7ph4zmm7/mjaI8L3RzcGFuPjwvdGV4dD4NCjxyZWN0IHg9IjQ3MyIgeT0iMTc0IiB3aWR0aD0iMTkwIiBoZWlnaHQ9IjkwIiByeD0iMTAiIGZpbGw9IiMwMDAwMDAyZSIvPg0KPHJlY3QgeD0iNDcwIiB5PSIxNzAiIHdpZHRoPSIxOTAiIGhlaWdodD0iOTAiIHJ4PSIxMCIgZmlsbD0idXJsKCNnNikiIHN0cm9rZT0iI2Q2YjY1NiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48dGV4dCB4PSI1NjUiIHk9IjIxMC43NzUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJTZWdvZSBVSSwgTWljcm9zb2Z0IFlhSGVpLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBmb250LXdlaWdodD0ibm9ybWFsIiBmaWxsPSIjMzMzMzMzIj48dHNwYW4geD0iNTY1IiBkeT0iMCI+5Lya6K+d6K6w5b2VPC90c3Bhbj48dHNwYW4geD0iNTY1IiBkeT0iMTcuNTUiPuS7jumFjee9rumHjOabv+aNojwvdHNwYW4+PC90ZXh0Pg0KPHJlY3QgeD0iNjczIiB5PSIxNzQiIHdpZHRoPSIxOTAiIGhlaWdodD0iOTAiIHJ4PSIxMCIgZmlsbD0iIzAwMDAwMDJlIi8+DQo8cmVjdCB4PSI2NzAiIHk9IjE3MCIgd2lkdGg9IjE5MCIgaGVpZ2h0PSI5MCIgcng9IjEwIiBmaWxsPSJ1cmwoI2c3KSIgc3Ryb2tlPSIjZDc5YjAwIiBzdHJva2Utd2lkdGg9IjEuNSIvPjx0ZXh0IHg9Ijc2NSIgeT0iMjEwLjc3NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSJub3JtYWwiIGZpbGw9IiMzMzMzMzMiPjx0c3BhbiB4PSI3NjUiIGR5PSIwIj5hZ2VudCDlvqrnjq88L3RzcGFuPjx0c3BhbiB4PSI3NjUiIGR5PSIxNy41NSI+6L+e5a6D6YO95piv5o+S5Lu2PC90c3Bhbj48L3RleHQ+DQo8cmVjdCB4PSIyNzAiIHk9IjMwMCIgd2lkdGg9IjE5MCIgaGVpZ2h0PSI2MCIgcng9IjEwIiBmaWxsPSIjZjFmNWY5IiBzdHJva2U9IiM2NDc0OGIiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHRleHQgeD0iMzY1IiB5PSIzMjYuMDk5OTk5OTk5OTk5OTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJTZWdvZSBVSSwgTWljcm9zb2Z0IFlhSGVpLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0ibm9ybWFsIiBmaWxsPSIjMzMzMzMzIj48dHNwYW4geD0iMzY1IiBkeT0iMCI+5paw5o+S5Lu2PC90c3Bhbj48dHNwYW4geD0iMzY1IiBkeT0iMTYuMjAwMDAwMDAwMDAwMDAzIj7mj5Lov5vljrvlsLHnlKjvvIzml4HovrnnmoTkuI3nlKjliqg8L3RzcGFuPjwvdGV4dD4NCjx0ZXh0IHg9IjQ4IiB5PSI0MzQuMiIgdGV4dC1hbmNob3I9InN0YXJ0IiBmb250LWZhbWlseT0iU2Vnb2UgVUksIE1pY3Jvc29mdCBZYUhlaSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiMzMzQxNTUiPjx0c3BhbiB4PSI0OCIgZHk9IjAiPuaDs+aNouWTquS4qumbtuS7tu+8jOaLlOS4i+adpeaPkuS4gOS4quaWsOeahO+8jOaXgei+ueeahOS4jeeUqOWKqOOAgui/meS6m+mDveS7jumFjee9rumHjOaNou+8jOS4jemcgOimgeaUueahhuaetuS7o+eggeOAgjwvdHNwYW4+PC90ZXh0Pg0KPGcgc3Ryb2tlPSIjNjY2NjY2IiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWRhc2hhcnJheT0iNyw1IiBmaWxsPSJub25lIj48bGluZSB4MT0iMzY1IiB5MT0iMjYwIiB4Mj0iMzY1IiB5Mj0iMjg4IiBzdHJva2U9IiM2NjY2NjYiIHN0cm9rZS13aWR0aD0iMS41Ii8+PC9nPg0KPHBvbHlnb24gcG9pbnRzPSIzNjUsMzAwIDM1OSwyODggMzcxLDI4OCIgZmlsbD0iIzY2NjY2NiIgc3Ryb2tlPSIjNjY2NjY2IiBzdHJva2Utd2lkdGg9IjEiLz4NCjxyZWN0IHg9IjM0OSIgeT0iMjYwLjUiIHdpZHRoPSIzMiIgaGVpZ2h0PSIxOSIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjZDBkN2RlIi8+DQo8dGV4dCB4PSIzNjUiIHk9IjI3My44NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiIGZvbnQtd2VpZ2h0PSJub3JtYWwiIGZpbGw9IiMzMzMzMzMiPjx0c3BhbiB4PSIzNjUiIGR5PSIwIj7mm7/mjaI8L3RzcGFuPjwvdGV4dD4NCjwvc3ZnPg0K" alt="一切皆插件，每个零件都能换"></p>
 <p>图 一切皆插件，每个零件都能换</p>
 <h3 id="13-cordis-是什么">1.3 Cordis 是什么</h3>
 <p>Cordis 就是这一套插件机制的实现，负责回答一个问题。一堆插件怎么拼在一起、谁先启动、谁跟谁通信、拆的时候怎么不留垃圾。它本身是一个独立的开源框架，dsh 把它以 vendor 方式搬进仓库，做了少量本地修改。你写的插件跑在 Cordis 的运行时上，所以懂 Cordis，就懂 dsh 的八成。</p>
@@ -233,7 +1107,8 @@
 <li>Cordis 是这套机制的实现，回答插件怎么拼、谁先启动、怎么通信、拆了怎么不留垃圾</li>
 <li>项目在开发者预览期，API 会变，概念骨架不会变</li>
 </ul>
-<h2 id="第二章-一个-dsh-进程是怎么拼起来的">第二章 一个 dsh 进程是怎么拼起来的</h2>
+<nav class="page-nav"><a class="nav-btn" onclick="showChapter(0)">← 上一章</a><span class="nav-mid">2 / 9</span><a class="nav-btn" onclick="showChapter(2)">下一章 →</a></nav></div>
+<div id="zh-ch-2" class="chapter" hidden><h2 id="第二章-一个-dsh-进程是怎么拼起来的">第二章 一个 dsh 进程是怎么拼起来的</h2>
 <p>这一章回答一个问题，一个 dsh 进程是怎么拼起来的。</p>
 <h3 id="21-启动之后发生了什么">2.1 启动之后发生了什么</h3>
 <p>运行 <code>npx @deepseek-ai/dsh web</code>，或者从源码跑 <code>pnpm dsh web</code>，你的电脑上发生了这样几件事。</p>
@@ -284,7 +1159,8 @@
 <li>每一层都能改下面一层的决定，没有任何积木是焊死的</li>
 <li><code>dsh --profile web --dump-config</code> 随时能看真实的插件树，注释里标着每一条的来源</li>
 </ul>
-<h2 id="第三章-cordis-的五个概念">第三章 Cordis 的五个概念</h2>
+<nav class="page-nav"><a class="nav-btn" onclick="showChapter(1)">← 上一章</a><span class="nav-mid">3 / 9</span><a class="nav-btn" onclick="showChapter(3)">下一章 →</a></nav></div>
+<div id="zh-ch-3" class="chapter" hidden><h2 id="第三章-cordis-的五个概念">第三章 Cordis 的五个概念</h2>
 <p>这一章讲五个概念，插件、上下文、服务、事件、副作用，后面一个踩着前面一个。先看一张全景图，把零件的位置一次放全，再一个个拆开讲。这一章对照 vendor 里的 Cordis 源码讲。</p>
 <p><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0yNCAtMjQgOTg4IDY2OCIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiPg0KPHJlY3QgeD0iLTI0IiB5PSItMjQiIHdpZHRoPSI5ODgiIGhlaWdodD0iNjY4IiBmaWxsPSIjZmZmZmZmIi8+DQo8ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImcyIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZlNmNjIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZDFiZGE3Ii8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImczIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZGFlOGZjIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYjNiZWNmIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9Imc0IiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZTJlOGYwIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYjliZWM1Ii8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9Imc1IiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZDVlOGQ0Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYWZiZWFlIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9Imc2IiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmMmNjIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZDFjNmE3Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+DQo8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMCIgaGVpZ2h0PSIwIiByeD0iMCIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjNjY2NjY2IiBzdHJva2Utd2lkdGg9IjEuNSIvPg0KPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjAiIGhlaWdodD0iMCIgcng9IjAiIGZpbGw9IiNmZmZmZmYiIHN0cm9rZT0iIzY2NjY2NiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4NCjx0ZXh0IHg9IjQ5MCIgeT0iNDUuNiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjMzMzMzMzIj48dHNwYW4geD0iNDkwIiBkeT0iMCI+Q29yZGlzIOWFqOaZr++8jOS4gOasoeeci+WFqDwvdHNwYW4+PC90ZXh0Pg0KPHJlY3QgeD0iMzMzIiB5PSI3NCIgd2lkdGg9IjM0MCIgaGVpZ2h0PSIxMTAiIHJ4PSI0IiBmaWxsPSIjMDAwMDAwMmUiLz4NCjxyZWN0IHg9IjMzMCIgeT0iNzAiIHdpZHRoPSIzNDAiIGhlaWdodD0iMTEwIiByeD0iNCIgZmlsbD0idXJsKCNnMykiIHN0cm9rZT0iI2Q3OWIwMCIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48cmVjdCB4PSIzMzAiIHk9IjcwIiB3aWR0aD0iMzQwIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iI2Q3OWIwMCIgc3Ryb2tlPSIjZDc5YjAwIiBzdHJva2Utd2lkdGg9IjEuNSIvPjx0ZXh0IHg9IjUwMCIgeT0iOTAuNTUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJTZWdvZSBVSSwgTWljcm9zb2Z0IFlhSGVpLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2ZmZmZmZiI+PHRzcGFuIHg9IjUwMCIgZHk9IjAiPuaPkuS7tjwvdHNwYW4+PC90ZXh0Pjx0ZXh0IHg9IjUwMCIgeT0iMTQ1LjU1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iU2Vnb2UgVUksIE1pY3Jvc29mdCBZYUhlaSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9Im5vcm1hbCIgZmlsbD0iIzMzMzMzMyI+PHRzcGFuIHg9IjUwMCIgZHk9IjAiPuWvvOWHuiBhcHBseShjdHgp77yM5ZCR5qGG5p625rOo5YaM6IO95YqbPC90c3Bhbj48L3RleHQ+DQo8cmVjdCB4PSIzMzMiIHk9IjIzNCIgd2lkdGg9IjM0MCIgaGVpZ2h0PSIxNjAiIHJ4PSI0IiBmaWxsPSIjMDAwMDAwMmUiLz4NCjxyZWN0IHg9IjMzMCIgeT0iMjMwIiB3aWR0aD0iMzQwIiBoZWlnaHQ9IjE2MCIgcng9IjQiIGZpbGw9InVybCgjZzQpIiBzdHJva2U9IiM2YzhlYmYiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHJlY3QgeD0iMzMwIiB5PSIyMzAiIHdpZHRoPSIzNDAiIGhlaWdodD0iMzIiIHJ4PSI0IiBmaWxsPSIjNmM4ZWJmIiBzdHJva2U9IiM2YzhlYmYiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHRleHQgeD0iNTAwIiB5PSIyNTAuNTUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJTZWdvZSBVSSwgTWljcm9zb2Z0IFlhSGVpLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2ZmZmZmZiI+PHRzcGFuIHg9IjUwMCIgZHk9IjAiPkNvbnRleHTvvIhjdHjvvIk8L3RzcGFuPjwvdGV4dD48dGV4dCB4PSI1MDAiIHk9IjMzMC41NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSJub3JtYWwiIGZpbGw9IiMzMzMzMzMiPjx0c3BhbiB4PSI1MDAiIGR5PSIwIj5ldmVudHMgwrcgbG9nZ2VyIMK3IHJlZmxlY3QgwrcgcmVnaXN0cnk8L3RzcGFuPjwvdGV4dD4NCjxyZWN0IHg9IjYzIiB5PSIyMzQiIHdpZHRoPSIyMjAiIGhlaWdodD0iMTYwIiByeD0iNCIgZmlsbD0iIzAwMDAwMDJlIi8+DQo8cmVjdCB4PSI2MCIgeT0iMjMwIiB3aWR0aD0iMjIwIiBoZWlnaHQ9IjE2MCIgcng9IjQiIGZpbGw9InVybCgjZzUpIiBzdHJva2U9IiM2NDc0OGIiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHJlY3QgeD0iNjAiIHk9IjIzMCIgd2lkdGg9IjIyMCIgaGVpZ2h0PSIzMiIgcng9IjQiIGZpbGw9IiM2NDc0OGIiIHN0cm9rZT0iIzY0NzQ4YiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48dGV4dCB4PSIxNzAiIHk9IjI1MC41NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZmZmZmZmIj48dHNwYW4geD0iMTcwIiBkeT0iMCI+5LqL5Lu25oC757q/PC90c3Bhbj48L3RleHQ+PHRleHQgeD0iMTcwIiB5PSIzMTMiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJTZWdvZSBVSSwgTWljcm9zb2Z0IFlhSGVpLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBmb250LXdlaWdodD0ibm9ybWFsIiBmaWxsPSIjMzMzMzMzIj48dHNwYW4geD0iMTcwIiBkeT0iMCI+5Lya6K+d5LqL5Lu2PC90c3Bhbj48dHNwYW4geD0iMTcwIiBkeT0iMTcuNTUiPmFnZW50IOS6i+S7tjwvdHNwYW4+PHRzcGFuIHg9IjE3MCIgZHk9IjE3LjU1Ij7og73lipvkuovku7Y8L3RzcGFuPjwvdGV4dD4NCjxyZWN0IHg9IjcyMyIgeT0iMjM0IiB3aWR0aD0iMjIwIiBoZWlnaHQ9IjE2MCIgcng9IjQiIGZpbGw9IiMwMDAwMDAyZSIvPg0KPHJlY3QgeD0iNzIwIiB5PSIyMzAiIHdpZHRoPSIyMjAiIGhlaWdodD0iMTYwIiByeD0iNCIgZmlsbD0idXJsKCNnNikiIHN0cm9rZT0iIzgyYjM2NiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48cmVjdCB4PSI3MjAiIHk9IjIzMCIgd2lkdGg9IjIyMCIgaGVpZ2h0PSIzMiIgcng9IjQiIGZpbGw9IiM4MmIzNjYiIHN0cm9rZT0iIzgyYjM2NiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48dGV4dCB4PSI4MzAiIHk9IjI1MC41NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZmZmZmZmIj48dHNwYW4geD0iODMwIiBkeT0iMCI+5pyN5YqhIFNlcnZpY2U8L3RzcGFuPjwvdGV4dD48dGV4dCB4PSI4MzAiIHk9IjMyMS43NzUwMDAwMDAwMDAwMyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSJub3JtYWwiIGZpbGw9IiMzMzMzMzMiPjx0c3BhbiB4PSI4MzAiIGR5PSIwIj7mjILlnKggY3R4IOWQjeWtl+S4izwvdHNwYW4+PHRzcGFuIHg9IjgzMCIgZHk9IjE3LjU1Ij7lj6/mm7/mjaLvvIzlpoIgY3R4LnRvb2xzPC90c3Bhbj48L3RleHQ+DQo8cmVjdCB4PSIzMzMiIHk9IjQ0NCIgd2lkdGg9IjM0MCIgaGVpZ2h0PSIxMDAiIHJ4PSI0IiBmaWxsPSIjMDAwMDAwMmUiLz4NCjxyZWN0IHg9IjMzMCIgeT0iNDQwIiB3aWR0aD0iMzQwIiBoZWlnaHQ9IjEwMCIgcng9IjQiIGZpbGw9InVybCgjZzcpIiBzdHJva2U9IiNkNmI2NTYiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHJlY3QgeD0iMzMwIiB5PSI0NDAiIHdpZHRoPSIzNDAiIGhlaWdodD0iMzIiIHJ4PSI0IiBmaWxsPSIjZDZiNjU2IiBzdHJva2U9IiNkNmI2NTYiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHRleHQgeD0iNTAwIiB5PSI0NjAuNTUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJTZWdvZSBVSSwgTWljcm9zb2Z0IFlhSGVpLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2ZmZmZmZiI+PHRzcGFuIHg9IjUwMCIgZHk9IjAiPuS8muivneaXpeW/lzwvdHNwYW4+PC90ZXh0Pjx0ZXh0IHg9IjUwMCIgeT0iNTEwLjU1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iU2Vnb2UgVUksIE1pY3Jvc29mdCBZYUhlaSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9Im5vcm1hbCIgZmlsbD0iIzMzMzMzMyI+PHRzcGFuIHg9IjUwMCIgZHk9IjAiPuaooeWei+eci+WIsOWNs+iusOW9lTwvdHNwYW4+PC90ZXh0Pg0KPHRleHQgeD0iNDgiIHk9IjYwNC4yIiB0ZXh0LWFuY2hvcj0ic3RhcnQiIGZvbnQtZmFtaWx5PSJTZWdvZSBVSSwgTWljcm9zb2Z0IFlhSGVpLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iIzMzNDE1NSI+PHRzcGFuIHg9IjQ4IiBkeT0iMCI+5LiA5byg5Zu+6K6w5L2P6aqo5p6277ya5o+S5Lu25b6AIGN0eCDkuIrmjILkuJzopb/vvIxjdHgg6YCa6L+H5LqL5Lu25ZKM5pyN5Yqh5Y2P5L2c77yM5Lya6K+d5pel5b+X6K6w5b2V5LiA5YiH44CCPC90c3Bhbj48L3RleHQ+DQo8ZyBzdHJva2U9IiM2NjY2NjYiIHN0cm9rZS13aWR0aD0iMS41IiBmaWxsPSJub25lIj48bGluZSB4MT0iNTAwIiB5MT0iMTgwIiB4Mj0iNTAwIiB5Mj0iMjE4IiBzdHJva2U9IiM2NjY2NjYiIHN0cm9rZS13aWR0aD0iMS41Ii8+PC9nPg0KPHBvbHlnb24gcG9pbnRzPSI1MDAsMjMwIDQ5NCwyMTggNTA2LDIxOCIgZmlsbD0iIzY2NjY2NiIgc3Ryb2tlPSIjNjY2NjY2IiBzdHJva2Utd2lkdGg9IjEiLz4NCjxyZWN0IHg9IjQ1MSIgeT0iMTg1LjUiIHdpZHRoPSI5OCIgaGVpZ2h0PSIxOSIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjZDBkN2RlIi8+DQo8dGV4dCB4PSI1MDAiIHk9IjE5OC44NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiIGZvbnQtd2VpZ2h0PSJub3JtYWwiIGZpbGw9IiMzMzMzMzMiPjx0c3BhbiB4PSI1MDAiIGR5PSIwIj5hcHBseSDms6jlhow8L3RzcGFuPjwvdGV4dD4NCjxnIHN0cm9rZT0iIzY2NjY2NiIgc3Ryb2tlLXdpZHRoPSIxLjUiIGZpbGw9Im5vbmUiPjxsaW5lIHgxPSIzMzAiIHkxPSIzMTAiIHgyPSIyOTIiIHkyPSIzMTAiIHN0cm9rZT0iIzY2NjY2NiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48L2c+DQo8cG9seWdvbiBwb2ludHM9IjI4MCwzMTAgMjkyLDMwNCAyOTIsMzE2IiBmaWxsPSIjNjY2NjY2IiBzdHJva2U9IiM2NjY2NjYiIHN0cm9rZS13aWR0aD0iMSIvPg0KPHJlY3QgeD0iMjE3LjUiIHk9IjI5MC41IiB3aWR0aD0iMTc1IiBoZWlnaHQ9IjE5IiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkMGQ3ZGUiLz4NCjx0ZXh0IHg9IjMwNSIgeT0iMzAzLjg1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iU2Vnb2UgVUksIE1pY3Jvc29mdCBZYUhlaSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMSIgZm9udC13ZWlnaHQ9Im5vcm1hbCIgZmlsbD0iIzMzMzMzMyI+PHRzcGFuIHg9IjMwNSIgZHk9IjAiPmVtaXQgLyBkaXNwYXRjaDwvdHNwYW4+PC90ZXh0Pg0KPGcgc3Ryb2tlPSIjNjY2NjY2IiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSI+PGxpbmUgeDE9Ijk0MCIgeTE9IjMxMCIgeDI9IjM0MiIgeTI9IjMxMCIgc3Ryb2tlPSIjNjY2NjY2IiBzdHJva2Utd2lkdGg9IjEuNSIvPjwvZz4NCjxwb2x5Z29uIHBvaW50cz0iMzMwLDMxMCAzNDIsMzA0IDM0MiwzMTYiIGZpbGw9IiM2NjY2NjYiIHN0cm9rZT0iIzY2NjY2NiIgc3Ryb2tlLXdpZHRoPSIxIi8+DQo8cmVjdCB4PSI1NDIiIHk9IjI5MC41IiB3aWR0aD0iMTg2IiBoZWlnaHQ9IjE5IiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkMGQ3ZGUiLz4NCjx0ZXh0IHg9IjYzNSIgeT0iMzAzLjg1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iU2Vnb2UgVUksIE1pY3Jvc29mdCBZYUhlaSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMSIgZm9udC13ZWlnaHQ9Im5vcm1hbCIgZmlsbD0iIzMzMzMzMyI+PHRzcGFuIHg9IjYzNSIgZHk9IjAiPnByb3ZpZGXvvIzmjILlnKggY3R4IOS4ijwvdHNwYW4+PC90ZXh0Pg0KPGcgc3Ryb2tlPSIjNjY2NjY2IiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSI+PGxpbmUgeDE9IjUwMCIgeTE9IjM5MCIgeDI9IjUwMCIgeTI9IjQyOCIgc3Ryb2tlPSIjNjY2NjY2IiBzdHJva2Utd2lkdGg9IjEuNSIvPjwvZz4NCjxwb2x5Z29uIHBvaW50cz0iNTAwLDQ0MCA0OTQsNDI4IDUwNiw0MjgiIGZpbGw9IiM2NjY2NjYiIHN0cm9rZT0iIzY2NjY2NiIgc3Ryb2tlLXdpZHRoPSIxIi8+DQo8cmVjdCB4PSI0NjIiIHk9IjM5NS41IiB3aWR0aD0iNzYiIGhlaWdodD0iMTkiIGZpbGw9IiNmZmZmZmYiIHN0cm9rZT0iI2QwZDdkZSIvPg0KPHRleHQgeD0iNTAwIiB5PSI0MDguODUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJTZWdvZSBVSSwgTWljcm9zb2Z0IFlhSGVpLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjExIiBmb250LXdlaWdodD0ibm9ybWFsIiBmaWxsPSIjMzMzMzMzIj48dHNwYW4geD0iNTAwIiBkeT0iMCI+5oyB5LmF5LqL5Lu26JC955uYPC90c3Bhbj48L3RleHQ+DQo8L3N2Zz4NCg==" alt="Cordis 全景，插件、上下文、事件、服务、会话日志"></p>
 <p>图 Cordis 全景，插件、上下文、事件、服务、会话日志</p>
@@ -438,7 +1314,8 @@
 <li>生命周期六个状态，等依赖、加载、运行、失败、清理、消失</li>
 <li>作用域靠 extend 继承、isolate 隔离，配置配错加载即失败，嵌套插件随父级一起拆</li>
 </ul>
-<h2 id="第四章-一次对话背后的流程">第四章 一次对话背后的流程</h2>
+<nav class="page-nav"><a class="nav-btn" onclick="showChapter(2)">← 上一章</a><span class="nav-mid">4 / 9</span><a class="nav-btn" onclick="showChapter(4)">下一章 →</a></nav></div>
+<div id="zh-ch-4" class="chapter" hidden><h2 id="第四章-一次对话背后的流程">第四章 一次对话背后的流程</h2>
 <p>这一章把五个概念串起来，看一次真实的对话在进程里发生了什么。</p>
 <h3 id="41-step-与-turn">4.1 step 与 turn</h3>
 <p>你在 Web UI 里发一句&quot;帮我总结这个仓库&quot;，进程里发生的事可以分成两层看。</p>
@@ -462,7 +1339,8 @@
 <li>事件分三拨，会话事件、agent 事件、能力事件，选对域是改动的第一个决定</li>
 <li>模型看到即记录，新增模型可见输入就要新增会话事件</li>
 </ul>
-<h2 id="第五章-可替换的能力">第五章 可替换的能力</h2>
+<nav class="page-nav"><a class="nav-btn" onclick="showChapter(3)">← 上一章</a><span class="nav-mid">5 / 9</span><a class="nav-btn" onclick="showChapter(5)">下一章 →</a></nav></div>
+<div id="zh-ch-5" class="chapter" hidden><h2 id="第五章-可替换的能力">第五章 可替换的能力</h2>
 <p>这一章讲一个概念，seam，可替换的能力接缝。</p>
 <h3 id="51-seam-三件套">5.1 seam 三件套</h3>
 <p>第二章说没有任何积木是焊死的，这一章讲它怎么落地。一个 seam 永远是三件套。Service Definition 定义接口，声明这个能力长什么样。Service Provider 是具体实现，可以被替换。Consumer 是使用者，通常是面向模型的工具。三件套缺一个，这项能力就不完整。</p>
@@ -513,7 +1391,8 @@
 <li>添加新能力，三件一起设计，替换能力，只换 Provider</li>
 <li>动手前先问自己站在三件套的哪个位置</li>
 </ul>
-<h2 id="第六章-实战写一个会干活的插件">第六章 实战，写一个会干活的插件</h2>
+<nav class="page-nav"><a class="nav-btn" onclick="showChapter(4)">← 上一章</a><span class="nav-mid">6 / 9</span><a class="nav-btn" onclick="showChapter(6)">下一章 →</a></nav></div>
+<div id="zh-ch-6" class="chapter" hidden><h2 id="第六章-实战写一个会干活的插件">第六章 实战，写一个会干活的插件</h2>
 <p>这一章动手。目标是在十分钟内做出一个能被 agent 调用的工具，做完你会得到一个 hello 插件和一个 greet 工具。</p>
 <h3 id="61-准备环境">6.1 准备环境</h3>
 <p>从源码跑，方便调试。</p>
@@ -630,7 +1509,8 @@
 <li>defineTool 定义工具，schema 自动进入模型的技能清单</li>
 <li>注册自动清理，热重载安全，先函数后类</li>
 </ul>
-<h2 id="第七章-读完这本书之后">第七章 读完这本书之后</h2>
+<nav class="page-nav"><a class="nav-btn" onclick="showChapter(5)">← 上一章</a><span class="nav-mid">7 / 9</span><a class="nav-btn" onclick="showChapter(7)">下一章 →</a></nav></div>
+<div id="zh-ch-7" class="chapter" hidden><h2 id="第七章-读完这本书之后">第七章 读完这本书之后</h2>
 <p>这一章告诉你书读完之后去哪。</p>
 <h3 id="71-按需查表">7.1 按需查表</h3>
 <p>官方文档值得读，只是没人告诉你按什么顺序读。下面这张表按&quot;你想做的事&quot;索引，表里第一列是问题，后面两列是位置和提醒。</p>
@@ -710,26 +1590,25 @@
 <span class="line"><span></span></span></code></pre>
 <p>第④步才是官方文档的主场。讲故事这件事，这本书已经替你做完了。接下来按需查，动手写。</p>
 <p>最后一句。dsh 还年轻，API 会变，但这套骨架值得你花三十分钟。它把 agent 框架拆成了可以自由拼装的积木，现在轮到你动手拼一块了。</p>
-<h2 id="附录-本书依据与验证">附录 本书依据与验证</h2>
+<nav class="page-nav"><a class="nav-btn" onclick="showChapter(6)">← 上一章</a><span class="nav-mid">8 / 9</span><a class="nav-btn" onclick="showChapter(8)">下一章 →</a></nav></div>
+<div id="zh-ch-8" class="chapter" hidden><h2 id="附录-本书依据与验证">附录 本书依据与验证</h2>
 <p>概念与代码依据 docs/architecture.md、docs/cordis-primer.md、docs/user/develop/basic 下的教程，以及 vendor/cordis/src 的源码。API 签名以仓库 master 为准，改签名时先核对源码。</p>
 <p>书里的八张插图是 .drawio 格式，由 drawio-skill（Agents365-ai，GitHub 7.2k 星）生成，同目录的 .svg 是渲染预览，.drawio 可以在 draw.io 桌面版里继续编辑，diagrams/viewer-urls.txt 里有 diagrams.net 的在线查看链接。</p>
 <p>全书成稿后逐条实测。<code>dsh --profile web --dump-config</code> 打出真实的插件树，与第二章的分层一致。scratch-plugin 里的 hello 插件用 ctx.plugin 实际加载运行过，greet 工具用 defineTool 定义并执行过，第三章的五个概念全部验证通过，包括依赖未就绪时停在 PENDING、apply 抛异常进入 FAILED、卸载后监听器自动移除、waterfall 不调用 next 就短路。<code>--patch</code> 配合 <code>--dump-config</code> 确认插件插进配方最上层。第四章的事件名逐一对照源码，agent/turn-stopping 用 serial 分发且没有 next。剩下两处没有验证，都需要 API 密钥，一是模型调用，二是浏览器里的完整界面。</p>
-</div>
-    <div id="en" class="content-inner" hidden><h1>Inside DeepSeek Harness, Understanding Cordis Architecture</h1>
-<p>A plain-language book for humans, readable in 30 minutes</p>
-<hr>
-<h2 id="preface">Preface</h2>
+<nav class="page-nav"><a class="nav-btn" onclick="showChapter(7)">← 上一章</a><span class="nav-mid">9 / 9</span><span class="nav-btn disabled"></span></nav></div></div>
+    <div id="en" class="content-inner" hidden><div id="en-ch-0" class="chapter"><h2 id="preface">Preface</h2>
 <p>This book is about Cordis, the plugin framework underneath DeepSeek Harness (dsh), from &quot;what is this&quot; to &quot;write a plugin an agent can actually call&quot;.</p>
 <p>The official documentation took real effort, but all of that effort went into paving the way for AI reading. This book assumes a human reader. It walks through the same material in plain language, with eight editable figures. The official docs are a good map, a dictionary, and a cookbook; this book adds the part where somebody walks you through them.</p>
 <p>Chapters 1 to 5 cover concepts, about 20 minutes. Chapter 6 is hands-on, about 10 minutes. Chapter 7 and the appendices point you where to go next, about 5 minutes. Nothing is needed for the first five chapters; Chapter 6 needs a machine with Node.js (^22.19 or &gt;=24) and pnpm. Do not dive into source code before the concepts settle.</p>
-<h2 id="chapter-1-what-this-is">Chapter 1 What this is</h2>
+<nav class="page-nav"><span class="nav-btn disabled"></span><span class="nav-mid">1 / 9</span><a class="nav-btn" onclick="showChapter(1)">Next →</a></nav></div>
+<div id="en-ch-1" class="chapter" hidden><h2 id="chapter-1-what-this-is">Chapter 1 What this is</h2>
 <p>This chapter answers one question, what dsh actually is.</p>
 <h3 id="11-what-dsh-is-and-how-it-differs-from-a-chat-window">1.1 What dsh is, and how it differs from a chat window</h3>
 <p>In the AI products you use every day, the model lives on someone else&#39;s server, and so do your files. dsh works the other way around. The model is still remote, but the agent itself runs in your own process, and the workspace is a local folder. It reads your code, runs your tests, edits your files, all within your sight.</p>
 <h3 id="12-everything-is-a-plugin">1.2 Everything is a plugin</h3>
 <p>The other difference is architectural. Most agent tools weld the model, the tools, the memory, and the interface into one piece. To swap one part, you rebuild the whole product, like IKEA furniture assembled as one unit, where replacing one drawer slide means taking half the cabinet apart. dsh is Lego. Standard blocks make up the whole machine, and you pull out the block you want to replace without touching the ones beside it.</p>
 <p>dsh makes every piece a plugin. The model adapter is a plugin, the tool registry is a plugin, the session log is a plugin, and the loop that drives the agent&#39;s thinking is itself a plugin. Any of them can be replaced from configuration, with no framework changes.</p>
-<p><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0yNCAtMjQgMTAwOCA0OTgiIGZvbnQtZmFtaWx5PSJTZWdvZSBVSSwgTWljcm9zb2Z0IFlhSGVpLCBzYW5zLXNlcmlmIj4KPHJlY3QgeD0iLTI0IiB5PSItMjQiIHdpZHRoPSIxMDA4IiBoZWlnaHQ9IjQ5OCIgZmlsbD0iI2ZmZmZmZiIvPgo8ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImczIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZGFlOGZjIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYjdjM2Q0Ii8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9Imc0IiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZDVlOGQ0Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYjNjM2IyIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9Imc1IiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmMmNjIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZDZjYmFiIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9Imc2IiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZlNmNjIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZDZjMWFiIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIwIiBoZWlnaHQ9IjAiIHJ4PSIwIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiM2NjY2NjYiIHN0cm9rZS13aWR0aD0iMS41Ii8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIwIiBoZWlnaHQ9IjAiIHJ4PSIwIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiM2NjY2NjYiIHN0cm9rZS13aWR0aD0iMS41Ii8+Cjx0ZXh0IHg9IjQ5MCIgeT0iNDUuNiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjMzMzMzMzIj48dHNwYW4geD0iNDkwIiBkeT0iMCI+RXZlcnl0aGluZyBpcyBhIHBsdWdpbiwgZXZlcnkgcGFydCBpcyBzd2FwcGFibGU8L3RzcGFuPjwvdGV4dD4KPHRleHQgeD0iNjgiIHk9IjEwOS41NSIgdGV4dC1hbmNob3I9InN0YXJ0IiBmb250LWZhbWlseT0iU2Vnb2UgVUksIE1pY3Jvc29mdCBZYUhlaSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiM0NzU1NjkiPjx0c3BhbiB4PSI2OCIgZHk9IjAiPmRzaCAoYWdlbnQgaGFybmVzcyk8L3RzcGFuPjwvdGV4dD4KPHJlY3QgeD0iNDAiIHk9IjEyMCIgd2lkdGg9IjkyMCIgaGVpZ2h0PSIyNjAiIHJ4PSIxMCIgZmlsbD0iI2Y4ZmFmYyIgc3Ryb2tlPSIjOTRhM2I4IiBzdHJva2Utd2lkdGg9IjEuNSIvPgo8cmVjdCB4PSI3MyIgeT0iMTc0IiB3aWR0aD0iMTkwIiBoZWlnaHQ9IjkwIiByeD0iMTAiIGZpbGw9IiMwMDAwMDAyZSIvPgo8cmVjdCB4PSI3MCIgeT0iMTcwIiB3aWR0aD0iMTkwIiBoZWlnaHQ9IjkwIiByeD0iMTAiIGZpbGw9InVybCgjZzQpIiBzdHJva2U9IiM2YzhlYmYiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHRleHQgeD0iMTY1IiB5PSIyMTAuNzc1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iU2Vnb2UgVUksIE1pY3Jvc29mdCBZYUhlaSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9Im5vcm1hbCIgZmlsbD0iIzMzMzMzMyI+PHRzcGFuIHg9IjE2NSIgZHk9IjAiPm1vZGVsIGFkYXB0ZXI8L3RzcGFuPjx0c3BhbiB4PSIxNjUiIGR5PSIxNy41NSI+cmVwbGFjZWFibGUgZnJvbSBjb25maWc8L3RzcGFuPjwvdGV4dD4KPHJlY3QgeD0iMjczIiB5PSIxNzQiIHdpZHRoPSIxOTAiIGhlaWdodD0iOTAiIHJ4PSIxMCIgZmlsbD0iIzAwMDAwMDJlIi8+CjxyZWN0IHg9IjI3MCIgeT0iMTcwIiB3aWR0aD0iMTkwIiBoZWlnaHQ9IjkwIiByeD0iMTAiIGZpbGw9InVybCgjZzUpIiBzdHJva2U9IiM4MmIzNjYiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHRleHQgeD0iMzY1IiB5PSIyMTAuNzc1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iU2Vnb2UgVUksIE1pY3Jvc29mdCBZYUhlaSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9Im5vcm1hbCIgZmlsbD0iIzMzMzMzMyI+PHRzcGFuIHg9IjM2NSIgZHk9IjAiPnRvb2wgcmVnaXN0cnk8L3RzcGFuPjx0c3BhbiB4PSIzNjUiIGR5PSIxNy41NSI+cmVwbGFjZWFibGUgZnJvbSBjb25maWc8L3RzcGFuPjwvdGV4dD4KPHJlY3QgeD0iNDczIiB5PSIxNzQiIHdpZHRoPSIxOTAiIGhlaWdodD0iOTAiIHJ4PSIxMCIgZmlsbD0iIzAwMDAwMDJlIi8+CjxyZWN0IHg9IjQ3MCIgeT0iMTcwIiB3aWR0aD0iMTkwIiBoZWlnaHQ9IjkwIiByeD0iMTAiIGZpbGw9InVybCgjZzYpIiBzdHJva2U9IiNkNmI2NTYiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHRleHQgeD0iNTY1IiB5PSIyMTAuNzc1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iU2Vnb2UgVUksIE1pY3Jvc29mdCBZYUhlaSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9Im5vcm1hbCIgZmlsbD0iIzMzMzMzMyI+PHRzcGFuIHg9IjU2NSIgZHk9IjAiPnNlc3Npb24gbG9nPC90c3Bhbj48dHNwYW4geD0iNTY1IiBkeT0iMTcuNTUiPnJlcGxhY2VhYmxlIGZyb20gY29uZmlnPC90c3Bhbj48L3RleHQ+CjxyZWN0IHg9IjY3MyIgeT0iMTc0IiB3aWR0aD0iMTkwIiBoZWlnaHQ9IjkwIiByeD0iMTAiIGZpbGw9IiMwMDAwMDAyZSIvPgo8cmVjdCB4PSI2NzAiIHk9IjE3MCIgd2lkdGg9IjE5MCIgaGVpZ2h0PSI5MCIgcng9IjEwIiBmaWxsPSJ1cmwoI2c3KSIgc3Ryb2tlPSIjZDc5YjAwIiBzdHJva2Utd2lkdGg9IjEuNSIvPjx0ZXh0IHg9Ijc2NSIgeT0iMjEwLjc3NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSJub3JtYWwiIGZpbGw9IiMzMzMzMzMiPjx0c3BhbiB4PSI3NjUiIGR5PSIwIj5hZ2VudCBsb29wPC90c3Bhbj48dHNwYW4geD0iNzY1IiBkeT0iMTcuNTUiPmV2ZW4gdGhlIGxvb3AgaXMgYSBwbHVnaW48L3RzcGFuPjwvdGV4dD4KPHJlY3QgeD0iMjcwIiB5PSIzMDAiIHdpZHRoPSIxOTAiIGhlaWdodD0iNjAiIHJ4PSIxMCIgZmlsbD0iI2YxZjVmOSIgc3Ryb2tlPSIjNjQ3NDhiIiBzdHJva2Utd2lkdGg9IjEuNSIvPjx0ZXh0IHg9IjM2NSIgeT0iMzI2LjA5OTk5OTk5OTk5OTk3IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iU2Vnb2UgVUksIE1pY3Jvc29mdCBZYUhlaSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9Im5vcm1hbCIgZmlsbD0iIzMzMzMzMyI+PHRzcGFuIHg9IjM2NSIgZHk9IjAiPm5ldyBwbHVnaW48L3RzcGFuPjx0c3BhbiB4PSIzNjUiIGR5PSIxNi4yMDAwMDAwMDAwMDAwMDMiPnBsdWcgaXQgaW4sIHRoZSByZXN0IHN0YXkgcHV0PC90c3Bhbj48L3RleHQ+Cjx0ZXh0IHg9IjQ4IiB5PSI0MzQuMiIgdGV4dC1hbmNob3I9InN0YXJ0IiBmb250LWZhbWlseT0iU2Vnb2UgVUksIE1pY3Jvc29mdCBZYUhlaSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiMzMzQxNTUiPjx0c3BhbiB4PSI0OCIgZHk9IjAiPldhbnQgYSBkaWZmZXJlbnQgcGFydCwgcHVsbCBvbmUgb3V0IGFuZCBwbHVnIGEgbmV3IG9uZSBpbiwgdGhlIHJlc3Qgc3RheSBwdXQuIEFsbCBvZiB0aGVzZSBhcmUgc3dhcHBlZCBmcm9tIGNvbmZpZ3VyYXRpb24sIG5vIGZyYW1ld29yayBjaGFuZ2VzLjwvdHNwYW4+PC90ZXh0Pgo8ZyBzdHJva2U9IiM2NjY2NjYiIHN0cm9rZS13aWR0aD0iMS41IiBzdHJva2UtZGFzaGFycmF5PSI3LDUiIGZpbGw9Im5vbmUiPjxsaW5lIHgxPSIzNjUiIHkxPSIyNjAiIHgyPSIzNjUiIHkyPSIyODgiIHN0cm9rZT0iIzY2NjY2NiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48L2c+Cjxwb2x5Z29uIHBvaW50cz0iMzY1LDMwMCAzNTksMjg4IDM3MSwyODgiIGZpbGw9IiM2NjY2NjYiIHN0cm9rZT0iIzY2NjY2NiIgc3Ryb2tlLXdpZHRoPSIxIi8+CjxyZWN0IHg9IjMyMS41IiB5PSIyNjAuNSIgd2lkdGg9Ijg3IiBoZWlnaHQ9IjE5IiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkMGQ3ZGUiLz4KPHRleHQgeD0iMzY1IiB5PSIyNzMuODUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJTZWdvZSBVSSwgTWljcm9zb2Z0IFlhSGVpLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjExIiBmb250LXdlaWdodD0ibm9ybWFsIiBmaWxsPSIjMzMzMzMzIj48dHNwYW4geD0iMzY1IiBkeT0iMCI+cmVwbGFjZTwvdHNwYW4+PC90ZXh0Pgo8L3N2Zz4K" alt="Everything is a plugin, every part is swappable"></p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0yNCAtMjQgMTAwOCA0OTgiIGZvbnQtZmFtaWx5PSJTZWdvZSBVSSwgTWljcm9zb2Z0IFlhSGVpLCBzYW5zLXNlcmlmIj4NCjxyZWN0IHg9Ii0yNCIgeT0iLTI0IiB3aWR0aD0iMTAwOCIgaGVpZ2h0PSI0OTgiIGZpbGw9IiNmZmZmZmYiLz4NCjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iZzMiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNkYWU4ZmMiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNiN2MzZDQiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCBpZD0iZzQiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNkNWU4ZDQiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNiM2MzYjIiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCBpZD0iZzUiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmYyY2MiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNkNmNiYWIiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCBpZD0iZzYiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmU2Y2MiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNkNmMxYWIiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz4NCjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIwIiBoZWlnaHQ9IjAiIHJ4PSIwIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiM2NjY2NjYiIHN0cm9rZS13aWR0aD0iMS41Ii8+DQo8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMCIgaGVpZ2h0PSIwIiByeD0iMCIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjNjY2NjY2IiBzdHJva2Utd2lkdGg9IjEuNSIvPg0KPHRleHQgeD0iNDkwIiB5PSI0NS42IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iU2Vnb2UgVUksIE1pY3Jvc29mdCBZYUhlaSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiMzMzMzMzMiPjx0c3BhbiB4PSI0OTAiIGR5PSIwIj5FdmVyeXRoaW5nIGlzIGEgcGx1Z2luLCBldmVyeSBwYXJ0IGlzIHN3YXBwYWJsZTwvdHNwYW4+PC90ZXh0Pg0KPHRleHQgeD0iNjgiIHk9IjEwOS41NSIgdGV4dC1hbmNob3I9InN0YXJ0IiBmb250LWZhbWlseT0iU2Vnb2UgVUksIE1pY3Jvc29mdCBZYUhlaSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiM0NzU1NjkiPjx0c3BhbiB4PSI2OCIgZHk9IjAiPmRzaCAoYWdlbnQgaGFybmVzcyk8L3RzcGFuPjwvdGV4dD4NCjxyZWN0IHg9IjQwIiB5PSIxMjAiIHdpZHRoPSI5MjAiIGhlaWdodD0iMjYwIiByeD0iMTAiIGZpbGw9IiNmOGZhZmMiIHN0cm9rZT0iIzk0YTNiOCIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4NCjxyZWN0IHg9IjczIiB5PSIxNzQiIHdpZHRoPSIxOTAiIGhlaWdodD0iOTAiIHJ4PSIxMCIgZmlsbD0iIzAwMDAwMDJlIi8+DQo8cmVjdCB4PSI3MCIgeT0iMTcwIiB3aWR0aD0iMTkwIiBoZWlnaHQ9IjkwIiByeD0iMTAiIGZpbGw9InVybCgjZzQpIiBzdHJva2U9IiM2YzhlYmYiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHRleHQgeD0iMTY1IiB5PSIyMTAuNzc1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iU2Vnb2UgVUksIE1pY3Jvc29mdCBZYUhlaSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9Im5vcm1hbCIgZmlsbD0iIzMzMzMzMyI+PHRzcGFuIHg9IjE2NSIgZHk9IjAiPm1vZGVsIGFkYXB0ZXI8L3RzcGFuPjx0c3BhbiB4PSIxNjUiIGR5PSIxNy41NSI+cmVwbGFjZWFibGUgZnJvbSBjb25maWc8L3RzcGFuPjwvdGV4dD4NCjxyZWN0IHg9IjI3MyIgeT0iMTc0IiB3aWR0aD0iMTkwIiBoZWlnaHQ9IjkwIiByeD0iMTAiIGZpbGw9IiMwMDAwMDAyZSIvPg0KPHJlY3QgeD0iMjcwIiB5PSIxNzAiIHdpZHRoPSIxOTAiIGhlaWdodD0iOTAiIHJ4PSIxMCIgZmlsbD0idXJsKCNnNSkiIHN0cm9rZT0iIzgyYjM2NiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48dGV4dCB4PSIzNjUiIHk9IjIxMC43NzUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJTZWdvZSBVSSwgTWljcm9zb2Z0IFlhSGVpLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBmb250LXdlaWdodD0ibm9ybWFsIiBmaWxsPSIjMzMzMzMzIj48dHNwYW4geD0iMzY1IiBkeT0iMCI+dG9vbCByZWdpc3RyeTwvdHNwYW4+PHRzcGFuIHg9IjM2NSIgZHk9IjE3LjU1Ij5yZXBsYWNlYWJsZSBmcm9tIGNvbmZpZzwvdHNwYW4+PC90ZXh0Pg0KPHJlY3QgeD0iNDczIiB5PSIxNzQiIHdpZHRoPSIxOTAiIGhlaWdodD0iOTAiIHJ4PSIxMCIgZmlsbD0iIzAwMDAwMDJlIi8+DQo8cmVjdCB4PSI0NzAiIHk9IjE3MCIgd2lkdGg9IjE5MCIgaGVpZ2h0PSI5MCIgcng9IjEwIiBmaWxsPSJ1cmwoI2c2KSIgc3Ryb2tlPSIjZDZiNjU2IiBzdHJva2Utd2lkdGg9IjEuNSIvPjx0ZXh0IHg9IjU2NSIgeT0iMjEwLjc3NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSJub3JtYWwiIGZpbGw9IiMzMzMzMzMiPjx0c3BhbiB4PSI1NjUiIGR5PSIwIj5zZXNzaW9uIGxvZzwvdHNwYW4+PHRzcGFuIHg9IjU2NSIgZHk9IjE3LjU1Ij5yZXBsYWNlYWJsZSBmcm9tIGNvbmZpZzwvdHNwYW4+PC90ZXh0Pg0KPHJlY3QgeD0iNjczIiB5PSIxNzQiIHdpZHRoPSIxOTAiIGhlaWdodD0iOTAiIHJ4PSIxMCIgZmlsbD0iIzAwMDAwMDJlIi8+DQo8cmVjdCB4PSI2NzAiIHk9IjE3MCIgd2lkdGg9IjE5MCIgaGVpZ2h0PSI5MCIgcng9IjEwIiBmaWxsPSJ1cmwoI2c3KSIgc3Ryb2tlPSIjZDc5YjAwIiBzdHJva2Utd2lkdGg9IjEuNSIvPjx0ZXh0IHg9Ijc2NSIgeT0iMjEwLjc3NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSJub3JtYWwiIGZpbGw9IiMzMzMzMzMiPjx0c3BhbiB4PSI3NjUiIGR5PSIwIj5hZ2VudCBsb29wPC90c3Bhbj48dHNwYW4geD0iNzY1IiBkeT0iMTcuNTUiPmV2ZW4gdGhlIGxvb3AgaXMgYSBwbHVnaW48L3RzcGFuPjwvdGV4dD4NCjxyZWN0IHg9IjI3MCIgeT0iMzAwIiB3aWR0aD0iMTkwIiBoZWlnaHQ9IjYwIiByeD0iMTAiIGZpbGw9IiNmMWY1ZjkiIHN0cm9rZT0iIzY0NzQ4YiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48dGV4dCB4PSIzNjUiIHk9IjMyNi4wOTk5OTk5OTk5OTk5NyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGZvbnQtd2VpZ2h0PSJub3JtYWwiIGZpbGw9IiMzMzMzMzMiPjx0c3BhbiB4PSIzNjUiIGR5PSIwIj5uZXcgcGx1Z2luPC90c3Bhbj48dHNwYW4geD0iMzY1IiBkeT0iMTYuMjAwMDAwMDAwMDAwMDAzIj5wbHVnIGl0IGluLCB0aGUgcmVzdCBzdGF5IHB1dDwvdHNwYW4+PC90ZXh0Pg0KPHRleHQgeD0iNDgiIHk9IjQzNC4yIiB0ZXh0LWFuY2hvcj0ic3RhcnQiIGZvbnQtZmFtaWx5PSJTZWdvZSBVSSwgTWljcm9zb2Z0IFlhSGVpLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iIzMzNDE1NSI+PHRzcGFuIHg9IjQ4IiBkeT0iMCI+V2FudCBhIGRpZmZlcmVudCBwYXJ0LCBwdWxsIG9uZSBvdXQgYW5kIHBsdWcgYSBuZXcgb25lIGluLCB0aGUgcmVzdCBzdGF5IHB1dC4gQWxsIG9mIHRoZXNlIGFyZSBzd2FwcGVkIGZyb20gY29uZmlndXJhdGlvbiwgbm8gZnJhbWV3b3JrIGNoYW5nZXMuPC90c3Bhbj48L3RleHQ+DQo8ZyBzdHJva2U9IiM2NjY2NjYiIHN0cm9rZS13aWR0aD0iMS41IiBzdHJva2UtZGFzaGFycmF5PSI3LDUiIGZpbGw9Im5vbmUiPjxsaW5lIHgxPSIzNjUiIHkxPSIyNjAiIHgyPSIzNjUiIHkyPSIyODgiIHN0cm9rZT0iIzY2NjY2NiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48L2c+DQo8cG9seWdvbiBwb2ludHM9IjM2NSwzMDAgMzU5LDI4OCAzNzEsMjg4IiBmaWxsPSIjNjY2NjY2IiBzdHJva2U9IiM2NjY2NjYiIHN0cm9rZS13aWR0aD0iMSIvPg0KPHJlY3QgeD0iMzIxLjUiIHk9IjI2MC41IiB3aWR0aD0iODciIGhlaWdodD0iMTkiIGZpbGw9IiNmZmZmZmYiIHN0cm9rZT0iI2QwZDdkZSIvPg0KPHRleHQgeD0iMzY1IiB5PSIyNzMuODUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJTZWdvZSBVSSwgTWljcm9zb2Z0IFlhSGVpLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjExIiBmb250LXdlaWdodD0ibm9ybWFsIiBmaWxsPSIjMzMzMzMzIj48dHNwYW4geD0iMzY1IiBkeT0iMCI+cmVwbGFjZTwvdHNwYW4+PC90ZXh0Pg0KPC9zdmc+DQo=" alt="Everything is a plugin, every part is swappable"></p>
 <p>Figure Everything is a plugin, every part is swappable</p>
 <h3 id="13-what-cordis-is">1.3 What Cordis is</h3>
 <p>Cordis is the implementation of that plugin mechanism, and it answers one question. How do a pile of plugins get assembled, who starts first, who talks to whom, and how does disassembly leave no garbage. It is an independent open-source framework, vendored into dsh&#39;s repository with a small set of local modifications. Your plugins run on Cordis, so understanding Cordis covers eighty percent of dsh.</p>
@@ -742,7 +1621,8 @@
 <li>Cordis is the implementation of that mechanism, answering how plugins are assembled, ordered, wired, and cleaned up</li>
 <li>The project is in developer preview, APIs will change, the conceptual skeleton will not</li>
 </ul>
-<h2 id="chapter-2-how-a-dsh-process-is-assembled">Chapter 2 How a dsh process is assembled</h2>
+<nav class="page-nav"><a class="nav-btn" onclick="showChapter(0)">← Previous</a><span class="nav-mid">2 / 9</span><a class="nav-btn" onclick="showChapter(2)">Next →</a></nav></div>
+<div id="en-ch-2" class="chapter" hidden><h2 id="chapter-2-how-a-dsh-process-is-assembled">Chapter 2 How a dsh process is assembled</h2>
 <p>This chapter answers one question, how a dsh process gets assembled.</p>
 <h3 id="21-what-happens-after-startup">2.1 What happens after startup</h3>
 <p>Run <code>npx @deepseek-ai/dsh web</code>, or <code>pnpm dsh web</code> from source, and several things happen on your machine.</p>
@@ -793,7 +1673,8 @@
 <li>Every layer can override the layer below, no block is welded in place</li>
 <li><code>dsh --profile web --dump-config</code> shows the real tree any time, with each entry&#39;s source in the comments</li>
 </ul>
-<h2 id="chapter-3-the-five-concepts-of-cordis">Chapter 3 The five concepts of Cordis</h2>
+<nav class="page-nav"><a class="nav-btn" onclick="showChapter(1)">← Previous</a><span class="nav-mid">3 / 9</span><a class="nav-btn" onclick="showChapter(3)">Next →</a></nav></div>
+<div id="en-ch-3" class="chapter" hidden><h2 id="chapter-3-the-five-concepts-of-cordis">Chapter 3 The five concepts of Cordis</h2>
 <p>This chapter covers five concepts, plugin, context, service, event, and side effect, each standing on the one before it. Start with a one-glance figure that puts all the parts in place, then take them apart one by one. It is grounded in the vendored Cordis source.</p>
 <p><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0yNCAtMjQgOTg4IDY2OCIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiPg0KPHJlY3QgeD0iLTI0IiB5PSItMjQiIHdpZHRoPSI5ODgiIGhlaWdodD0iNjY4IiBmaWxsPSIjZmZmZmZmIi8+DQo8ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImcyIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZlNmNjIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZDFiZGE3Ii8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImczIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZGFlOGZjIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYjNiZWNmIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9Imc0IiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZTJlOGYwIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYjliZWM1Ii8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9Imc1IiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZDVlOGQ0Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYWZiZWFlIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9Imc2IiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmMmNjIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZDFjNmE3Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+DQo8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMCIgaGVpZ2h0PSIwIiByeD0iMCIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjNjY2NjY2IiBzdHJva2Utd2lkdGg9IjEuNSIvPg0KPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjAiIGhlaWdodD0iMCIgcng9IjAiIGZpbGw9IiNmZmZmZmYiIHN0cm9rZT0iIzY2NjY2NiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4NCjx0ZXh0IHg9IjQ5MCIgeT0iNDUuNiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjMzMzMzMzIj48dHNwYW4geD0iNDkwIiBkeT0iMCI+Q29yZGlzIGF0IGEgZ2xhbmNlPC90c3Bhbj48L3RleHQ+DQo8cmVjdCB4PSIzMzMiIHk9Ijc0IiB3aWR0aD0iMzQwIiBoZWlnaHQ9IjExMCIgcng9IjQiIGZpbGw9IiMwMDAwMDAyZSIvPg0KPHJlY3QgeD0iMzMwIiB5PSI3MCIgd2lkdGg9IjM0MCIgaGVpZ2h0PSIxMTAiIHJ4PSI0IiBmaWxsPSJ1cmwoI2czKSIgc3Ryb2tlPSIjZDc5YjAwIiBzdHJva2Utd2lkdGg9IjEuNSIvPjxyZWN0IHg9IjMzMCIgeT0iNzAiIHdpZHRoPSIzNDAiIGhlaWdodD0iMzIiIHJ4PSI0IiBmaWxsPSIjZDc5YjAwIiBzdHJva2U9IiNkNzliMDAiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHRleHQgeD0iNTAwIiB5PSI5MC41NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZmZmZmZmIj48dHNwYW4geD0iNTAwIiBkeT0iMCI+UGx1Z2luczwvdHNwYW4+PC90ZXh0Pjx0ZXh0IHg9IjUwMCIgeT0iMTQ1LjU1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iU2Vnb2UgVUksIE1pY3Jvc29mdCBZYUhlaSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9Im5vcm1hbCIgZmlsbD0iIzMzMzMzMyI+PHRzcGFuIHg9IjUwMCIgZHk9IjAiPmV4cG9ydCBhcHBseShjdHgpLCByZWdpc3RlciBjYXBhYmlsaXRpZXM8L3RzcGFuPjwvdGV4dD4NCjxyZWN0IHg9IjMzMyIgeT0iMjM0IiB3aWR0aD0iMzQwIiBoZWlnaHQ9IjE2MCIgcng9IjQiIGZpbGw9IiMwMDAwMDAyZSIvPg0KPHJlY3QgeD0iMzMwIiB5PSIyMzAiIHdpZHRoPSIzNDAiIGhlaWdodD0iMTYwIiByeD0iNCIgZmlsbD0idXJsKCNnNCkiIHN0cm9rZT0iIzZjOGViZiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48cmVjdCB4PSIzMzAiIHk9IjIzMCIgd2lkdGg9IjM0MCIgaGVpZ2h0PSIzMiIgcng9IjQiIGZpbGw9IiM2YzhlYmYiIHN0cm9rZT0iIzZjOGViZiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48dGV4dCB4PSI1MDAiIHk9IjI1MC41NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZmZmZmZmIj48dHNwYW4geD0iNTAwIiBkeT0iMCI+Q29udGV4dCAoY3R4KTwvdHNwYW4+PC90ZXh0Pjx0ZXh0IHg9IjUwMCIgeT0iMzMwLjU1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iU2Vnb2UgVUksIE1pY3Jvc29mdCBZYUhlaSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9Im5vcm1hbCIgZmlsbD0iIzMzMzMzMyI+PHRzcGFuIHg9IjUwMCIgZHk9IjAiPmV2ZW50cyDCtyBsb2dnZXIgwrcgcmVmbGVjdCDCtyByZWdpc3RyeTwvdHNwYW4+PC90ZXh0Pg0KPHJlY3QgeD0iNjMiIHk9IjIzNCIgd2lkdGg9IjIyMCIgaGVpZ2h0PSIxNjAiIHJ4PSI0IiBmaWxsPSIjMDAwMDAwMmUiLz4NCjxyZWN0IHg9IjYwIiB5PSIyMzAiIHdpZHRoPSIyMjAiIGhlaWdodD0iMTYwIiByeD0iNCIgZmlsbD0idXJsKCNnNSkiIHN0cm9rZT0iIzY0NzQ4YiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48cmVjdCB4PSI2MCIgeT0iMjMwIiB3aWR0aD0iMjIwIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iIzY0NzQ4YiIgc3Ryb2tlPSIjNjQ3NDhiIiBzdHJva2Utd2lkdGg9IjEuNSIvPjx0ZXh0IHg9IjE3MCIgeT0iMjUwLjU1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iU2Vnb2UgVUksIE1pY3Jvc29mdCBZYUhlaSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNmZmZmZmYiPjx0c3BhbiB4PSIxNzAiIGR5PSIwIj5FdmVudCBidXM8L3RzcGFuPjwvdGV4dD48dGV4dCB4PSIxNzAiIHk9IjMxMyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSJub3JtYWwiIGZpbGw9IiMzMzMzMzMiPjx0c3BhbiB4PSIxNzAiIGR5PSIwIj5zZXNzaW9uIGV2ZW50czwvdHNwYW4+PHRzcGFuIHg9IjE3MCIgZHk9IjE3LjU1Ij5hZ2VudCBldmVudHM8L3RzcGFuPjx0c3BhbiB4PSIxNzAiIGR5PSIxNy41NSI+Y2FwYWJpbGl0eSBldmVudHM8L3RzcGFuPjwvdGV4dD4NCjxyZWN0IHg9IjcyMyIgeT0iMjM0IiB3aWR0aD0iMjIwIiBoZWlnaHQ9IjE2MCIgcng9IjQiIGZpbGw9IiMwMDAwMDAyZSIvPg0KPHJlY3QgeD0iNzIwIiB5PSIyMzAiIHdpZHRoPSIyMjAiIGhlaWdodD0iMTYwIiByeD0iNCIgZmlsbD0idXJsKCNnNikiIHN0cm9rZT0iIzgyYjM2NiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48cmVjdCB4PSI3MjAiIHk9IjIzMCIgd2lkdGg9IjIyMCIgaGVpZ2h0PSIzMiIgcng9IjQiIGZpbGw9IiM4MmIzNjYiIHN0cm9rZT0iIzgyYjM2NiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48dGV4dCB4PSI4MzAiIHk9IjI1MC41NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZmZmZmZmIj48dHNwYW4geD0iODMwIiBkeT0iMCI+U2VydmljZXM8L3RzcGFuPjwvdGV4dD48dGV4dCB4PSI4MzAiIHk9IjMyMS43NzUwMDAwMDAwMDAwMyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSJub3JtYWwiIGZpbGw9IiMzMzMzMzMiPjx0c3BhbiB4PSI4MzAiIGR5PSIwIj5oYW5naW5nIG9uIGN0eCBuYW1lczwvdHNwYW4+PHRzcGFuIHg9IjgzMCIgZHk9IjE3LjU1Ij5yZXBsYWNlYWJsZSwgZS5nLiBjdHgudG9vbHM8L3RzcGFuPjwvdGV4dD4NCjxyZWN0IHg9IjMzMyIgeT0iNDQ0IiB3aWR0aD0iMzQwIiBoZWlnaHQ9IjEwMCIgcng9IjQiIGZpbGw9IiMwMDAwMDAyZSIvPg0KPHJlY3QgeD0iMzMwIiB5PSI0NDAiIHdpZHRoPSIzNDAiIGhlaWdodD0iMTAwIiByeD0iNCIgZmlsbD0idXJsKCNnNykiIHN0cm9rZT0iI2Q2YjY1NiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48cmVjdCB4PSIzMzAiIHk9IjQ0MCIgd2lkdGg9IjM0MCIgaGVpZ2h0PSIzMiIgcng9IjQiIGZpbGw9IiNkNmI2NTYiIHN0cm9rZT0iI2Q2YjY1NiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48dGV4dCB4PSI1MDAiIHk9IjQ2MC41NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZmZmZmZmIj48dHNwYW4geD0iNTAwIiBkeT0iMCI+U2Vzc2lvbiBsb2c8L3RzcGFuPjwvdGV4dD48dGV4dCB4PSI1MDAiIHk9IjUxMC41NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSJub3JtYWwiIGZpbGw9IiMzMzMzMzMiPjx0c3BhbiB4PSI1MDAiIGR5PSIwIj5tb2RlbC12aXNpYmxlIG1lYW5zIGxvZ2dlZDwvdHNwYW4+PC90ZXh0Pg0KPHRleHQgeD0iNDgiIHk9IjYwNC4yIiB0ZXh0LWFuY2hvcj0ic3RhcnQiIGZvbnQtZmFtaWx5PSJTZWdvZSBVSSwgTWljcm9zb2Z0IFlhSGVpLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iIzMzNDE1NSI+PHRzcGFuIHg9IjQ4IiBkeT0iMCI+T25lIGZpZ3VyZSB0byByZW1lbWJlciB0aGUgc2tlbGV0b24sIHBsdWdpbnMgaGFuZyB0aGluZ3Mgb24gY3R4LCBjdHggY29sbGFib3JhdGVzIHRocm91Z2ggZXZlbnRzIGFuZCBzZXJ2aWNlcywgdGhlIHNlc3Npb24gbG9nIHJlY29yZHMgZXZlcnl0aGluZy48L3RzcGFuPjwvdGV4dD4NCjxnIHN0cm9rZT0iIzY2NjY2NiIgc3Ryb2tlLXdpZHRoPSIxLjUiIGZpbGw9Im5vbmUiPjxsaW5lIHgxPSI1MDAiIHkxPSIxODAiIHgyPSI1MDAiIHkyPSIyMTgiIHN0cm9rZT0iIzY2NjY2NiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48L2c+DQo8cG9seWdvbiBwb2ludHM9IjUwMCwyMzAgNDk0LDIxOCA1MDYsMjE4IiBmaWxsPSIjNjY2NjY2IiBzdHJva2U9IiM2NjY2NjYiIHN0cm9rZS13aWR0aD0iMSIvPg0KPHJlY3QgeD0iMzk2IiB5PSIxODUuNSIgd2lkdGg9IjIwOCIgaGVpZ2h0PSIxOSIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjZDBkN2RlIi8+DQo8dGV4dCB4PSI1MDAiIHk9IjE5OC44NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLCBNaWNyb3NvZnQgWWFIZWksIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiIGZvbnQtd2VpZ2h0PSJub3JtYWwiIGZpbGw9IiMzMzMzMzMiPjx0c3BhbiB4PSI1MDAiIGR5PSIwIj5yZWdpc3RlciB2aWEgYXBwbHk8L3RzcGFuPjwvdGV4dD4NCjxnIHN0cm9rZT0iIzY2NjY2NiIgc3Ryb2tlLXdpZHRoPSIxLjUiIGZpbGw9Im5vbmUiPjxsaW5lIHgxPSIzMzAiIHkxPSIzMTAiIHgyPSIyOTIiIHkyPSIzMTAiIHN0cm9rZT0iIzY2NjY2NiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48L2c+DQo8cG9seWdvbiBwb2ludHM9IjI4MCwzMTAgMjkyLDMwNCAyOTIsMzE2IiBmaWxsPSIjNjY2NjY2IiBzdHJva2U9IiM2NjY2NjYiIHN0cm9rZS13aWR0aD0iMSIvPg0KPHJlY3QgeD0iMjE3LjUiIHk9IjI5MC41IiB3aWR0aD0iMTc1IiBoZWlnaHQ9IjE5IiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkMGQ3ZGUiLz4NCjx0ZXh0IHg9IjMwNSIgeT0iMzAzLjg1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iU2Vnb2UgVUksIE1pY3Jvc29mdCBZYUhlaSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMSIgZm9udC13ZWlnaHQ9Im5vcm1hbCIgZmlsbD0iIzMzMzMzMyI+PHRzcGFuIHg9IjMwNSIgZHk9IjAiPmVtaXQgLyBkaXNwYXRjaDwvdHNwYW4+PC90ZXh0Pg0KPGcgc3Ryb2tlPSIjNjY2NjY2IiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSI+PGxpbmUgeDE9Ijk0MCIgeTE9IjMxMCIgeDI9IjM0MiIgeTI9IjMxMCIgc3Ryb2tlPSIjNjY2NjY2IiBzdHJva2Utd2lkdGg9IjEuNSIvPjwvZz4NCjxwb2x5Z29uIHBvaW50cz0iMzMwLDMxMCAzNDIsMzA0IDM0MiwzMTYiIGZpbGw9IiM2NjY2NjYiIHN0cm9rZT0iIzY2NjY2NiIgc3Ryb2tlLXdpZHRoPSIxIi8+DQo8cmVjdCB4PSI1MjAiIHk9IjI5MC41IiB3aWR0aD0iMjMwIiBoZWlnaHQ9IjE5IiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkMGQ3ZGUiLz4NCjx0ZXh0IHg9IjYzNSIgeT0iMzAzLjg1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iU2Vnb2UgVUksIE1pY3Jvc29mdCBZYUhlaSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMSIgZm9udC13ZWlnaHQ9Im5vcm1hbCIgZmlsbD0iIzMzMzMzMyI+PHRzcGFuIHg9IjYzNSIgZHk9IjAiPnByb3ZpZGUsIGhhbmcgb24gY3R4PC90c3Bhbj48L3RleHQ+DQo8ZyBzdHJva2U9IiM2NjY2NjYiIHN0cm9rZS13aWR0aD0iMS41IiBmaWxsPSJub25lIj48bGluZSB4MT0iNTAwIiB5MT0iMzkwIiB4Mj0iNTAwIiB5Mj0iNDI4IiBzdHJva2U9IiM2NjY2NjYiIHN0cm9rZS13aWR0aD0iMS41Ii8+PC9nPg0KPHBvbHlnb24gcG9pbnRzPSI1MDAsNDQwIDQ5NCw0MjggNTA2LDQyOCIgZmlsbD0iIzY2NjY2NiIgc3Ryb2tlPSIjNjY2NjY2IiBzdHJva2Utd2lkdGg9IjEiLz4NCjxyZWN0IHg9IjM2MyIgeT0iMzk1LjUiIHdpZHRoPSIyNzQiIGhlaWdodD0iMTkiIGZpbGw9IiNmZmZmZmYiIHN0cm9rZT0iI2QwZDdkZSIvPg0KPHRleHQgeD0iNTAwIiB5PSI0MDguODUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJTZWdvZSBVSSwgTWljcm9zb2Z0IFlhSGVpLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjExIiBmb250LXdlaWdodD0ibm9ybWFsIiBmaWxsPSIjMzMzMzMzIj48dHNwYW4geD0iNTAwIiBkeT0iMCI+ZHVyYWJsZSBldmVudHMgbGFuZCBoZXJlPC90c3Bhbj48L3RleHQ+DQo8L3N2Zz4NCg==" alt="Cordis at a glance, plugins, context, events, services, session log"></p>
 <p>Figure Cordis at a glance, plugins, context, events, services, session log</p>
@@ -947,7 +1828,8 @@
 <li>Six lifecycle states, waiting, loading, running, failed, cleaning up, gone</li>
 <li>Scoping works through extend inheriting and isolate separating, wrong config fails at load, nested plugins tear down with the parent</li>
 </ul>
-<h2 id="chapter-4-what-happens-behind-one-conversation">Chapter 4 What happens behind one conversation</h2>
+<nav class="page-nav"><a class="nav-btn" onclick="showChapter(2)">← Previous</a><span class="nav-mid">4 / 9</span><a class="nav-btn" onclick="showChapter(4)">Next →</a></nav></div>
+<div id="en-ch-4" class="chapter" hidden><h2 id="chapter-4-what-happens-behind-one-conversation">Chapter 4 What happens behind one conversation</h2>
 <p>This chapter strings the five concepts together and watches one real conversation inside the process.</p>
 <h3 id="41-step-and-turn">4.1 step and turn</h3>
 <p>You send &quot;summarize this repository&quot; in the web UI, and what happens in the process can be read on two levels.</p>
@@ -971,7 +1853,8 @@
 <li>Events fall into three groups, session, agent, and capability, picking the right group is the first decision of a change</li>
 <li>Model-visible means logged, new model-visible input requires a new session event</li>
 </ul>
-<h2 id="chapter-5-replaceable-capabilities">Chapter 5 Replaceable capabilities</h2>
+<nav class="page-nav"><a class="nav-btn" onclick="showChapter(3)">← Previous</a><span class="nav-mid">5 / 9</span><a class="nav-btn" onclick="showChapter(5)">Next →</a></nav></div>
+<div id="en-ch-5" class="chapter" hidden><h2 id="chapter-5-replaceable-capabilities">Chapter 5 Replaceable capabilities</h2>
 <p>This chapter covers one concept, the seam, a replaceable capability boundary.</p>
 <h3 id="51-the-seam-triad">5.1 The seam triad</h3>
 <p>Chapter 2 said no block is welded in place. This section is about how that lands. A seam is always a triad. The Service Definition declares the interface, what the capability looks like. The Service Provider is the concrete implementation, replaceable. The Consumer is the user of it, usually a model-facing tool. Missing any one role, the capability is incomplete.</p>
@@ -1022,7 +1905,8 @@
 <li>To add, design all three together, to replace, swap only the Provider</li>
 <li>Ask which role you occupy before writing a plugin</li>
 </ul>
-<h2 id="chapter-6-hands-on-write-a-plugin-that-does-work">Chapter 6 Hands-on, write a plugin that does work</h2>
+<nav class="page-nav"><a class="nav-btn" onclick="showChapter(4)">← Previous</a><span class="nav-mid">6 / 9</span><a class="nav-btn" onclick="showChapter(6)">Next →</a></nav></div>
+<div id="en-ch-6" class="chapter" hidden><h2 id="chapter-6-hands-on-write-a-plugin-that-does-work">Chapter 6 Hands-on, write a plugin that does work</h2>
 <p>This chapter is hands-on. The goal is a tool an agent can call, in about ten minutes. You end up with a hello plugin and a greet tool.</p>
 <h3 id="61-prepare-the-environment">6.1 Prepare the environment</h3>
 <p>Running from source makes debugging easier.</p>
@@ -1139,7 +2023,8 @@
 <li>defineTool defines a tool, its schema automatically joins the model&#39;s skill list</li>
 <li>Registrations clean up automatically, hot reload is safe, start with the function form</li>
 </ul>
-<h2 id="chapter-7-after-you-finish-this-book">Chapter 7 After you finish this book</h2>
+<nav class="page-nav"><a class="nav-btn" onclick="showChapter(5)">← Previous</a><span class="nav-mid">7 / 9</span><a class="nav-btn" onclick="showChapter(7)">Next →</a></nav></div>
+<div id="en-ch-7" class="chapter" hidden><h2 id="chapter-7-after-you-finish-this-book">Chapter 7 After you finish this book</h2>
 <p>This chapter points you where to go after the book.</p>
 <h3 id="71-the-lookup-table">7.1 The lookup table</h3>
 <p>The official docs are worth reading, only nobody tells you the order. The table below indexes by &quot;what you want to do&quot;. The first column is the question in your head, the other two are the location and the warning.</p>
@@ -1219,69 +2104,54 @@
 <span class="line"><span></span></span></code></pre>
 <p>Step ④ is where the official docs take over. They are a good map, dictionary, and cookbook, and this book has already done the walking-you-through part. Look things up on demand, and write.</p>
 <p>One last sentence. dsh is young, APIs will change, but this skeleton is worth your 30 minutes. It took an agent framework apart into freely re-assemblable blocks, and now it is your turn to assemble one.</p>
-<h2 id="appendix-sources-and-verification">Appendix Sources and verification</h2>
+<nav class="page-nav"><a class="nav-btn" onclick="showChapter(6)">← Previous</a><span class="nav-mid">8 / 9</span><a class="nav-btn" onclick="showChapter(8)">Next →</a></nav></div>
+<div id="en-ch-8" class="chapter" hidden><h2 id="appendix-sources-and-verification">Appendix Sources and verification</h2>
 <p>Concepts and code follow docs/architecture.md, docs/cordis-primer.md, the tutorials under docs/user/develop/basic, and the source under vendor/cordis/src. API signatures follow the master branch; check the source first when signatures change.</p>
 <p>The eight figures are .drawio files generated with drawio-skill (Agents365-ai, 7.2k stars on GitHub). The .svg files next to them are rendered previews, the .drawio files stay editable in the draw.io desktop app, and diagrams/viewer-urls.txt holds the diagrams.net online viewer links.</p>
 <p>Everything in this book was verified against the real system after the draft was done. <code>dsh --profile web --dump-config</code> prints the real plugin tree, matching the layering in Chapter 2. The hello plugin was actually loaded and run through ctx.plugin, the greet tool was defined with defineTool and executed, and all five concepts in Chapter 3 passed verification, including plugins waiting in PENDING until dependencies are ready, FAILED when apply throws, listeners removed automatically on unload, and waterfall short-circuiting when next() is not called. <code>--patch</code> combined with <code>--dump-config</code> confirms the plugins land at the top of the config tree. The event names in Chapter 4 were each checked against the source, and agent/turn-stopping is dispatched with serial and has no next. Two things were not verified, both requiring an API key, model calls themselves and the full browser UI flow.</p>
-</div>
+<nav class="page-nav"><a class="nav-btn" onclick="showChapter(7)">← Previous</a><span class="nav-mid">9 / 9</span><span class="nav-btn disabled"></span></nav></div></div>
   </main>
 </div>
 <script>
-function showLang(lang) {
-  document.getElementById('zh').hidden = lang !== 'zh'
-  document.getElementById('en').hidden = lang !== 'en'
-  document.getElementById('brand-zh').hidden = lang !== 'zh'
-  document.getElementById('brand-en').hidden = lang !== 'en'
-  document.getElementById('toc-zh-block').hidden = lang !== 'zh'
-  document.getElementById('toc-en-block').hidden = lang !== 'en'
-  document.getElementById('btn-zh').classList.toggle('active', lang === 'zh')
-  document.getElementById('btn-en').classList.toggle('active', lang === 'en')
-  history.replaceState(null, '', '#' + lang)
-}
-showLang(location.hash === '#en' ? 'en' : 'zh')
+let lang = 'zh'
+let chapter = 0
 
-// 点击章节标题，展开或收起它的小节
-function toggleToc(a) {
-  const group = a.nextElementSibling
-  if (group && group.classList.contains('toc-group')) {
-    group.hidden = !group.hidden
-    a.classList.toggle('open', !group.hidden)
-  }
+function showLang(l) {
+  lang = l
+  document.getElementById('zh').hidden = l !== 'zh'
+  document.getElementById('en').hidden = l !== 'en'
+  document.getElementById('brand-zh').hidden = l !== 'zh'
+  document.getElementById('brand-en').hidden = l !== 'en'
+  document.getElementById('toc-zh-block').hidden = l !== 'zh'
+  document.getElementById('toc-en-block').hidden = l !== 'en'
+  document.getElementById('btn-zh').classList.toggle('active', l === 'zh')
+  document.getElementById('btn-en').classList.toggle('active', l === 'en')
+  paint()
 }
 
-// 侧边栏链接：点击滚动到章节
-const links = new Map()
-document.querySelectorAll('.sidebar a[href^="#"]').forEach((a) => {
-  const id = a.getAttribute('href').slice(1)
-  if (id) links.set(id, a)
-})
-
-// 滚动到当前章节时，自动展开它的分组
-function revealChapter(link) {
-  let el = link
-  while (el && !el.classList.contains('toc-group')) el = el.parentElement
-  if (el) {
-    el.hidden = false
-    const h2 = el.previousElementSibling
-    if (h2 && h2.classList.contains('toc-2')) h2.classList.add('open')
-  }
+function showChapter(i) {
+  chapter = i
+  paint()
 }
 
-// 滚动高亮当前章节
-const headings = document.querySelectorAll('h2[id], h3[id]')
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((e) => {
-    if (!e.isIntersecting) return
-    document.querySelectorAll('.sidebar a.active').forEach((a) => a.classList.remove('active'))
-    const link = links.get(e.target.id)
-    if (link) {
-      link.classList.add('active')
-      revealChapter(link)
-      link.scrollIntoView({ block: 'nearest' })
-    }
-  })
-}, { rootMargin: '-8% 0px -75% 0px' })
-headings.forEach((h) => observer.observe(h))
+function paint() {
+  const count = document.querySelectorAll('#zh .chapter').length
+  document.querySelectorAll('.chapter').forEach((d) => { d.hidden = true })
+  document.getElementById(lang + '-ch-' + chapter).hidden = false
+  document.querySelectorAll('.sidebar a').forEach((a) => a.classList.remove('active'))
+  const link = document.querySelector('.sidebar a[data-idx="' + chapter + '"]')
+  if (link) link.classList.add('active')
+  history.replaceState(null, '', '#' + lang + '-' + chapter)
+  window.scrollTo(0, 0)
+}
+
+// 初始状态：从 URL 恢复语言与章节
+const m = location.hash.match(/^#(zh|en)(?:-(d+))?/)
+if (m) {
+  lang = m[1]
+  chapter = m[2] !== undefined ? Math.min(Number(m[2]), document.querySelectorAll('#zh .chapter').length - 1) : 0
+}
+showLang(lang)
 </script>
 </body>
 </html>
