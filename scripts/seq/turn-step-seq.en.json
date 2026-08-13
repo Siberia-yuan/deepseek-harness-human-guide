@@ -1,0 +1,19 @@
+{
+  "title": "One conversation, turn and step",
+  "participants": [
+    {"id": "u", "label": "You", "actor": true},
+    {"id": "a", "label": "agent loop"},
+    {"id": "l", "label": "LLM"},
+    {"id": "t", "label": "Tools"}
+  ],
+  "messages": [
+    {"from": "u", "to": "a", "label": "send: summarize this repository"},
+    {"from": "a", "to": "a", "label": "turn/start · step/start"},
+    {"from": "a", "to": "l", "label": "agent/request → llm/stream"},
+    {"from": "l", "to": "a", "label": "assistant/message (model reply)", "return": true},
+    {"from": "a", "to": "t", "label": "tools/pre-execute → execute"},
+    {"from": "t", "to": "a", "label": "tool/result (written back to the log)", "return": true},
+    {"from": "a", "to": "a", "label": "step/end, continue with the next step if needed"},
+    {"from": "a", "to": "u", "label": "turn/end, answer complete", "return": true}
+  ]
+}

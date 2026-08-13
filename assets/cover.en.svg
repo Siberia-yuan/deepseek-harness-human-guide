@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1150 400" font-family="'Segoe UI','Microsoft YaHei',sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1220"/>
+      <stop offset="1" stop-color="#1e293b"/>
+    </linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.2" fill="#ffffff" opacity="0.05"/>
+    </pattern>
+  </defs>
+  <rect width="1150" height="400" fill="url(#bg)"/>
+  <rect width="1150" height="400" fill="url(#dots)"/>
+  <rect width="10" height="400" fill="#4f8cff"/>
+  <text x="64" y="132" font-size="42" font-weight="700" fill="#f8fafc">Inside DeepSeek Harness</text>
+  <text x="64" y="194" font-size="42" font-weight="700" fill="#f8fafc">Understanding Cordis Architecture</text>
+  <text x="66" y="242" font-size="18" fill="#94a3b8">A plain-language book for humans, from "what is this" to a plugin an agent can call</text>
+  <rect x="66" y="270" width="170" height="34" rx="17" fill="#1e293b" stroke="#334155"/>
+  <text x="151" y="292" font-size="15" fill="#cbd5e1" text-anchor="middle">⏱ 30 minutes</text>
+  <rect x="248" y="270" width="180" height="34" rx="17" fill="#1e293b" stroke="#334155"/>
+  <text x="338" y="292" font-size="15" fill="#cbd5e1" text-anchor="middle">🌐 Chinese + English</text>
+  <rect x="440" y="270" width="196" height="34" rx="17" fill="#1e293b" stroke="#334155"/>
+  <text x="538" y="292" font-size="15" fill="#cbd5e1" text-anchor="middle">✅ Verified by real tests</text>
+  <rect x="875" y="100" width="240" height="46" rx="10" fill="#ffe6cc" stroke="#d79b00"/>
+  <text x="995" y="128" font-size="15" fill="#1e293b" text-anchor="middle">--patch overlay</text>
+  <line x1="995" y1="146" x2="995" y2="174" stroke="#64748b" stroke-width="2.5"/>
+  <polygon points="995,176 988,164 1002,164" fill="#64748b"/>
+  <rect x="875" y="178" width="240" height="46" rx="10" fill="#d5e8d4" stroke="#82b366"/>
+  <text x="995" y="206" font-size="15" fill="#1e293b" text-anchor="middle">bundles</text>
+  <line x1="995" y1="224" x2="995" y2="252" stroke="#64748b" stroke-width="2.5"/>
+  <polygon points="995,254 988,242 1002,242" fill="#64748b"/>
+  <rect x="875" y="256" width="240" height="46" rx="10" fill="#f5f5f5" stroke="#666666"/>
+  <text x="995" y="284" font-size="15" fill="#1e293b" text-anchor="middle">profile selection</text>
+  <rect x="64" y="352" width="1022" height="1.5" fill="#334155"/>
+  <text x="66" y="380" font-size="13" fill="#64748b">拆开 DeepSeek Harness，看懂 Cordis 架构 · Chinese version included</text>
+</svg>

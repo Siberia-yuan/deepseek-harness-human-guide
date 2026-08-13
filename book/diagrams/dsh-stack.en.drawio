@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="drawio" version="26.0.0">
+  <diagram name="Plugin tree layers">
+    <mxGraphModel>
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="The dsh plugin tree, five layers" style="text;html=1;align=center;verticalAlign=middle;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="900" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="profile selection (bottom)&#xa;web has a UI, headless runs once" style="rounded=1;whiteSpace=wrap;html=1;gradient=1;shadow=1;fillColor=#e2e8f0;strokeColor=#64748b;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="40" y="90" width="430" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="bundles&#xa;dsh-base first, dsh-web-app adds the UI" style="rounded=1;whiteSpace=wrap;html=1;gradient=1;shadow=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="40" y="190" width="430" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="profile's own patch&#xa;for example, the web template's tweaks" style="rounded=1;whiteSpace=wrap;html=1;gradient=1;shadow=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="40" y="290" width="430" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="user-level cordis.patch.yml&#xa;stored in Harness home" style="rounded=1;whiteSpace=wrap;html=1;gradient=1;shadow=1;fillColor=#dbeafe;strokeColor=#5b7db1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="40" y="390" width="430" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="7" value="your --patch overlay (top)&#xa;cordis.yml, insert a plugin or change a config" style="rounded=1;whiteSpace=wrap;html=1;gradient=1;shadow=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="40" y="490" width="430" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="8" value="which finished package you want&#xa;web and headless are the two shipped templates" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#475569;" vertex="1" parent="1">
+          <mxGeometry x="520" y="90" width="440" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="9" value="a packaging format for a set of plugins&#xa;still modifiable by layers above" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#475569;" vertex="1" parent="1">
+          <mxGeometry x="520" y="190" width="440" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="10" value="the profile layer's tweaks&#xa;for example, the web template's own" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#475569;" vertex="1" parent="1">
+          <mxGeometry x="520" y="290" width="440" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="11" value="your machine-wide tweaks&#xa;every profile stacks this layer" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#475569;" vertex="1" parent="1">
+          <mxGeometry x="520" y="390" width="440" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="12" value="the layer you touch most in development&#xa;highest priority, visible in dsh --profile web --dump-config" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#475569;" vertex="1" parent="1">
+          <mxGeometry x="520" y="490" width="440" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="13" value="Assembled bottom-up, overridden top-down. Every layer may override the layer below." style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="40" y="600" width="900" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

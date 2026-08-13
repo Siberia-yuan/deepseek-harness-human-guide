@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="drawio" version="26.0.0">
+  <diagram name="能力接缝">
+    <mxGraphModel>
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="能力接缝（seam），三件套" style="text;html=1;align=center;verticalAlign=middle;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="20" width="880" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="一项能力（seam）" style="text;html=1;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;fontColor=#475569;" vertex="1" parent="1">
+          <mxGeometry x="80" y="100" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#94a3b8;container=1;pointerEvents=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="130" width="880" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="Service Definition&#xa;接口，声明能力长什么样" style="rounded=1;whiteSpace=wrap;html=1;gradient=1;shadow=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="90" y="180" width="240" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="Service Provider&#xa;具体实现，可以替换" style="rounded=1;whiteSpace=wrap;html=1;gradient=1;shadow=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="370" y="180" width="240" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="7" value="Consumer&#xa;使用者，通常是面向模型的工具" style="rounded=1;whiteSpace=wrap;html=1;gradient=1;shadow=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="650" y="180" width="240" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="8" value="实现" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="5" target="6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9" value="消费" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="6" target="7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="10" value="新 Provider（比如远程沙箱）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#64748b;dashed=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="370" y="330" width="240" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="11" value="替换" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="6" target="10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="12" value="三件套缺一个，能力就不完整。替换 Provider 就换掉整个能力，比如本地文件系统换成远程沙箱，Bash、PTY、LSP 一起搬走。" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="60" y="410" width="880" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

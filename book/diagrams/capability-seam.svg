@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-24 -24 988 498" font-family="Segoe UI, Microsoft YaHei, sans-serif">
+<rect x="-24" y="-24" width="988" height="498" fill="#ffffff"/>
+<defs><linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dae8fc"/><stop offset="1" stop-color="#b7c3d4"/></linearGradient><linearGradient id="g4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d5e8d4"/><stop offset="1" stop-color="#b3c3b2"/></linearGradient><linearGradient id="g5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe6cc"/><stop offset="1" stop-color="#d6c1ab"/></linearGradient></defs>
+<rect x="0" y="0" width="0" height="0" rx="0" fill="#ffffff" stroke="#666666" stroke-width="1.5"/>
+<rect x="0" y="0" width="0" height="0" rx="0" fill="#ffffff" stroke="#666666" stroke-width="1.5"/>
+<text x="500" y="45.6" text-anchor="middle" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="16" font-weight="bold" fill="#333333"><tspan x="500" dy="0">能力接缝（seam），三件套</tspan></text>
+<text x="88" y="119.55" text-anchor="start" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="13" font-weight="bold" fill="#475569"><tspan x="88" dy="0">一项能力（seam）</tspan></text>
+<rect x="60" y="130" width="880" height="200" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<rect x="93" y="184" width="240" height="100" rx="10" fill="#0000002e"/>
+<rect x="90" y="180" width="240" height="100" rx="10" fill="url(#g4)" stroke="#6c8ebf" stroke-width="1.5"/><text x="210" y="225.775" text-anchor="middle" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="13" font-weight="normal" fill="#333333"><tspan x="210" dy="0">Service Definition</tspan><tspan x="210" dy="17.55">接口，声明能力长什么样</tspan></text>
+<rect x="373" y="184" width="240" height="100" rx="10" fill="#0000002e"/>
+<rect x="370" y="180" width="240" height="100" rx="10" fill="url(#g5)" stroke="#82b366" stroke-width="1.5"/><text x="490" y="225.775" text-anchor="middle" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="13" font-weight="normal" fill="#333333"><tspan x="490" dy="0">Service Provider</tspan><tspan x="490" dy="17.55">具体实现，可以替换</tspan></text>
+<rect x="653" y="184" width="240" height="100" rx="10" fill="#0000002e"/>
+<rect x="650" y="180" width="240" height="100" rx="10" fill="url(#g6)" stroke="#d79b00" stroke-width="1.5"/><text x="770" y="225.775" text-anchor="middle" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="13" font-weight="normal" fill="#333333"><tspan x="770" dy="0">Consumer</tspan><tspan x="770" dy="17.55">使用者，通常是面向模型的工具</tspan></text>
+<rect x="370" y="330" width="240" height="50" rx="10" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/><text x="490" y="359.2" text-anchor="middle" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="12" font-weight="normal" fill="#333333"><tspan x="490" dy="0">新 Provider（比如远程沙箱）</tspan></text>
+<text x="68" y="434.2" text-anchor="start" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="12" font-weight="bold" fill="#334155"><tspan x="68" dy="0">三件套缺一个，能力就不完整。替换 Provider 就换掉整个能力，比如本地文件系统换成远程沙箱，Bash、PTY、LSP 一起搬走。</tspan></text>
+<g stroke="#666666" stroke-width="1.5" fill="none"><line x1="330" y1="230" x2="358" y2="230" stroke="#666666" stroke-width="1.5"/></g>
+<polygon points="370,230 358,236 358,224" fill="#666666" stroke="#666666" stroke-width="1"/>
+<rect x="334" y="210.5" width="32" height="19" fill="#ffffff" stroke="#d0d7de"/>
+<text x="350" y="223.85" text-anchor="middle" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="11" font-weight="normal" fill="#333333"><tspan x="350" dy="0">实现</tspan></text>
+<g stroke="#666666" stroke-width="1.5" fill="none"><line x1="610" y1="230" x2="638" y2="230" stroke="#666666" stroke-width="1.5"/></g>
+<polygon points="650,230 638,236 638,224" fill="#666666" stroke="#666666" stroke-width="1"/>
+<rect x="614" y="210.5" width="32" height="19" fill="#ffffff" stroke="#d0d7de"/>
+<text x="630" y="223.85" text-anchor="middle" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="11" font-weight="normal" fill="#333333"><tspan x="630" dy="0">消费</tspan></text>
+<g stroke="#666666" stroke-width="1.5" stroke-dasharray="7,5" fill="none"><line x1="490" y1="280" x2="490" y2="318" stroke="#666666" stroke-width="1.5"/></g>
+<polygon points="490,330 484,318 496,318" fill="#666666" stroke="#666666" stroke-width="1"/>
+<rect x="474" y="285.5" width="32" height="19" fill="#ffffff" stroke="#d0d7de"/>
+<text x="490" y="298.85" text-anchor="middle" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="11" font-weight="normal" fill="#333333"><tspan x="490" dy="0">替换</tspan></text>
+</svg>

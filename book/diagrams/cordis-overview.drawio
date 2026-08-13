@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="drawio" version="26.0.0">
+  <diagram name="Cordis 全景">
+    <mxGraphModel>
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="Cordis 全景，一次看全" style="text;html=1;align=center;verticalAlign=middle;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="900" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="插件&#xa;导出 apply(ctx)，向框架注册能力" style="swimlane;startSize=32;whiteSpace=wrap;html=1;gradient=1;shadow=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="330" y="70" width="340" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="Context（ctx）&#xa;events · logger · reflect · registry" style="swimlane;startSize=32;whiteSpace=wrap;html=1;gradient=1;shadow=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="330" y="230" width="340" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="事件总线&#xa;会话事件&#xa;agent 事件&#xa;能力事件" style="swimlane;startSize=32;whiteSpace=wrap;html=1;gradient=1;shadow=1;fillColor=#e2e8f0;strokeColor=#64748b;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="60" y="230" width="220" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="服务 Service&#xa;挂在 ctx 名字下&#xa;可替换，如 ctx.tools" style="swimlane;startSize=32;whiteSpace=wrap;html=1;gradient=1;shadow=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="720" y="230" width="220" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="7" value="会话日志&#xa;模型看到即记录" style="swimlane;startSize=32;whiteSpace=wrap;html=1;gradient=1;shadow=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="330" y="440" width="340" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="8" value="apply 注册" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="3" target="4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9" value="emit / dispatch" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="4" target="5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="10" value="provide，挂在 ctx 上" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="6" target="4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="11" value="持久事件落盘" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="4" target="7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="12" value="一张图记住骨架：插件往 ctx 上挂东西，ctx 通过事件和服务协作，会话日志记录一切。" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="40" y="580" width="900" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

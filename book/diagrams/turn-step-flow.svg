@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-24 -24 788 658" font-family="Segoe UI, Microsoft YaHei, sans-serif">
+<rect x="-24" y="-24" width="788" height="658" fill="#ffffff"/>
+
+<rect x="0" y="0" width="0" height="0" rx="0" fill="#ffffff" stroke="#666666" stroke-width="1.5"/>
+<rect x="0" y="0" width="0" height="0" rx="0" fill="#ffffff" stroke="#666666" stroke-width="1.5"/>
+<rect x="40" y="40" width="100" height="570" rx="0" fill="#ffffff" stroke="#666666" stroke-width="1.5"/><text x="90" y="329.2" text-anchor="middle" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="12" font-weight="normal" fill="#333333"><tspan x="90" dy="0">你</tspan></text>
+<rect x="240" y="40" width="100" height="570" rx="0" fill="#ffffff" stroke="#666666" stroke-width="1.5"/><text x="290" y="329.2" text-anchor="middle" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="12" font-weight="normal" fill="#333333"><tspan x="290" dy="0">agent 循环</tspan></text>
+<rect x="440" y="40" width="100" height="570" rx="0" fill="#ffffff" stroke="#666666" stroke-width="1.5"/><text x="490" y="329.2" text-anchor="middle" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="12" font-weight="normal" fill="#333333"><tspan x="490" dy="0">模型 LLM</tspan></text>
+<rect x="640" y="40" width="100" height="570" rx="0" fill="#ffffff" stroke="#666666" stroke-width="1.5"/><text x="690" y="329.2" text-anchor="middle" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="12" font-weight="normal" fill="#333333"><tspan x="690" dy="0">工具</tspan></text>
+<rect x="485" y="250" width="10" height="50" rx="0" fill="#ffffff" stroke="#666666" stroke-width="1.5"/>
+<rect x="685" y="350" width="10" height="50" rx="0" fill="#ffffff" stroke="#666666" stroke-width="1.5"/>
+<rect x="285" y="130" width="10" height="390" rx="0" fill="#ffffff" stroke="#666666" stroke-width="1.5"/>
+<g stroke="#666666" stroke-width="1.5" fill="none"><line x1="90" y1="130.003" x2="273.0000000014201" y2="130.0001846153846" stroke="#666666" stroke-width="1.5"/></g>
+<polygon points="285,130 273.0000923091124,136.00018461467454 272.99990769372783,124.00018461609466" fill="#666666" stroke="#666666" stroke-width="1"/>
+<rect x="116.5" y="110.5015" width="142" height="19" fill="#ffffff" stroke="#d0d7de"/>
+<text x="187.5" y="123.85149999999999" text-anchor="middle" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="11" font-weight="normal" fill="#333333"><tspan x="187.5" dy="0">发消息：帮我总结这个仓库</tspan></text>
+<g stroke="#666666" stroke-width="1.5" fill="none"><line x1="295" y1="179.998" x2="350" y2="180" stroke="#666666" stroke-width="1.5"/><line x1="350" y1="180" x2="350" y2="210" stroke="#666666" stroke-width="1.5"/><line x1="350" y1="210" x2="295" y2="197.989" stroke="#666666" stroke-width="1.5"/></g>
+<polygon points="295,209.989 289,197.989 301,197.989" fill="#666666" stroke="#666666" stroke-width="1"/>
+<rect x="163.5" y="175.49349999999998" width="263" height="19" fill="#ffffff" stroke="#d0d7de"/>
+<text x="295" y="188.84349999999998" text-anchor="middle" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="11" font-weight="normal" fill="#333333"><tspan x="295" dy="0">turn/start · step/start</tspan></text>
+<g stroke="#666666" stroke-width="1.5" fill="none"><line x1="295" y1="250.003" x2="473.00000000149583" y2="250.00018947368417" stroke="#666666" stroke-width="1.5"/></g>
+<polygon points="485,250 473.0000947383379,256.00018947293626 472.99990526465376,244.0001894744321" fill="#666666" stroke="#666666" stroke-width="1"/>
+<rect x="242" y="230.5015" width="296" height="19" fill="#ffffff" stroke="#d0d7de"/>
+<text x="390" y="243.8515" text-anchor="middle" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="11" font-weight="normal" fill="#333333"><tspan x="390" dy="0">agent/request → llm/stream</tspan></text>
+<g stroke="#999999" stroke-width="1.5" stroke-dasharray="7,5" fill="none"><line x1="485" y1="300" x2="306.9999999998338" y2="300.00093684210526" stroke="#999999" stroke-width="1.5"/></g>
+<polygon points="295,300.001 306.99996842088643,294.00093684218837 307.00003157878115,306.00093684202216" fill="#999999" stroke="#999999" stroke-width="1"/>
+<rect x="258.5" y="280.5005" width="263" height="19" fill="#ffffff" stroke="#d0d7de"/>
+<text x="390" y="293.8505" text-anchor="middle" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="11" font-weight="normal" fill="#333333"><tspan x="390" dy="0">assistant/message（模型回复）</tspan></text>
+<g stroke="#666666" stroke-width="1.5" fill="none"><line x1="295" y1="349.999" x2="673.0000000000394" y2="349.99996923076924" stroke="#666666" stroke-width="1.5"/></g>
+<polygon points="685,350 672.9999846154241,355.9999692307495 673.0000153846548,343.99996923078896" fill="#666666" stroke="#666666" stroke-width="1"/>
+<rect x="336.5" y="330.4995" width="307" height="19" fill="#ffffff" stroke="#d0d7de"/>
+<text x="490" y="343.84950000000003" text-anchor="middle" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="11" font-weight="normal" fill="#333333"><tspan x="490" dy="0">tools/pre-execute → execute</tspan></text>
+<g stroke="#999999" stroke-width="1.5" stroke-dasharray="7,5" fill="none"><line x1="685" y1="400" x2="306.99999999964496" y2="399.9970923076923" stroke="#999999" stroke-width="1.5"/></g>
+<polygon points="295,399.997 307.0000461534911,393.9970923078698 306.9999538457988,405.9970923075148" fill="#999999" stroke="#999999" stroke-width="1"/>
+<rect x="380.5" y="380.49850000000004" width="219" height="19" fill="#ffffff" stroke="#d0d7de"/>
+<text x="490" y="393.84850000000006" text-anchor="middle" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="11" font-weight="normal" fill="#333333"><tspan x="490" dy="0">tool/result（结果回填日志）</tspan></text>
+<g stroke="#666666" stroke-width="1.5" fill="none"><line x1="295" y1="449.995" x2="350" y2="450" stroke="#666666" stroke-width="1.5"/><line x1="350" y1="450" x2="350" y2="480" stroke="#666666" stroke-width="1.5"/><line x1="350" y1="480" x2="295" y2="467.986" stroke="#666666" stroke-width="1.5"/></g>
+<polygon points="295,479.986 289,467.986 301,467.986" fill="#666666" stroke="#666666" stroke-width="1"/>
+<rect x="158" y="445.4905" width="274" height="19" fill="#ffffff" stroke="#d0d7de"/>
+<text x="295" y="458.8405" text-anchor="middle" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="11" font-weight="normal" fill="#333333"><tspan x="295" dy="0">step/end，还要继续就进入下一个 step</tspan></text>
+<g stroke="#999999" stroke-width="1.5" stroke-dasharray="7,5" fill="none"><line x1="285" y1="520" x2="101.99999999857988" y2="519.9971846153845" stroke="#999999" stroke-width="1.5"/></g>
+<polygon points="90,519.997 102.00009230627218,513.9971846160946 101.99990769088758,525.9971846146744" fill="#999999" stroke="#999999" stroke-width="1"/>
+<rect x="111" y="500.4984999999999" width="153" height="19" fill="#ffffff" stroke="#d0d7de"/>
+<text x="187.5" y="513.8485" text-anchor="middle" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="11" font-weight="normal" fill="#333333"><tspan x="187.5" dy="0">turn/end，回答完成</tspan></text>
+</svg>

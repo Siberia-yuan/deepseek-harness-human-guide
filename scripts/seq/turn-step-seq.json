@@ -1,0 +1,19 @@
+{
+  "title": "一次对话：turn 与 step",
+  "participants": [
+    {"id": "u", "label": "你", "actor": true},
+    {"id": "a", "label": "agent 循环"},
+    {"id": "l", "label": "模型 LLM"},
+    {"id": "t", "label": "工具"}
+  ],
+  "messages": [
+    {"from": "u", "to": "a", "label": "发消息：帮我总结这个仓库"},
+    {"from": "a", "to": "a", "label": "turn/start · step/start"},
+    {"from": "a", "to": "l", "label": "agent/request → llm/stream"},
+    {"from": "l", "to": "a", "label": "assistant/message（模型回复）", "return": true},
+    {"from": "a", "to": "t", "label": "tools/pre-execute → execute"},
+    {"from": "t", "to": "a", "label": "tool/result（结果回填日志）", "return": true},
+    {"from": "a", "to": "a", "label": "step/end，还要继续就进入下一个 step"},
+    {"from": "a", "to": "u", "label": "turn/end，回答完成", "return": true}
+  ]
+}

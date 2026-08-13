@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="drawio" version="26.0.0">
+  <diagram name="插件树分层">
+    <mxGraphModel>
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="dsh 进程的插件树，五层配方" style="text;html=1;align=center;verticalAlign=middle;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="900" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="profile 选型（最底层）&#xa;web 带界面，headless 无界面跑一次" style="rounded=1;whiteSpace=wrap;html=1;gradient=1;shadow=1;fillColor=#e2e8f0;strokeColor=#64748b;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="40" y="90" width="430" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="组合包 bundles&#xa;dsh-base 打底，dsh-web-app 加界面" style="rounded=1;whiteSpace=wrap;html=1;gradient=1;shadow=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="40" y="190" width="430" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="profile 自带的 patch&#xa;比如 web 模板自己的调整" style="rounded=1;whiteSpace=wrap;html=1;gradient=1;shadow=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="40" y="290" width="430" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="用户级 cordis.patch.yml&#xa;存在 Harness home 里" style="rounded=1;whiteSpace=wrap;html=1;gradient=1;shadow=1;fillColor=#dbeafe;strokeColor=#5b7db1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="40" y="390" width="430" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="7" value="你传的 --patch 覆盖层（最上层）&#xa;cordis.yml，插一个新插件、改一项配置" style="rounded=1;whiteSpace=wrap;html=1;gradient=1;shadow=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="40" y="490" width="430" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="8" value="你要哪一套成品&#xa;web 和 headless 是随发行版交付的两个模板" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#475569;" vertex="1" parent="1">
+          <mxGeometry x="520" y="90" width="440" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="9" value="一整套插件的打包格式&#xa;内部还能被上层继续修改" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#475569;" vertex="1" parent="1">
+          <mxGeometry x="520" y="190" width="440" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="10" value="profile 层的微调&#xa;比如 web 模板自己的调整" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#475569;" vertex="1" parent="1">
+          <mxGeometry x="520" y="290" width="440" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="11" value="你机器上的全局微调&#xa;所有 profile 都会叠上这一层" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#475569;" vertex="1" parent="1">
+          <mxGeometry x="520" y="390" width="440" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="12" value="开发时最常碰的一层&#xa;优先级最高，dsh --profile web --dump-config 里能看到" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#475569;" vertex="1" parent="1">
+          <mxGeometry x="520" y="490" width="440" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="13" value="拼装从下往上，覆盖从上往下。每一层都有权改下面一层的决定。" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="40" y="600" width="900" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
