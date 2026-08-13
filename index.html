@@ -34,6 +34,12 @@
   }
   .sidebar a:hover { background: #f6f8fa; color: #0f172a; }
   .sidebar a.active { background: #eef4ff; color: #1a6bb0; font-weight: 600; }
+  .sidebar a.toc-2 { position: relative; }
+  .sidebar a.toc-2::after { content: '▸'; position: absolute; right: .6rem; color: #b6beca; transition: transform .15s; }
+  .sidebar a.toc-2.open::after { transform: rotate(90deg); }
+  .sidebar a.toc-3 { padding-left: 1.5rem; font-size: .8rem; color: #8b949e; }
+  .toc-group { display: flex; flex-direction: column; gap: .1rem; }
+  .toc-group[hidden] { display: none; }
   .content { flex: 1; min-width: 0; }
   .content-inner { max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem 4rem; line-height: 1.85; }
   .content-inner h2 { font-size: 1.45rem; border-bottom: 1px solid #eee; padding-bottom: .35rem; margin-top: 0; }
@@ -78,27 +84,135 @@
   <aside class="sidebar">
     <div id="toc-zh-block">
       <div class="toc-title">目录</div>
-      <nav id="toc-zh"><a class="toc-2" data-idx="0" onclick="showChapter(0)">前言</a>
-<a class="toc-2" data-idx="1" onclick="showChapter(1)">第一章 这是什么</a>
-<a class="toc-2" data-idx="2" onclick="showChapter(2)">第二章 一个 dsh 进程是怎么拼起来的</a>
-<a class="toc-2" data-idx="3" onclick="showChapter(3)">第三章 Cordis 的五个概念</a>
-<a class="toc-2" data-idx="4" onclick="showChapter(4)">第四章 一次对话背后的流程</a>
-<a class="toc-2" data-idx="5" onclick="showChapter(5)">第五章 可替换的能力</a>
-<a class="toc-2" data-idx="6" onclick="showChapter(6)">第六章 实战，写一个会干活的插件</a>
-<a class="toc-2" data-idx="7" onclick="showChapter(7)">第七章 读完这本书之后</a>
-<a class="toc-2" data-idx="8" onclick="showChapter(8)">附录 本书依据与验证</a></nav>
+      <nav id="toc-zh"><a class="toc-2" data-idx="0" onclick="toggleChapter(this, 0)">前言</a>
+<div class="toc-group" hidden>
+
+</div>
+<a class="toc-2" data-idx="1" onclick="toggleChapter(this, 1)">第一章 这是什么</a>
+<div class="toc-group" hidden>
+<a class="toc-3" data-idx="1" onclick="showChapter(1, '11-dsh-是什么跟聊天窗口有什么区别')">1.1 dsh 是什么，跟聊天窗口有什么区别</a>
+<a class="toc-3" data-idx="1" onclick="showChapter(1, '12-一切皆插件')">1.2 一切皆插件</a>
+<a class="toc-3" data-idx="1" onclick="showChapter(1, '13-cordis-是什么')">1.3 Cordis 是什么</a>
+<a class="toc-3" data-idx="1" onclick="showChapter(1, '14-开发者预览期的现实')">1.4 开发者预览期的现实</a>
+</div>
+<a class="toc-2" data-idx="2" onclick="toggleChapter(this, 2)">第二章 一个 dsh 进程是怎么拼起来的</a>
+<div class="toc-group" hidden>
+<a class="toc-3" data-idx="2" onclick="showChapter(2, '21-启动之后发生了什么')">2.1 启动之后发生了什么</a>
+<a class="toc-3" data-idx="2" onclick="showChapter(2, '22-五层配方')">2.2 五层配方</a>
+<a class="toc-3" data-idx="2" onclick="showChapter(2, '23-profile组合包patch')">2.3 profile、组合包、patch</a>
+<a class="toc-3" data-idx="2" onclick="showChapter(2, '24-看真实的插件树')">2.4 看真实的插件树</a>
+<a class="toc-3" data-idx="2" onclick="showChapter(2, '25-没有特权内核')">2.5 没有特权内核</a>
+</div>
+<a class="toc-2" data-idx="3" onclick="toggleChapter(this, 3)">第三章 Cordis 的五个概念</a>
+<div class="toc-group" hidden>
+<a class="toc-3" data-idx="3" onclick="showChapter(3, '31-插件是一个导出-apply-函数的模块')">3.1 插件是一个导出 apply 函数的模块</a>
+<a class="toc-3" data-idx="3" onclick="showChapter(3, '32-上下文是一个代理对象')">3.2 上下文是一个代理对象</a>
+<a class="toc-3" data-idx="3" onclick="showChapter(3, '33-服务是挂在-ctx-上的名字')">3.3 服务是挂在 ctx 上的名字</a>
+<a class="toc-3" data-idx="3" onclick="showChapter(3, '34-事件是插件之间的对讲机')">3.4 事件是插件之间的对讲机</a>
+<a class="toc-3" data-idx="3" onclick="showChapter(3, '35-注册即副作用卸载自动撤销')">3.5 注册即副作用，卸载自动撤销</a>
+<a class="toc-3" data-idx="3" onclick="showChapter(3, '36-作用域每个插件一块自己的-ctx')">3.6 作用域，每个插件一块自己的 ctx</a>
+<a class="toc-3" data-idx="3" onclick="showChapter(3, '37-配置会校验配错加载即失败')">3.7 配置会校验，配错加载即失败</a>
+<a class="toc-3" data-idx="3" onclick="showChapter(3, '38-嵌套与热重载')">3.8 嵌套与热重载</a>
+</div>
+<a class="toc-2" data-idx="4" onclick="toggleChapter(this, 4)">第四章 一次对话背后的流程</a>
+<div class="toc-group" hidden>
+<a class="toc-3" data-idx="4" onclick="showChapter(4, '41-step-与-turn')">4.1 step 与 turn</a>
+<a class="toc-3" data-idx="4" onclick="showChapter(4, '42-一次对话的完整旅程')">4.2 一次对话的完整旅程</a>
+<a class="toc-3" data-idx="4" onclick="showChapter(4, '43-事件就是扩展点')">4.3 事件就是扩展点</a>
+<a class="toc-3" data-idx="4" onclick="showChapter(4, '44-会话日志模型看到即记录')">4.4 会话日志，模型看到即记录</a>
+</div>
+<a class="toc-2" data-idx="5" onclick="toggleChapter(this, 5)">第五章 可替换的能力</a>
+<div class="toc-group" hidden>
+<a class="toc-3" data-idx="5" onclick="showChapter(5, '51-seam-三件套')">5.1 seam 三件套</a>
+<a class="toc-3" data-idx="5" onclick="showChapter(5, '52-换一个零件整条生产线跟着变')">5.2 换一个零件，整条生产线跟着变</a>
+<a class="toc-3" data-idx="5" onclick="showChapter(5, '53-判断准则')">5.3 判断准则</a>
+</div>
+<a class="toc-2" data-idx="6" onclick="toggleChapter(this, 6)">第六章 实战，写一个会干活的插件</a>
+<div class="toc-group" hidden>
+<a class="toc-3" data-idx="6" onclick="showChapter(6, '61-准备环境')">6.1 准备环境</a>
+<a class="toc-3" data-idx="6" onclick="showChapter(6, '62-写最小插件')">6.2 写最小插件</a>
+<a class="toc-3" data-idx="6" onclick="showChapter(6, '63-让-dsh-加载它')">6.3 让 dsh 加载它</a>
+<a class="toc-3" data-idx="6" onclick="showChapter(6, '64-加一个工具')">6.4 加一个工具</a>
+<a class="toc-3" data-idx="6" onclick="showChapter(6, '65-观察生命周期')">6.5 观察生命周期</a>
+<a class="toc-3" data-idx="6" onclick="showChapter(6, '66-三种形态什么时候用哪个')">6.6 三种形态，什么时候用哪个</a>
+<a class="toc-3" data-idx="6" onclick="showChapter(6, '67-开发时的小工具')">6.7 开发时的小工具</a>
+<a class="toc-3" data-idx="6" onclick="showChapter(6, '68-常见坑')">6.8 常见坑</a>
+</div>
+<a class="toc-2" data-idx="7" onclick="toggleChapter(this, 7)">第七章 读完这本书之后</a>
+<div class="toc-group" hidden>
+<a class="toc-3" data-idx="7" onclick="showChapter(7, '71-按需查表')">7.1 按需查表</a>
+<a class="toc-3" data-idx="7" onclick="showChapter(7, '72-从头到尾的路线')">7.2 从头到尾的路线</a>
+</div>
+<a class="toc-2" data-idx="8" onclick="toggleChapter(this, 8)">附录 本书依据与验证</a>
+<div class="toc-group" hidden>
+
+</div></nav>
     </div>
     <div id="toc-en-block" hidden>
       <div class="toc-title">Contents</div>
-      <nav id="toc-en"><a class="toc-2" data-idx="0" onclick="showChapter(0)">Preface</a>
-<a class="toc-2" data-idx="1" onclick="showChapter(1)">Chapter 1 What this is</a>
-<a class="toc-2" data-idx="2" onclick="showChapter(2)">Chapter 2 How a dsh process is assembled</a>
-<a class="toc-2" data-idx="3" onclick="showChapter(3)">Chapter 3 The five concepts of Cordis</a>
-<a class="toc-2" data-idx="4" onclick="showChapter(4)">Chapter 4 What happens behind one conversation</a>
-<a class="toc-2" data-idx="5" onclick="showChapter(5)">Chapter 5 Replaceable capabilities</a>
-<a class="toc-2" data-idx="6" onclick="showChapter(6)">Chapter 6 Hands-on, write a plugin that does work</a>
-<a class="toc-2" data-idx="7" onclick="showChapter(7)">Chapter 7 After you finish this book</a>
-<a class="toc-2" data-idx="8" onclick="showChapter(8)">Appendix Sources and verification</a></nav>
+      <nav id="toc-en"><a class="toc-2" data-idx="0" onclick="toggleChapter(this, 0)">Preface</a>
+<div class="toc-group" hidden>
+
+</div>
+<a class="toc-2" data-idx="1" onclick="toggleChapter(this, 1)">Chapter 1 What this is</a>
+<div class="toc-group" hidden>
+<a class="toc-3" data-idx="1" onclick="showChapter(1, '11-what-dsh-is-and-how-it-differs-from-a-chat-window')">1.1 What dsh is, and how it differs from a chat window</a>
+<a class="toc-3" data-idx="1" onclick="showChapter(1, '12-everything-is-a-plugin')">1.2 Everything is a plugin</a>
+<a class="toc-3" data-idx="1" onclick="showChapter(1, '13-what-cordis-is')">1.3 What Cordis is</a>
+<a class="toc-3" data-idx="1" onclick="showChapter(1, '14-the-reality-of-developer-preview')">1.4 The reality of developer preview</a>
+</div>
+<a class="toc-2" data-idx="2" onclick="toggleChapter(this, 2)">Chapter 2 How a dsh process is assembled</a>
+<div class="toc-group" hidden>
+<a class="toc-3" data-idx="2" onclick="showChapter(2, '21-what-happens-after-startup')">2.1 What happens after startup</a>
+<a class="toc-3" data-idx="2" onclick="showChapter(2, '22-the-five-layer-recipe')">2.2 The five-layer recipe</a>
+<a class="toc-3" data-idx="2" onclick="showChapter(2, '23-profile-bundle-patch')">2.3 profile, bundle, patch</a>
+<a class="toc-3" data-idx="2" onclick="showChapter(2, '24-look-at-the-real-plugin-tree')">2.4 Look at the real plugin tree</a>
+<a class="toc-3" data-idx="2" onclick="showChapter(2, '25-no-privileged-kernel')">2.5 No privileged kernel</a>
+</div>
+<a class="toc-2" data-idx="3" onclick="toggleChapter(this, 3)">Chapter 3 The five concepts of Cordis</a>
+<div class="toc-group" hidden>
+<a class="toc-3" data-idx="3" onclick="showChapter(3, '31-a-plugin-is-a-module-that-exports-apply')">3.1 A plugin is a module that exports apply</a>
+<a class="toc-3" data-idx="3" onclick="showChapter(3, '32-the-context-is-a-proxy-object')">3.2 The context is a proxy object</a>
+<a class="toc-3" data-idx="3" onclick="showChapter(3, '33-a-service-is-a-name-on-ctx')">3.3 A service is a name on ctx</a>
+<a class="toc-3" data-idx="3" onclick="showChapter(3, '34-events-are-walkie-talkies-between-plugins')">3.4 Events are walkie-talkies between plugins</a>
+<a class="toc-3" data-idx="3" onclick="showChapter(3, '35-registration-is-a-side-effect-unload-cleans-up-automatically')">3.5 Registration is a side effect, unload cleans up automatically</a>
+<a class="toc-3" data-idx="3" onclick="showChapter(3, '36-scoping-every-plugin-has-its-own-ctx')">3.6 Scoping, every plugin has its own ctx</a>
+<a class="toc-3" data-idx="3" onclick="showChapter(3, '37-config-is-validated-wrong-config-fails-at-load')">3.7 Config is validated, wrong config fails at load</a>
+<a class="toc-3" data-idx="3" onclick="showChapter(3, '38-nesting-and-hot-reload')">3.8 Nesting and hot reload</a>
+</div>
+<a class="toc-2" data-idx="4" onclick="toggleChapter(this, 4)">Chapter 4 What happens behind one conversation</a>
+<div class="toc-group" hidden>
+<a class="toc-3" data-idx="4" onclick="showChapter(4, '41-step-and-turn')">4.1 step and turn</a>
+<a class="toc-3" data-idx="4" onclick="showChapter(4, '42-the-full-journey-of-one-conversation')">4.2 The full journey of one conversation</a>
+<a class="toc-3" data-idx="4" onclick="showChapter(4, '43-events-are-the-extension-points')">4.3 Events are the extension points</a>
+<a class="toc-3" data-idx="4" onclick="showChapter(4, '44-the-session-log-model-visible-means-logged')">4.4 The session log, model-visible means logged</a>
+</div>
+<a class="toc-2" data-idx="5" onclick="toggleChapter(this, 5)">Chapter 5 Replaceable capabilities</a>
+<div class="toc-group" hidden>
+<a class="toc-3" data-idx="5" onclick="showChapter(5, '51-the-seam-triad')">5.1 The seam triad</a>
+<a class="toc-3" data-idx="5" onclick="showChapter(5, '52-swap-one-part-the-whole-line-changes')">5.2 Swap one part, the whole line changes</a>
+<a class="toc-3" data-idx="5" onclick="showChapter(5, '53-a-judgment-rule')">5.3 A judgment rule</a>
+</div>
+<a class="toc-2" data-idx="6" onclick="toggleChapter(this, 6)">Chapter 6 Hands-on, write a plugin that does work</a>
+<div class="toc-group" hidden>
+<a class="toc-3" data-idx="6" onclick="showChapter(6, '61-prepare-the-environment')">6.1 Prepare the environment</a>
+<a class="toc-3" data-idx="6" onclick="showChapter(6, '62-write-the-minimal-plugin')">6.2 Write the minimal plugin</a>
+<a class="toc-3" data-idx="6" onclick="showChapter(6, '63-make-dsh-load-it')">6.3 Make dsh load it</a>
+<a class="toc-3" data-idx="6" onclick="showChapter(6, '64-add-a-tool')">6.4 Add a tool</a>
+<a class="toc-3" data-idx="6" onclick="showChapter(6, '65-watch-the-lifecycle')">6.5 Watch the lifecycle</a>
+<a class="toc-3" data-idx="6" onclick="showChapter(6, '66-three-forms-when-to-use-which')">6.6 Three forms, when to use which</a>
+<a class="toc-3" data-idx="6" onclick="showChapter(6, '67-dev-tools')">6.7 Dev tools</a>
+<a class="toc-3" data-idx="6" onclick="showChapter(6, '68-common-pitfalls')">6.8 Common pitfalls</a>
+</div>
+<a class="toc-2" data-idx="7" onclick="toggleChapter(this, 7)">Chapter 7 After you finish this book</a>
+<div class="toc-group" hidden>
+<a class="toc-3" data-idx="7" onclick="showChapter(7, '71-the-lookup-table')">7.1 The lookup table</a>
+<a class="toc-3" data-idx="7" onclick="showChapter(7, '72-a-route-from-front-to-back')">7.2 A route from front to back</a>
+</div>
+<a class="toc-2" data-idx="8" onclick="toggleChapter(this, 8)">Appendix Sources and verification</a>
+<div class="toc-group" hidden>
+
+</div></nav>
     </div>
   </aside>
   <main class="content">
@@ -1149,22 +1263,46 @@ function showLang(l) {
   paint()
 }
 
-function showChapter(i) {
+function showChapter(i, anchor) {
   chapter = i
-  paint()
+  paint(anchor)
 }
 
-function paint() {
+// 点击章节标题：展开/收起它的小节，并切到这一章
+function toggleChapter(a, i) {
+  const group = a.nextElementSibling
+  if (group && group.classList.contains('toc-group')) {
+    group.hidden = !group.hidden
+    a.classList.toggle('open', !group.hidden)
+  }
+  showChapter(i)
+}
+
+function paint(anchor) {
   const count = document.querySelectorAll('#zh .chapter').length
   document.querySelectorAll('.chapter').forEach((d) => { d.hidden = true })
   document.getElementById(lang + '-ch-' + chapter).hidden = false
   document.querySelectorAll('.sidebar a').forEach((a) => a.classList.remove('active'))
-  // 只高亮当前语言侧边栏里的链接
+  // 只高亮当前语言侧边栏里的链接，并展开当前章节的小节
   const navId = lang === 'zh' ? 'toc-zh' : 'toc-en'
   const link = document.querySelector('#' + navId + ' a[data-idx="' + chapter + '"]')
-  if (link) link.classList.add('active')
+  if (link) {
+    link.classList.add('active')
+    const group = link.nextElementSibling
+    if (group && group.classList.contains('toc-group')) {
+      group.hidden = false
+      link.classList.add('open')
+    }
+  }
   history.replaceState(null, '', '#' + lang + '-' + chapter)
   window.scrollTo(0, 0)
+  if (anchor) {
+    // 等章节显示后，滚动到小节标题
+    setTimeout(() => {
+      const el = document.getElementById(anchor)
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }, 50)
+  }
 }
 
 // 初始状态：从 URL 恢复语言与章节
